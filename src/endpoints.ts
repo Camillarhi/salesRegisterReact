@@ -1,0 +1,9 @@
+const baseURL=process.env.REACT_APP_API_URL;
+export const urlProducts=`${baseURL}/Products`;
+export const urlStaffs=`${baseURL}/Staff`;
+export const urlCompany=`${baseURL}/Company`;
+export const urlTotal=`${baseURL}/Total`;
+export const urlRoles=`${baseURL}/roles`;
+export const urlDailySales=`${baseURL}/DailyRecords`;
+export const urlProductBalance=`${baseURL}/ProductBalance`;
+export const urlDailyProductBalance=`${baseURL}/ProductBalance`;

@@ -1,24 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+// import "./App.css";
+import LandingPage from './LandingPage/LandingPage';
+import LandingPageNavBar from './LandingPage/LandingPageNavBar';
+import Launch from './LaunchAppPage/Launch';
+import Menu from './Utils/Menu';
+import routes from './route-config';
+import IndividualStaff from './Staffs/IndividualStaff';
+import StaffList from './Staffs/StaffList';
+
 
 function App() {
+
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container-scroller">
+      <div className="container-fluid page-body-wrapper">
+
+
+    <BrowserRouter>
+    <Menu/> 
+    {/* the menu fragment is outside the switch so that it will be displayed throughout the app irrespective of the page */}
+    <div className="main-panel">
+          <div className="content-wrapper">
+      <Switch>
+      
+       {routes.map(route=>
+        <Route key={route.path} path={route.path} exact={route.exact}>
+            <route.component/>
+        </Route>)} 
+       
+      </Switch>
+      </div>
+        </div>
+    
+    </BrowserRouter>
+    </div>
     </div>
   );
 }
