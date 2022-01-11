@@ -34,15 +34,15 @@ export default function StaffForm(props: staffFormProps) {
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group row">
-                                                
-                                                <TextField field="firstName" displayName="First Name:" className="form-control" labelClassName= "col-sm-3 col-form-label" />
+
+                                                <TextField field="firstName" displayName="First Name:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
 
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
-                                                <TextField field="lastName" displayName="Last Name:" className="form-control" labelClassName= "col-sm-3 col-form-label" />
+                                                <TextField field="lastName" displayName="Last Name:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@ export default function StaffForm(props: staffFormProps) {
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
-                                                <TextField type="email" field="userName" displayName="Email:" className="form-control" labelClassName= "col-sm-3 col-form-label" />
+                                                <TextField type="email" field="userName" displayName="Email:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
 
@@ -67,57 +67,55 @@ export default function StaffForm(props: staffFormProps) {
                                         </div>
                                     </div>
                                     <div className="row">
-
                                         <div className="col-md-6">
                                             <div className="form-group row">
-
-                                                <DateField displayName="Date Of Birth" field="dateOfBirth" />
+                                                <DateField displayName="Date Of Birth" field="dateOfBirth" labelClassName="col-sm-9 col-form-label" />
                                             </div>
                                         </div>
+                                      
 
                                         <div className="col-md-6">
                                             <div className="form-group row">
-
-                                                <TextField field="department" displayName="Department:" className="form-control" labelClassName= "col-sm-3 col-form-label"/>
+                                                <TextField field="department" displayName="Department:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row">
 
                                         <div className="col-md-6">
-                                        <div className="form-group row">
+                                            <div className="form-group row">
 
-                                            <TextField field="address" displayName="Address:" className="form-control" labelClassName= "col-sm-3 col-form-label" />
-                                        </div>
+                                                <TextField field="address" displayName="Address:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                            </div>
                                         </div>
 
                                         <div className="col-md-6">
-                                        <div className="form-group row">
+                                            <div className="form-group row">
 
-                                            <TextField field="phoneNumber" displayName="Phone Number:" className="form-control" labelClassName= "col-sm-3 col-form-label" />
+                                                <TextField field="phoneNumber" displayName="Phone Number:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                            </div>
                                         </div>
-                                        </div>
-                                        </div>
+                                    </div>
                                     <div className="row">
 
                                         <div className="col-md-6">
-                                        <div className="form-group row">
+                                            <div className="form-group row">
 
-                                            <ImageField displayName="Picture" field="profilePicture" imageURL={props.model.profilePictureURL} />
-                                        </div>
+                                                <ImageField displayName="Picture" field="profilePicture" imageURL={props.model.profilePictureURL} />
+                                            </div>
                                         </div>
                                         <div className="col-md-6">
-                                        <div className="form-group row">
+                                            <div className="form-group row">
 
-                                            <TextField field="staffId" displayName="Staff Id:" className="form-control" labelClassName= "col-sm-3 col-form-label" />
+                                                <TextField field="staffId" displayName="Staff Id:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                            </div>
                                         </div>
-                                        </div>
-                                        </div>
+                                    </div>
 
 
 
-                                        <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save Changes</Button>
-                                        <Button className="btn btn-dark"  >Cancel</Button>
+                                    <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save Changes</Button>
+                                    <Button className="btn btn-dark"  >Cancel</Button>
 
                                 </Form>
                             )}

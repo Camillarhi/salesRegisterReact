@@ -4,7 +4,7 @@ export default function DateField(props:dateFieldProps) {
     const {values, validateForm, touched, errors} = useFormikContext<any>();
     return(
         <div>
-            <label  htmlFor={props.field}>{props.displayName}</label>
+            <label className={props.labelClassName} htmlFor={props.field}>{props.displayName}</label>
             <div className="col-sm-9">
 
             <input className="form-control" type="date" 
@@ -26,4 +26,5 @@ export default function DateField(props:dateFieldProps) {
 interface dateFieldProps{
     field:string;
     displayName:string;
+    labelClassName:string;
 }

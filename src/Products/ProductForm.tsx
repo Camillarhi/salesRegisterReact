@@ -2,7 +2,6 @@ import { Form, Formik, FormikHelpers } from "formik";
 import Button from "../Utils/Button";
 import TextField from "../Utils/TextField";
 import { ProductCreationDTO } from "./product.model";
-import "../forms.css";
 
 
 export default function ProductForm(props: productFormProps) {
@@ -27,6 +26,7 @@ export default function ProductForm(props: productFormProps) {
                                 <Form className="forms-sample">
                                     <div className="form-group">
                                         <TextField field="productCode" displayName="Product Code:" className="form-control" /><br />
+                                       
                                         <TextField field="product" displayName="Product Name:" className="form-control" /><br />
                                         <TextField field="measure" displayName="Measure:" className="form-control" /><br />
 

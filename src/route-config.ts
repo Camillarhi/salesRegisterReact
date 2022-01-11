@@ -1,3 +1,5 @@
+import Login from "./Accounts/Login";
+import LoginForm from "./Accounts/LoginForm";
 import CompanyNameList from "./Company/CompanyNameList";
 import CreateCompanyName from "./Company/CreateCompanyName";
 import EditCompanyName from "./Company/EditCompanyName";
@@ -54,6 +56,7 @@ const routes = [
     {path: '/stockBalance', component: StockBalanceList, exact:true},
     {path: '/dailyStockBalance', component: DailyStockBalanceList},
 
+    {path: '/login', component: Login, exact:true},
 
 
 

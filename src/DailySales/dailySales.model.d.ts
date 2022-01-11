@@ -14,4 +14,5 @@ export interface DailySalesDTO{
     measure:string;
     unitPrice:number;
     amount:number;
+    customerName:string;
 }

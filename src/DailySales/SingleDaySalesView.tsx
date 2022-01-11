@@ -1,24 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { urlDailySales } from "../endpoints";
-import TotalForm from "../Total/TotalForm";
 import Button from "../Utils/Button";
 import customConfirm from "../Utils/customConfirm";
-import { DailySalesCreationDTO, DailySalesDTO } from "./dailySales.model";
-import DailySalesForm from "./DailySalesForm";
+import { DailySalesDTO } from "./dailySales.model";
 
-export default function CreateDailySales() {
-    const history = useHistory();
-    async function create(dailySales: DailySalesCreationDTO) {
-        try {
-            await axios.post(urlDailySales, dailySales);
-            history.push("/dailySales");
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
+export default function SingleDaySalesView() {
 
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>();
 
@@ -27,7 +15,7 @@ export default function CreateDailySales() {
     }, []);
 
     function loadData() {
-        axios.get(urlDailySales)
+        axios.get(`${urlDailySales}/id`)
             .then((response: AxiosResponse<DailySalesDTO[]>) => {
                 setDailySales(response.data);
             })
@@ -42,20 +30,14 @@ export default function CreateDailySales() {
             console.error(error);
         }
     }
-
     return (
         <>
-
-            <DailySalesForm model={{ amount: undefined, product: '', measure: '', unitPrice: undefined, quantity: 0 }}
-                onSubmit={async value => {
-                    await create(value);
-                }} />
-
+            <h1>Daily Sales List</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">Display Customer Name</a></li>
+                        <li className="breadcrumb-item"><a href="#">Back</a></li>
                     </ol>
                 </nav>
             </div>
@@ -72,7 +54,7 @@ export default function CreateDailySales() {
                                 <th>Quantity</th>
                                 <th>Amount</th>
 
-                                <th></th>
+                                
 
 
                                 <tbody>
@@ -83,32 +65,21 @@ export default function CreateDailySales() {
                                             <td>{sales.unitPrice}</td>
                                             <td>{sales.quantity}</td>
                                             <td>{sales.amount}</td>
-                                            <td> <button>View</button>
-
-                                                <Link className="form-button" to={`/Products/edit/${sales.id}`}>Edit</Link>
-                                                <Button onClick={() => customConfirm(() => deleteProduct(sales.id))} className="form-button">Delete</Button>
-                                            </td>
+                                            
                                         </tr>
                                     )}
-
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>total.amount</td>
+                                    </tr>
 
                                 </tbody>
 
                             </table>
-                            <TotalForm model={{ date: undefined, total: 0 }}
-                                onSubmit={async value => {
-                                    console.log(value);
-                                }} /><br/>
-
-                            <Button className="btn btn-dark mr-2"  >Cancel</Button>
-                            <Button  className="btn btn-primary mr-2" type="submit" > Save</Button>
-                            <Button  className="btn btn-primary mr-2" type="submit" > Finish</Button>
-
                         </div>
                     </div>
                 </div>
             </div>
-
 
         </>
     )

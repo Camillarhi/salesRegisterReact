@@ -9,10 +9,17 @@ export default function DailySalesForm(props: dailySalesFormProps) {
             <div className="page-header">
                 <h3 className="page-title">Daily Sales Form</h3>
                 <nav aria-label="breadcrumb">
+                <li className="breadcrumb-item"><a href="#">Back</a></li>
+
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">Back</a></li>
+                        <li> 
+                            
+                            <label htmlFor="customerName" >Customer Name: </label>
+                        <input name="customerName" type="text" className="form-control breadcrumb-item"/></li>
+                       
                         {/* <li className="breadcrumb-item active" aria-current="page">Form elements</li> */}
                     </ol>
+                    
                 </nav>
             </div>
             <div className="col-12 grid-margin">

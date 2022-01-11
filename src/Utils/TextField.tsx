@@ -5,7 +5,8 @@ export default function TextField(props: textFieldProps) {
     return (
         <>
         <label htmlFor={props.field} className={props.labelClassName}>{props.displayName}</label>
-        <div className="col-sm-9">
+        
+        <div className={props.divClassName}>
 
         <Field type={props.type} name={props.field} id={props.field} className={props.className} />
         </div>
@@ -20,13 +21,15 @@ interface textFieldProps{
     labelClassName:string;
     className:string;
     type:string;
+    divClassName:string;
 
 }
 
 TextField.defaultProps={
     type:"text",
     className:undefined,
-    labelClassName:undefined
+    labelClassName:undefined,
+    divClassName:undefined
 
 }
 

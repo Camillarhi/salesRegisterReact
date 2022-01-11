@@ -7,3 +7,4 @@ export const urlRoles=`${baseURL}/roles`;
 export const urlDailySales=`${baseURL}/DailyRecords`;
 export const urlProductBalance=`${baseURL}/ProductBalance`;
 export const urlDailyProductBalance=`${baseURL}/ProductBalance`;
+export const urlLogin=`${baseURL}/Login`;
