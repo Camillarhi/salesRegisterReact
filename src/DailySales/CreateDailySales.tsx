@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { isEmptyArray } from "formik";
 import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { urlDailySales } from "../endpoints";
@@ -10,9 +11,13 @@ import DailySalesForm from "./DailySalesForm";
 
 export default function CreateDailySales() {
     const history = useHistory();
-    async function create(dailySales: DailySalesCreationDTO) {
+    
+    async function create() {
         try {
-            await axios.post(urlDailySales, dailySales);
+     let sale= JSON.parse(localStorage.getItem("sales") || '');
+
+            await axios.post(urlDailySales, sale);
+            localStorage.clear();
             history.push("/dailySales");
         }
         catch (error) {
@@ -20,17 +25,54 @@ export default function CreateDailySales() {
         }
     }
 
+    async function storeInLocal(dailySales: DailySalesCreationDTO) {
+        try {
+         let sale: any;
+         dailySales.ids= Math.floor(Math.random() * 100).toString()
+         if(localStorage.getItem("sales")===null){
+             sale=[];
+         }else{
+        sale= JSON.parse(localStorage.getItem("sales") || '');
+            
+         }
+         
+         sale.push(dailySales);
+           localStorage.setItem("sales", JSON.stringify(sale));
+        
+           
+        }
+        catch (error) {
+            console.error(error);
+        }
+        
+    }
+
+
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>();
 
     useEffect(() => {
         loadData();
     }, []);
 
+    // function loadData() {
+    //     axios.get(urlDailySales)
+    //         .then((response: AxiosResponse<DailySalesDTO[]>) => {
+    //             setDailySales(response.data);
+    //         })
+    // }
+
     function loadData() {
-        axios.get(urlDailySales)
-            .then((response: AxiosResponse<DailySalesDTO[]>) => {
-                setDailySales(response.data);
-            })
+        let getSales: any;
+        if(localStorage.getItem("sales")===null){
+            getSales=[];
+        }else{
+            getSales= JSON.parse(localStorage.getItem("sales") || '');
+           
+        }
+        console.log("getsales",getSales);
+                setDailySales(getSales);
+           
+            
     }
 
     async function deleteProduct(id: number) {
@@ -48,7 +90,7 @@ export default function CreateDailySales() {
 
             <DailySalesForm model={{ amount: undefined, product: '', measure: '', unitPrice: undefined, quantity: 0 }}
                 onSubmit={async value => {
-                    await create(value);
+                    await storeInLocal(value);
                 }} />
 
             <div className="page-header">
@@ -65,7 +107,7 @@ export default function CreateDailySales() {
                         <div className="table-responsive">
                             <table className="table table-bordered ">
 
-
+                                <th>S/N</th>
                                 <th>Product</th>
                                 <th>Measure</th>
                                 <th>Price</th>
@@ -74,10 +116,10 @@ export default function CreateDailySales() {
 
                                 <th></th>
 
-
                                 <tbody>
-                                    {dailySales?.map(sales =>
+                                    {dailySales?.map((sales, index) =>
                                         <tr key={sales.id}>
+                                            <td>{index +1}</td>
                                             <td>{sales.product}</td>
                                             <td>{sales.measure}</td>
                                             <td>{sales.unitPrice}</td>
@@ -85,7 +127,7 @@ export default function CreateDailySales() {
                                             <td>{sales.amount}</td>
                                             <td> <button>View</button>
 
-                                                <Link className="form-button" to={`/Products/edit/${sales.id}`}>Edit</Link>
+                                                <Link className="form-button" to={`/dailySales/edit/${sales.id}`}>Edit</Link>
                                                 <Button onClick={() => customConfirm(() => deleteProduct(sales.id))} className="form-button">Delete</Button>
                                             </td>
                                         </tr>
@@ -102,7 +144,7 @@ export default function CreateDailySales() {
 
                             <Button className="btn btn-dark mr-2"  >Cancel</Button>
                             <Button  className="btn btn-primary mr-2" type="submit" > Save</Button>
-                            <Button  className="btn btn-primary mr-2" type="submit" > Finish</Button>
+                            <Button onClick={create} className="btn btn-primary mr-2" type="submit" > Finish</Button>
 
                         </div>
                     </div>

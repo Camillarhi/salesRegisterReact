@@ -53,7 +53,7 @@ export default function DailySalesForm(props: dailySalesFormProps) {
                                         </div>
                                         <div className="col-md-5">
                                             <div className="form-group row">
-                                                <TextField field="amount" displayName="Amount" className="form-control" /><br />
+                                                <TextField field="amount" displayName="Ext.Price" className="form-control" /><br />
                                             </div>
                                         </div>
 

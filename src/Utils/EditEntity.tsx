@@ -7,6 +7,8 @@ export default function EditEntity<TCreation, TRead>(props:editEntityProps<TRead
     const [entity, setEntity]=useState<TCreation>();
     const history =useHistory();
 
+
+    
     useEffect(()=>{
         axios.get(`${props.url}/${id}`)
         .then((response:AxiosResponse<TRead>)=>{

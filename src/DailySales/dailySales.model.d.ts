@@ -1,4 +1,5 @@
 export interface DailySalesCreationDTO{
+    ids?:string;
     quantity:number;
     product:string;
     measure:string;
