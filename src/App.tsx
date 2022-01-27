@@ -8,6 +8,7 @@ import Menu from './Utils/Menu';
 import routes from './route-config';
 import IndividualStaff from './Staffs/IndividualStaff';
 import StaffList from './Staffs/StaffList';
+import SideBar from './Utils/SideBar';
 
 
 function App() {
@@ -15,9 +16,9 @@ function App() {
  
   return (
     <div className="container-scroller">
+      <SideBar />
       <div className="container-fluid page-body-wrapper">
-
-
+      
     <BrowserRouter>
     <Menu/> 
     {/* the menu fragment is outside the switch so that it will be displayed throughout the app irrespective of the page */}

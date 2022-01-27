@@ -7,6 +7,7 @@ import DailySalesForm from "./DailySalesForm";
 
 export default function EditDailySales() {
     const {id}:any= useParams();
+    
     const [dailysales, setDailysales] = useState<DailySalesCreationDTO>();
     useEffect(() => {
         let getSales= JSON.parse(localStorage.sales);
@@ -16,7 +17,8 @@ export default function EditDailySales() {
                
             }
         setDailysales(index);
-        console.log("index:",index);}
+        console.log("index:",index);
+    }
                 
     },[]);
 

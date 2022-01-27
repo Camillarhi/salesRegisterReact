@@ -9,17 +9,17 @@ export default function DailySalesForm(props: dailySalesFormProps) {
             <div className="page-header">
                 <h3 className="page-title">Daily Sales Form</h3>
                 <nav aria-label="breadcrumb">
-                <li className="breadcrumb-item"><a href="#">Back</a></li>
+                    <li className="breadcrumb-item"><a href="#">Back</a></li>
 
                     <ol className="breadcrumb">
-                        <li> 
-                            
+                        <li>
+
                             <label htmlFor="customerName" >Customer Name: </label>
-                        <input name="customerName" type="text" className="form-control breadcrumb-item"/></li>
-                       
+                            <input name="customerName" type="text" className="form-control breadcrumb-item" /></li>
+
                         {/* <li className="breadcrumb-item active" aria-current="page">Form elements</li> */}
                     </ol>
-                    
+
                 </nav>
             </div>
             <div className="col-12 grid-margin">
@@ -31,39 +31,54 @@ export default function DailySalesForm(props: dailySalesFormProps) {
                             {(formikProps) => (
                                 <Form className="forms-sample">
                                     <div className="row">
-                                        <div className="col-md-5">
+                                        <div className="col-md-6">
                                             <div className="form-group row">
-                                                <TextField field="product" displayName="Product Name" className="form-control" /><br />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-5">
-                                            <div className="form-group row">
-                                                <TextField field="measure" displayName="Measure" className="form-control" /><br />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-5">
-                                            <div className="form-group row">
-                                                <TextField field="unitPrice" displayName="Price" className="form-control" /><br />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-5">
-                                            <div className="form-group row">
-                                                <TextField field="quantity" displayName="Quantity" className="form-control" /><br />
-                                            </div>
-                                        </div>
-                                        <div className="col-md-5">
-                                            <div className="form-group row">
-                                                <TextField field="amount" displayName="Ext.Price" className="form-control" /><br />
+
+                                                <TextField field="product" displayName="Product Name" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9"/><br />
+                              
+
                                             </div>
                                         </div>
 
-                                        </div>
-                                        <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" > Add</Button>
-                                        <Button className="btn btn-dark"  >Cancel</Button>
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
 
-                                    
+                                                <TextField field="measure" displayName="Measure" className="form-control"labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" /><br />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+                                                <TextField field="quantity" displayName="Quantity" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9"/><br />
+
+
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+                                                <TextField field="unitPrice" displayName="Price" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9"/><br />
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+                                            <TextField field="amount" displayName="Ext.Price" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9"/><br />
+                                            </div>
+                                        </div>                                        
+                                    </div>                                   
+                                    <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" > Add</Button>
+                                    <Button className="btn btn-dark"  >Cancel</Button>
+                                  
                                 </Form>
+
                             )}
+                           
                         </Formik>
                     </div>
                 </div>

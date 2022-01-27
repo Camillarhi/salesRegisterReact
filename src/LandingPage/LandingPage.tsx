@@ -1,4 +1,4 @@
-import landingpage from './landingpage.png'
+import landingpage from './landingpage.jpeg'
 import "./landingpage.css"
 
 export default function LandingPage(){
@@ -6,7 +6,7 @@ export default function LandingPage(){
         <>
         <div className="landingpage">
             <img src={landingpage} alt="landingpage" className="landing_page"/>
-            <h1 className="landing_title">Landing Page Title</h1>
+            <h1 className="landing_title">Welcome To My Playground</h1>
         </div>
         </>
     )

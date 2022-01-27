@@ -28,7 +28,7 @@ export default function CreateDailySales() {
     async function storeInLocal(dailySales: DailySalesCreationDTO) {
         try {
          let sale: any;
-         dailySales.ids= Math.floor(Math.random() * 100).toString()
+         dailySales.id= Math.floor(Math.random() * 100).toString()
          if(localStorage.getItem("sales")===null){
              sale=[];
          }else{

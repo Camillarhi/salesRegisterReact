@@ -12,12 +12,17 @@ export default function TotalForm(props: totalFormProps) {
             >
                 {(formikProps) => (
                     <Form  >
-                        <div className="div-form">
-                            {/* <DateField labelClassName="col-sm-3 col-form-label" displayName="Date:" field="date" /><br /> */}
-                            <TextField field="total" displayName="Total:" className="form-control" /><br />
+                        <div className="div-form ">
 
+                            <div className="col-md-4 float-right">
+                                            <div className="form-group row ">
+                                                <TextField field="total" displayName="Total:" className="form-control mt-3" labelClassName="col-sm-3 col-form-label mt-3 " divClassName="col-sm-9"/><br />
+
+
+                                            </div>
+                                        </div>
                         </div>
-                        <Button disabled={formikProps.isSubmitting} className="btn btn-primary btn-block enter-btn" type="submit" >Total</Button>
+                        
 
                     </Form>
                 )}

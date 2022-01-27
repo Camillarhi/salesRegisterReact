@@ -69,11 +69,10 @@ export default function StaffForm(props: staffFormProps) {
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group row">
-                                                <DateField displayName="Date Of Birth" field="dateOfBirth" labelClassName="col-sm-9 col-form-label" />
+                                                <DateField displayName="Date Of Birth" field="dateOfBirth" labelClassName="col-sm-3 col-form-label" />
                                             </div>
                                         </div>
-                                      
-
+                                        
                                         <div className="col-md-6">
                                             <div className="form-group row">
                                                 <TextField field="department" displayName="Department:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
@@ -101,7 +100,7 @@ export default function StaffForm(props: staffFormProps) {
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
-                                                <ImageField displayName="Picture" field="profilePicture" imageURL={props.model.profilePictureURL} />
+                                                <ImageField displayName="Picture" field="profilePicture" imageURL={props.model.profilePictureURL} labelClassName="col-sm-3 col-form-label" />
                                             </div>
                                         </div>
                                         <div className="col-md-6">

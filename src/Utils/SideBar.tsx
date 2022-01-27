@@ -120,7 +120,7 @@ export default function SideBar() {
         <span className="menu-icon">
           <i className="mdi mdi-security" />
         </span>
-        <span className="menu-title">User Pages</span>
+        <span className="menu-title">Daily Sales</span>
         <i className="menu-arrow" />
       </a>
       <div className="collapse" id="auth">
