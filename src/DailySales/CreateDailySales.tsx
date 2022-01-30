@@ -39,7 +39,7 @@ export default function CreateDailySales() {
          sale.push(dailySales);
            localStorage.setItem("sales", JSON.stringify(sale));
         
-           
+           loadData();
         }
         catch (error) {
             console.error(error);
@@ -51,9 +51,18 @@ export default function CreateDailySales() {
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>();
 
     useEffect(() => {
-        loadData();
-    }, []);
+    //    document.addEventListener('DOMContentLoaded', loadData);
+       
+       loadData();
+       
+    },[]);
 
+
+
+    
+    // useEffect(() => {
+    //     localStorage.setItem("sales", JSON.stringify(dailySales));
+    // }, [dailySales]);
     // function loadData() {
     //     axios.get(urlDailySales)
     //         .then((response: AxiosResponse<DailySalesDTO[]>) => {

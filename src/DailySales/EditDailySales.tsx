@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { urlDailySales } from "../endpoints";
 import EditEntity from "../Utils/EditEntity";
 import { DailySalesCreationDTO, DailySalesDTO } from "./dailySales.model";
@@ -7,6 +7,8 @@ import DailySalesForm from "./DailySalesForm";
 
 export default function EditDailySales() {
     const {id}:any= useParams();
+    const history =useHistory();
+
     
     const [dailysales, setDailysales] = useState<DailySalesCreationDTO>();
     useEffect(() => {
@@ -31,12 +33,14 @@ export default function EditDailySales() {
         for (var i=0; i< getSales.length; i++){
             if(id===getSales[i].id){
                 getSales[i]=salesToEdit;
-                
+
             }
            
         }
         console.log("getsales",getSales);
         localStorage.setItem('sales', JSON.stringify(getSales)); 
+        history.push("/dailySales/create");
+
         }
         catch(error){
             console.error(error);
