@@ -11,10 +11,10 @@ import DailySalesForm from "./DailySalesForm";
 
 export default function CreateDailySales() {
     const history = useHistory();
-    
+
     async function create() {
         try {
-     let sale= JSON.parse(localStorage.getItem("sales") || '');
+            let sale = JSON.parse(localStorage.getItem("sales") || '');
 
             await axios.post(urlDailySales, sale);
             localStorage.clear();
@@ -27,72 +27,81 @@ export default function CreateDailySales() {
 
     async function storeInLocal(dailySales: DailySalesCreationDTO) {
         try {
-         let sale: any;
-         dailySales.id= Math.floor(Math.random() * 100).toString()
-         if(localStorage.getItem("sales")===null){
-             sale=[];
-         }else{
-        sale= JSON.parse(localStorage.getItem("sales") || '');
-            
-         }
-         
-         sale.push(dailySales);
-           localStorage.setItem("sales", JSON.stringify(sale));
-        
-           loadData();
+            let sale: any;
+            dailySales.id = Math.floor(Math.random() * 100).toString()
+            if (localStorage.getItem("sales") === null) {
+                sale = [];
+            } else {
+                sale = JSON.parse(localStorage.getItem("sales") || '');
+
+            }
+
+            sale.push(dailySales);
+            localStorage.setItem("sales", JSON.stringify(sale));
+
+            loadData();
         }
         catch (error) {
             console.error(error);
         }
-        
+
     }
 
 
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>();
 
     useEffect(() => {
-    //    document.addEventListener('DOMContentLoaded', loadData);
-       
-       loadData();
-       
-    },[]);
+        //    document.addEventListener('DOMContentLoaded', loadData);
+
+        loadData();
+
+    }, []);
 
 
 
-    
-    // useEffect(() => {
-    //     localStorage.setItem("sales", JSON.stringify(dailySales));
-    // }, [dailySales]);
-    // function loadData() {
-    //     axios.get(urlDailySales)
-    //         .then((response: AxiosResponse<DailySalesDTO[]>) => {
-    //             setDailySales(response.data);
-    //         })
-    // }
+
 
     function loadData() {
         let getSales: any;
-        if(localStorage.getItem("sales")===null){
-            getSales=[];
-        }else{
-            getSales= JSON.parse(localStorage.getItem("sales") || '');
-           
+        if (localStorage.getItem("sales") === null) {
+            getSales = [];
+        } else {
+            getSales = JSON.parse(localStorage.getItem("sales") || '');
+
         }
-        console.log("getsales",getSales);
-                setDailySales(getSales);
-           
-            
+        console.log("getsales", getSales);
+        setDailySales(getSales);
+
+
     }
 
-    async function deleteProduct(id: number) {
+    async function deleteProduct(id: any) {
         try {
-            await axios.delete(`${urlDailySales}/${id}`);
+            let getSales: any;
+            if (localStorage.getItem('sales') === null) {
+                getSales = [];
+            } else {
+                getSales = JSON.parse(localStorage.getItem("sales") || '');
+            }
+            for (var i = 0; i < getSales.length; i++) {
+                if (id === getSales[i].id) {
+                    var getSalesById = getSales[i];
+                    getSales.forEach(function (task: any, index: any) {
+                        if (getSalesById === task) {
+                            getSales.splice(index, 1);
+                        }
+                    });
+                }
+            }
+
+            localStorage.setItem("sales", JSON.stringify(getSales));
             loadData();
         }
         catch (error) {
             console.error(error);
         }
     }
+
 
     return (
         <>
@@ -128,7 +137,7 @@ export default function CreateDailySales() {
                                 <tbody>
                                     {dailySales?.map((sales, index) =>
                                         <tr key={sales.id}>
-                                            <td>{index +1}</td>
+                                            <td>{index + 1}</td>
                                             <td>{sales.product}</td>
                                             <td>{sales.measure}</td>
                                             <td>{sales.unitPrice}</td>
@@ -149,10 +158,10 @@ export default function CreateDailySales() {
                             <TotalForm model={{ date: undefined, total: 0 }}
                                 onSubmit={async value => {
                                     console.log(value);
-                                }} /><br/>
+                                }} /><br />
 
                             <Button className="btn btn-dark mr-2"  >Cancel</Button>
-                            <Button  className="btn btn-primary mr-2" type="submit" > Save</Button>
+                            <Button className="btn btn-primary mr-2" type="submit" > Save</Button>
                             <Button onClick={create} className="btn btn-primary mr-2" type="submit" > Finish</Button>
 
                         </div>
