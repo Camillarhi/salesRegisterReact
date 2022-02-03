@@ -15,7 +15,7 @@ export default function SideBar() {
             <span className="count bg-success" />
           </div>
           <div className="profile-name">
-            <h5 className="mb-0 font-weight-normal">Henry Klein</h5>
+            <h5 className="mb-0 font-weight-normal">Rita</h5>
             <span>Gold Member</span>
           </div>
         </div>
@@ -78,8 +78,8 @@ export default function SideBar() {
       <div className="collapse" id="ui-basic">
         <ul className="nav flex-column sub-menu">
           <li className="nav-item"> <a className="nav-link" href="/staffs">Staff List</a></li>
-          <li className="nav-item"> <a className="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
-          <li className="nav-item"> <a className="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+          {/* <li className="nav-item"> <a className="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li> */}
+          {/* <li className="nav-item"> <a className="nav-link" href="pages/ui-features/typography.html">Typography</a></li> */}
         </ul>
       </div>
     </li>
@@ -129,7 +129,7 @@ export default function SideBar() {
           <li className="nav-item"> <a className="nav-link" href="/dailySales"> Daily Sales </a></li>
           <li className="nav-item"> <a className="nav-link" href="/stockBalance"> Stock Balance </a></li>
           <li className="nav-item"> <a className="nav-link" href="/login"> Login </a></li>
-          <li className="nav-item"> <a className="nav-link" href="pages/samples/register.html"> Register </a></li>
+          {/* <li className="nav-item"> <a className="nav-link" href="pages/samples/register.html"> Register </a></li> */}
         </ul>
       </div>
     </li>

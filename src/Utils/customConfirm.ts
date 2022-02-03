@@ -18,6 +18,7 @@ export default function customConfirm(
     // })
     Swal.fire({
         title,
+        
         showCancelButton: true,
         confirmButtonText,
         icon:'warning',

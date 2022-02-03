@@ -14,6 +14,7 @@ import RegisterStaff from "./RegisterPage/RegisterStaff";
 import CreateRoles from "./Roles/CreateRoles";
 import EditRoles from "./Roles/EditRoles";
 import RolesList from "./Roles/RolesList";
+import Routes from "./Routes";
 import CreateStaff from "./Staffs/CreateStaff";
 import EditStaff from "./Staffs/EditStaff";
 import StaffList from "./Staffs/StaffList";
@@ -21,10 +22,11 @@ import DailyStockBalanceList from "./StockBalance/DailyStockBalanceList";
 import StockBalanceList from "./StockBalance/StockBalanceList";
 import CreateSalesTotal from "./Total/CreateSalesTotal";
 import IndexTotal from "./Total/IndexTotal";
+import UpdateText from "./UpdateText";
 import RedirectToLandingPage from "./Utils/RedirectToLandingPage";
 
 const routes = [
-    {path:'/', component: LandingPage, exact:true},  
+//    {path:'/', component: LandingPage, exact:true},  
 
 
     {path: '/staffs', component: StaffList, exact:true},
@@ -56,11 +58,17 @@ const routes = [
     {path: '/stockBalance', component: StockBalanceList, exact:true},
     {path: '/dailyStockBalance', component: DailyStockBalanceList},
 
-    {path: '/login', component: Login, exact:true},
+    // {path: '/login', component: Login, exact:true},
 
-
+   {path: '/launch', component: Routes, exact:true},
+   {path: '/test', component: UpdateText, exact:true},
 
     {path: '*', component:RedirectToLandingPage}
 ];
+export const routers=[
+   {path:'/', component: LandingPage, exact:true},  
+   {path: '/login', component: Login, exact:true},
+
+]
 
 export default routes; 

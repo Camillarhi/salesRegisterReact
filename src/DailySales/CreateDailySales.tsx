@@ -10,6 +10,8 @@ import { DailySalesCreationDTO, DailySalesDTO } from "./dailySales.model";
 import DailySalesForm from "./DailySalesForm";
 
 export default function CreateDailySales() {
+
+
     const history = useHistory();
 
     async function create() {
@@ -38,6 +40,7 @@ export default function CreateDailySales() {
 
             sale.push(dailySales);
             localStorage.setItem("sales", JSON.stringify(sale));
+
 
             loadData();
         }
@@ -106,10 +109,18 @@ export default function CreateDailySales() {
     return (
         <>
 
-            <DailySalesForm model={{ amount: undefined, product: '', measure: '', unitPrice: undefined, quantity: 0 }}
-                onSubmit={async value => {
-                    await storeInLocal(value);
-                }} />
+            <DailySalesForm model={{ amount: undefined||0, product: '', measure: '', unitPrice: undefined, quantity: undefined }}
+            
+                onSubmit={async (value,{resetForm}) => {
+                    value.amount=Number(value?.quantity)*Number(value?.unitPrice)
+                    await storeInLocal(value)
+                    resetForm({});
+                    // value={ amount: 0, product: '', measure: '', unitPrice: undefined, quantity: 0 };
+                   // value.amount = 0; value.unitPrice = 0; value.product = ''; value.measure = ''; value.quantity = 0;
+                    //resetForm({});
+                }} 
+                
+                />
 
             <div className="page-header">
                 <h3 className="page-title"> </h3>
@@ -143,10 +154,11 @@ export default function CreateDailySales() {
                                             <td>{sales.unitPrice}</td>
                                             <td>{sales.quantity}</td>
                                             <td>{sales.amount}</td>
-                                            <td> <button>View</button>
-
-                                                <Link className="form-button" to={`/dailySales/edit/${sales.id}`}>Edit</Link>
-                                                <Button onClick={() => customConfirm(() => deleteProduct(sales.id))} className="form-button">Delete</Button>
+                                            <td>
+                                            {/* <button type="button" class="btn btn-dark btn-icon-text"> Edit <i class="mdi mdi-file-check btn-icon-append"></i>
+                          </button> */}
+                                                <Link className="btn btn-warning btn-icon-text mr-2"  to={`/dailySales/edit/${sales.id}`}>Edit<i className="mdi mdi-file-check btn-icon-append"></i></Link>
+                                                <Button onClick={() => customConfirm(() => deleteProduct(sales.id))} className="btn btn-icon-text btn-danger mr-2" >Delete<i className="mdi mdi-delete-forever-check btn-icon-append"></i></Button>
                                             </td>
                                         </tr>
                                     )}
