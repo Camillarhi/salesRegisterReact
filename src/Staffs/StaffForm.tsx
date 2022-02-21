@@ -8,7 +8,11 @@ import TextField from "../Utils/TextField";
 import { staffCreationDTO } from "./Staff.model";
 
 export default function StaffForm(props: staffFormProps) {
+    const history=useHistory();
 
+    const returnToPrevious =() =>{
+        history.goBack();
+    }
     return (
 
         < >
@@ -16,7 +20,7 @@ export default function StaffForm(props: staffFormProps) {
                 <h3 className="page-title">Staff Form </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">Back</a></li>
+                        <li className="breadcrumb-item"><a onClick={returnToPrevious}>Back</a></li>
                         {/* <li className="breadcrumb-item active" aria-current="page">Form elements</li> */}
                     </ol>
                 </nav>

@@ -6,6 +6,7 @@ import EditCompanyName from "./Company/EditCompanyName";
 import CreateDailySales from "./DailySales/CreateDailySales";
 import DailySalesList from "./DailySales/DailySalesList";
 import EditDailySales from "./DailySales/EditDailySales";
+import Dashboard from "./DashBoard/Dashboard";
 import LandingPage from "./LandingPage/LandingPage";
 import CreateProduct from "./Products/CreateProduct";
 import EditProduct from "./Products/EditProduct";
@@ -26,7 +27,7 @@ import UpdateText from "./UpdateText";
 import RedirectToLandingPage from "./Utils/RedirectToLandingPage";
 
 const routes = [
-//    {path:'/', component: LandingPage, exact:true},  
+   {path:'/', component: Dashboard, exact:true},  
 
 
     {path: '/staffs', component: StaffList, exact:true},
