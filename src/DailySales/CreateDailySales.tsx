@@ -14,25 +14,20 @@ import TotalForm from "../Total/TotalForm";
 
 
 export default function CreateDailySales() {
-    const { register, handleSubmit, formState: { errors }, reset, watch, trigger, control, setValue } = useForm({
+    const { register, handleSubmit, formState: { errors }, reset, watch, trigger, control, setValue, getValues } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
-   
     const [products, setProducts] = useState<ProductDTO[]>();
-    const [findProduct, setFindProduct] = useState<ProductDTO[]>();
-    const [findPrice, setFindPrice] = useState<ProductDTO[]>();
-    const [unitPriceVal, setUnitPriceVal] = useState<number | undefined>(1);
-    const [quantityVal, setQuantityVal] = useState();
-    const [productVal, setProductVal] = useState();
-    const [priceVal, setPriceVal] = useState();
     const [measureAndPrice, setMeasureAndPrice] = useState([
         {
             measure: "",
             unitPrice: 0
         }
     ]);
-    const [dailySales, setDailySales] = useState<DailySalesDTO[]>();
+    let [customer, setCustomer] = useState("")
+    const [edit, setEdit] = useState(false);
+    const [dailySales, setDailySales] = useState<DailySalesDTO[]>([]);
     const history = useHistory();
 
 
@@ -42,23 +37,25 @@ export default function CreateDailySales() {
                 setProducts(response.data);
                 console.log("res", response)
             });
-            loadData();
+        // loadData();
     }, []);
 
-    async function storeInLocal(dailySales:any) {
+    async function storeInLocal(dailySales: any) {
         try {
             let sale: any;
-            dailySales.id = Math.floor(Math.random() * 100).toString()
-            if (localStorage.getItem("sales") === null) {
+            // dailySales.id = Math.floor(Math.random() * 100).toString()
+            if (localStorage.getItem(customer) === null) {
                 sale = [];
             } else {
-                sale = JSON.parse(localStorage.getItem("sales") || '');
+                sale = JSON.parse(localStorage.getItem(customer) || '');
 
             }
 
-            sale.push(dailySales);
-            localStorage.setItem("sales", JSON.stringify(sale));
-            loadData();
+            sale = (dailySales);
+            localStorage.setItem(customer, JSON.stringify(sale));
+            setValue("customerName", '')
+
+            // loadData();
         }
         catch (error) {
             console.error(error);
@@ -78,11 +75,14 @@ export default function CreateDailySales() {
     }
     async function create() {
         try {
-            let sale = JSON.parse(localStorage.getItem("sales") || '');
-
-            await axios.post(urlDailySales, sale);
-            localStorage.clear();
+            await axios.post(urlDailySales, dailySales);
             history.push("/dailySales");
+
+            // let sale = JSON.parse(localStorage.getItem("sales") || '');
+
+            // await axios.post(urlDailySales, sale);
+            // localStorage.clear();
+            // history.push("/dailySales");
         }
         catch (error) {
             console.error(error);
@@ -109,15 +109,15 @@ export default function CreateDailySales() {
             }
 
             localStorage.setItem("sales", JSON.stringify(getSales));
-            loadData();
+            // loadData();
         }
         catch (error) {
             console.error(error);
         }
     }
-    
+
     const selectProduct = (i: any) => {
-        //setinputval
+        setValue("product", i);
         axios.get(`${urlProducts}/productname/?name=${i}`)
             .then(function (response) {
                 setMeasureAndPrice(response.data)
@@ -126,53 +126,99 @@ export default function CreateDailySales() {
     }
     //get quantity value
     function handleChange(e: any) {
-        const change = e.currentTarget.value;
-        console.log("quan", change)
-        setQuantityVal(change)
-        return change;
+        if (e.target.name === "measure") {
+            const unit = measureAndPrice.find(x => x.measure === e.target.value)
+            setValue("unitPrice", unit?.unitPrice);
+        } else if (e.target.name === "quantity") {
+            const amt = e.target.value * getValues("unitPrice");
+            setValue("amount", amt)
+        }
     }
 
-    
-   
+    //set unitprice value
 
-    const amountUpdate = Number(unitPriceVal)
-    const p = Number(quantityVal)
-    const sum = amountUpdate * p;
+    //cal amount price*quantity
+
+    //add to table
+    const saveProductInput = async (salesData: any) => {
+        const x = dailySales?.find(y => y.product === salesData.product && y.measure === salesData.measure)
+        if (!x) {
+            if (edit) {
+                setEdit(false)
+            } else {
+
+            }
+            setDailySales([...dailySales, salesData]);
+            reset(salesData.value);
+            setValue("customerName", customer)
+            // reset(measureAndPrice)
+        } else {
+            // notifyError("Product Already Exists In Table")
+        }
+    }
+
+    //edit tablerow
+    const editTableRow = (item: any, unit: any) => {
+        const x = dailySales?.find(y => y.product === item && y.measure === unit);
+        const editRow = dailySales?.filter(y => y.product != item || y.measure != unit);
+        axios.get(`${urlProducts}/productname/?name=${item}`)
+            .then(function (response) {
+                setMeasureAndPrice(response.data)
+            })
+        setValue("product", x?.product);
+        setValue("measure", x?.measure);
+        setValue("unitPrice", x?.unitPrice);
+        setValue("quantity", x?.quantity);
+        setValue("amount", x?.amount);
+        setDailySales(editRow)
+        setEdit(true);
+    }
+
+    //delete tablerow
+    const deleteTableRow = (item: any, unit: any) => {
+        const deleteRow = dailySales?.filter(y => y.product != item || y.measure != unit);
+        setDailySales(deleteRow)
+    }
 
     // const pp= (document.getElementById('amount') as HTMLInputElement)?.value;
 
-    // console.log("amou",pp);
     return (
         < >
             <div className="page-header">
                 <h3 className="page-title">Daily Sales Form</h3>
                 <nav aria-label="breadcrumb">
                     <li className="breadcrumb-item"><a href="#">Back</a></li>
-
-                    <ol className="breadcrumb">
-                        <li>
-                            <label htmlFor="customerName" >Customer Name: </label>
-                            <input name="customerName" type="text" className="form-control breadcrumb-item" /></li>
-                    </ol>
-
                 </nav>
             </div>
-            <div className="col-12 grid-margin">
-                <div className="card">
-                    <div className="card-body">
-                        <form className="forms-sample">
+            <form className="forms-sample">
+
+                <ol className="breadcrumb">
+                    <li>
+                        <label htmlFor="customerName" >Customer Name {errors.customerName &&
+                            <span className="text-danger font-weight-bold"> required</span>}</label>
+                        <input type="text" className="form-control breadcrumb-item text-uppercase" id="product"
+                            {...register("customerName", {
+                                required: true,
+                                onChange: (e) => { setCustomer(e.target.value) },
+                            })} /></li>
+                </ol>
+                <div className="col-12 grid-margin">
+                    <div className="card">
+                        <div className="card-body">
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group row">
-                                        <label htmlFor="product" className="col-sm-3 col-form-label ">Product Name</label>
+                                        <label htmlFor="product" className="col-sm-3 col-form-label ">Product Name
+                                            {errors.product &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className='col-sm-9'>
                                             <div className="input-group">
-                                                <input type="text" className="form-control text-uppercase"
+                                                <input type="text" className="form-control text-uppercase text-dark"
                                                     id="product"
                                                     {...register("product", {
                                                         required: true,
                                                     })}
-                                                    // readOnly
+                                                    readOnly
                                                     placeholder="Product" />
                                                 <div
                                                     style={{ cursor: 'pointer' }}
@@ -197,12 +243,15 @@ export default function CreateDailySales() {
 
                                 <div className="col-md-6">
                                     <div className="form-group row">
-                                        <label htmlFor="measure" className="col-sm-3 col-form-label ">Measure</label>
+                                        <label htmlFor="measure" className="col-sm-3 col-form-label ">Measure
+                                            {errors.measure &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className="col-sm-9 ">
-                                            <select className="form-control text-light" 
-                                            {...register("measure", {
-                                                required: true,
-                                            })}
+                                            <select className="form-control text-light"
+                                                {...register("measure", {
+                                                    required: true,
+                                                    onChange: (e) => { handleChange(e) },
+                                                })}
                                             >
                                                 <option>Select Measure</option>
                                                 {measureAndPrice?.map(product =>
@@ -216,12 +265,15 @@ export default function CreateDailySales() {
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group row">
-                                        <label htmlFor="unitPrice" className="col-sm-3 col-form-label">Price</label>
+                                        <label htmlFor="unitPrice" className="col-sm-3 col-form-label">Price
+                                            {errors.unitPrice &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className="col-sm-9">
                                             <input type="text"
-                                                className="form-control text-uppercase"
+                                                className="form-control text-uppercase text-dark"
                                                 id="unitPrice"
                                                 placeholder="0"
+                                                readOnly
                                                 {...register("unitPrice", {
                                                     required: true,
                                                 })}
@@ -233,7 +285,9 @@ export default function CreateDailySales() {
                                 <div className="col-md-6">
                                     <div className="form-group row">
 
-                                        <label htmlFor="quantity" className="col-sm-3 col-form-label">Quantity</label>
+                                        <label htmlFor="quantity" className="col-sm-3 col-form-label">Quantity
+                                            {errors.quantity &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className="col-sm-9">
                                             <input type="text"
                                                 className="form-control text-uppercase"
@@ -241,6 +295,7 @@ export default function CreateDailySales() {
                                                 placeholder="0"
                                                 {...register("quantity", {
                                                     required: true,
+                                                    onChange: (e) => { handleChange(e) },
                                                 })}
                                             />
                                         </div>
@@ -250,12 +305,14 @@ export default function CreateDailySales() {
                             <div className="row">
                                 <div className="col-md-6">
                                     <div className="form-group row">
-
-                                        <label htmlFor="amount" className="col-sm-3 col-form-label">Ext.Price</label>
+                                        <label htmlFor="amount" className="col-sm-3 col-form-label">Ext.Price
+                                            {errors.amount &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className="col-sm-9">
                                             <input type="text"
-                                                className="form-control text-uppercase"
+                                                className="form-control text-uppercase text-dark"
                                                 id="amount"
+                                                readOnly
                                                 placeholder="0"
                                                 {...register("amount", {
                                                     required: true,
@@ -265,16 +322,16 @@ export default function CreateDailySales() {
                                     </div>
                                 </div>
                             </div>
-                           
-                            <button type="submit" onClick={handleSubmit(storeInLocal)}  className="btn btn-primary mr-2" >
-                            Add
-                        </button>
+
+                            <button type="submit" onClick={handleSubmit(saveProductInput)} className="btn btn-primary mr-2" >
+                                Add
+                            </button>
                             <Button className="btn btn-dark"  >Cancel</Button>
 
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
                 <nav aria-label="breadcrumb">
@@ -308,15 +365,17 @@ export default function CreateDailySales() {
                                             <td>{sales.quantity}</td>
                                             <td>{sales.amount}</td>
                                             <td>
-                                            {/* <button type="button" class="btn btn-dark btn-icon-text"> Edit <i class="mdi mdi-file-check btn-icon-append"></i>
-                          </button> */}
-                                                <Link className="btn btn-warning btn-icon-text mr-2"  to={`/dailySales/edit/${sales.id}`}>Edit<i className="mdi mdi-file-check btn-icon-append"></i></Link>
-                                                <Button onClick={() => customConfirm(() => deleteProduct(sales.id))} className="btn btn-icon-text btn-danger mr-2" >Delete<i className="mdi mdi-delete-forever-check btn-icon-append"></i></Button>
+                                                <div className="d-flex justify-content-between">
+                                                    {!edit ? <>
+                                                        <i className="mdi mdi-lead-pencil text-success btn-icon-append" onClick={() => editTableRow(sales.product, sales.measure)}></i>
+                                                        <i className=" mdi mdi-delete-forever text-danger" onClick={() => deleteTableRow(sales.product, sales.measure)}></i> </>
+                                                        :
+                                                        <i className=" mdi mdi-delete-forever text-danger" onClick={() => deleteTableRow(sales.product, sales.measure)}></i>}
+                                                    {/* <i className=" mdi mdi-delete-forever text-danger" onClick={() => customConfirm(() => deleteProduct(sales.id))}></i> */}
+                                                </div>
                                             </td>
                                         </tr>
                                     )}
-
-
                                 </tbody>
 
                             </table>
@@ -326,8 +385,8 @@ export default function CreateDailySales() {
                                 }} /><br />
 
                             <Button className="btn btn-dark mr-2"  >Cancel</Button>
-                            <Button className="btn btn-primary mr-2" type="submit" > Save</Button>
                             <Button onClick={create} className="btn btn-primary mr-2" type="submit" > Finish</Button>
+                            <Button onClick={() => storeInLocal(dailySales)} className="btn btn-primary mr-2" type="submit" >Save </Button>
 
                         </div>
                     </div>
@@ -385,7 +444,7 @@ export default function CreateDailySales() {
                                                                             type="button" onClick={() => selectProduct(product)}
                                                                             className="btn btn-primary btn-sm btn-icon-text text-white d-flex"
                                                                             data-toggle="modal"
-                                                                            data-target="#participantsModal">
+                                                                            data-target="#productsModal">
                                                                             SELECT
                                                                         </button>
                                                                     </td>

@@ -33,7 +33,6 @@ export default function EditDailySales() {
         for (var i=0; i< getSales.length; i++){
             if(id===getSales[i].id){
                 getSales[i]=salesToEdit;
-
             }
            
         }
