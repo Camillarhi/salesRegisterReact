@@ -5,7 +5,6 @@ import CreateCompanyName from "./Company/CreateCompanyName";
 import EditCompanyName from "./Company/EditCompanyName";
 import CreateDailySales from "./DailySales/CreateDailySales";
 import DailySalesList from "./DailySales/DailySalesList";
-import EditDailySales from "./DailySales/EditDailySales";
 import Dashboard from "./DashBoard/Dashboard";
 import LandingPage from "./LandingPage/LandingPage";
 import CreateProduct from "./Products/CreateProduct";
@@ -54,7 +53,6 @@ const routes = [
 
     {path: '/dailySales', component: DailySalesList, exact:true},
     {path: '/dailySales/create', component: CreateDailySales},
-    {path: '/dailySales/edit/:id(\\d+)', component: EditDailySales},
 
     {path: '/stockBalance', component: StockBalanceList, exact:true},
     {path: '/dailyStockBalance', component: DailyStockBalanceList},

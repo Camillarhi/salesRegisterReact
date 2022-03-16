@@ -3,6 +3,7 @@ import { CompanyCreationDTO } from "./company.model";
 import "../forms.css";
 import TextField from "../Utils/TextField";
 import Button from "../Utils/Button";
+import Backbutton from "../Utils/Backbutton";
 
 
 export default function CompanyForm(props: companyFormProps) {
@@ -12,8 +13,7 @@ export default function CompanyForm(props: companyFormProps) {
                 <h3 className="page-title">Setup Company Name </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">Back</a></li>
-                        {/* <li className="breadcrumb-item active" aria-current="page">Form elements</li> */}
+                        <Backbutton />
                     </ol>
                 </nav>
             </div>
@@ -30,7 +30,7 @@ export default function CompanyForm(props: companyFormProps) {
                                         <TextField field="companyName" displayName="Company Name:" className="form-control"  /><br />
 
 
-                                        <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save Changes</Button>
+                                        <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save</Button>
                                         <Button className="btn btn-dark"  >Cancel</Button>
 
                                     </div>

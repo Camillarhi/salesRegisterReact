@@ -3,6 +3,7 @@ import Button from "../Utils/Button";
 import TextField from "../Utils/TextField";
 import "../forms.css";
 import { RegisterCreationDTO } from "./register.model";
+import Backbutton from "../Utils/Backbutton";
 
 
 export default function RegisterForm(props: registerFormProps) {
@@ -12,8 +13,7 @@ export default function RegisterForm(props: registerFormProps) {
                 <h3 className="page-title">Register Form</h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">Back</a></li>
-                        {/* <li className="breadcrumb-item active" aria-current="page">Form elements</li> */}
+                       <Backbutton />
                     </ol>
                 </nav>
             </div>
@@ -31,7 +31,7 @@ export default function RegisterForm(props: registerFormProps) {
                                         <TextField type="password" field="confirmPassword" displayName="Confirm Password:" className="form-control" /><br />
 
                                     </div>
-                                    <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save Changes</Button>
+                                    <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save</Button>
                                     <Button className="btn btn-dark"  >Cancel</Button>
 
                                 </Form>

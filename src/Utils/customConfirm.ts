@@ -5,28 +5,17 @@ export default function customConfirm(
     title: string = "Are You Sure?",
     confirmButtonText: string ="Delete"
 ){
-    // swal.fire({
-    //     title,
-    //     confirmButtonText,
-    //     showCancelButton:true,
-    //     confimButtonColor: '#3085d6',
-    //     cancleButtonColor: '#d33',        
-    // }).then((result: { isConfirmed: any; }) =>{
-    //     if(result.isConfirmed){
-    //         onConfirm();
-    //     }
-    // })
     Swal.fire({
-        title,
-        
+      title: "<h5 style='color:black'>" + title + "</h5>",
+      text: "You won't be able to revert this!",
+        confirmButtonColor: '#4B49AC',
+        cancelButtonColor: '#d33',
         showCancelButton: true,
         confirmButtonText,
         icon:'warning',
       }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
             onConfirm();
-
         }
       })
 }

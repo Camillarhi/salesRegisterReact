@@ -1,6 +1,7 @@
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useHistory } from "react-router-dom";
 import "../forms.css";
+import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
 import DateField from "../Utils/DateField";
 import ImageField from "../Utils/ImageField";
@@ -20,8 +21,7 @@ export default function StaffForm(props: staffFormProps) {
                 <h3 className="page-title">Staff Form </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a onClick={returnToPrevious}>Back</a></li>
-                        {/* <li className="breadcrumb-item active" aria-current="page">Form elements</li> */}
+                       <Backbutton />
                     </ol>
                 </nav>
             </div>
@@ -117,7 +117,7 @@ export default function StaffForm(props: staffFormProps) {
 
 
 
-                                    <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save Changes</Button>
+                                    <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save</Button>
                                     <Button className="btn btn-dark"  >Cancel</Button>
 
                                 </Form>

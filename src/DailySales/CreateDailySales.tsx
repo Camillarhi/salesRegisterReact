@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useHistory } from "react-router-dom";
 import customConfirm from "../Utils/customConfirm";
 import TotalForm from "../Total/TotalForm";
+import Backbutton from "../Utils/Backbutton";
 
 
 export default function CreateDailySales() {
@@ -25,9 +26,15 @@ export default function CreateDailySales() {
             unitPrice: 0
         }
     ]);
+    const [returnedCustomer, setReturnedCustomer] = useState(false);
     let [customer, setCustomer] = useState("")
     const [edit, setEdit] = useState(false);
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>([]);
+    const [sales, setSales] = useState<DailySalesDTO[]>([]);
+    const [getCustomerSales, setGetCustomerSales] = useState([{
+        id: 0,
+        name: ""
+    }]);
     const history = useHistory();
 
 
@@ -37,12 +44,13 @@ export default function CreateDailySales() {
                 setProducts(response.data);
                 console.log("res", response)
             });
-        // loadData();
+        getCustomers();
     }, []);
 
     async function storeInLocal(dailySales: any) {
         try {
             let sale: any;
+            let cust: any;
             // dailySales.id = Math.floor(Math.random() * 100).toString()
             if (localStorage.getItem(customer) === null) {
                 sale = [];
@@ -50,10 +58,33 @@ export default function CreateDailySales() {
                 sale = JSON.parse(localStorage.getItem(customer) || '');
 
             }
+            if (localStorage.getItem("customer") === null) {
+                cust = [];
+            } else {
+                cust = JSON.parse(localStorage.getItem("customer") || '');
+            }
+            const newCust = {
+                id: Math.floor(Math.random() * 1000).toString(),
+                name: getValues("customerName")
+            }
+            if (cust.length === 0) {
+                cust.push(newCust)
+                localStorage.setItem("customer", JSON.stringify(cust));
+            } else {
+                const x = cust.find((y: { id: string; }) => y.id === newCust.id);
+                if (!x) {
+                    cust.push(newCust)
+                    localStorage.setItem("customer", JSON.stringify(cust));
+                }
+
+            }
 
             sale = (dailySales);
             localStorage.setItem(customer, JSON.stringify(sale));
             setValue("customerName", '')
+            setDailySales(sales)
+            getCustomers();
+            setReturnedCustomer(false);
 
             // loadData();
         }
@@ -86,6 +117,57 @@ export default function CreateDailySales() {
         }
         catch (error) {
             console.error(error);
+        }
+    }
+
+    async function getCustomers() {
+        try {
+            let getSales: any;
+            if (localStorage.getItem('customer') === null) {
+                getSales = [];
+            } else {
+                getSales = JSON.parse(localStorage.getItem("customer") || '');
+            }
+            console.log("getsales", getSales);
+            setGetCustomerSales(getSales);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function getCustomerItems(e: any) {
+        try {
+            let getCust: any;
+            let cust: any;
+            if (localStorage.getItem(e.target.value) === null) {
+                getCust = [];
+            } else {
+                getCust = JSON.parse(localStorage.getItem(e.target.value) || '');
+            }
+            localStorage.removeItem(e.target.value)
+            setValue("customerName", e.target.value)
+            setDailySales(getCust)
+            setReturnedCustomer(true);
+            if (localStorage.getItem("customer") === null) {
+                cust = [];
+            } else {
+                cust = JSON.parse(localStorage.getItem("customer") || '');
+            }
+            
+            for (let i = 0; i < cust.length; i++) {
+                if (e.target.value === cust[i].name) {
+                    let customer = cust[i];
+                    cust.forEach(function (task: any, index: any) {
+                        if (customer === task) {
+                            cust.splice(index, 1);
+                        }
+                    });
+                }
+            }
+            localStorage.setItem("customer", JSON.stringify(cust));
+
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -187,13 +269,12 @@ export default function CreateDailySales() {
             <div className="page-header">
                 <h3 className="page-title">Daily Sales Form</h3>
                 <nav aria-label="breadcrumb">
-                    <li className="breadcrumb-item"><a href="#">Back</a></li>
+                    <Backbutton />
                 </nav>
             </div>
             <form className="forms-sample">
-
-                <ol className="breadcrumb">
-                    <li>
+                <div className="breadcrumb d-flex justify-content-between">
+                    <li >
                         <label htmlFor="customerName" >Customer Name {errors.customerName &&
                             <span className="text-danger font-weight-bold"> required</span>}</label>
                         <input type="text" className="form-control breadcrumb-item text-uppercase" id="product"
@@ -201,7 +282,21 @@ export default function CreateDailySales() {
                                 required: true,
                                 onChange: (e) => { setCustomer(e.target.value) },
                             })} /></li>
-                </ol>
+                    <li className="float-right">
+                        {!returnedCustomer ?
+                            <>
+                                <label htmlFor="measure" >Pending Customers</label>
+                                <select className="form-control text-light breadcrumb-item" onChange={(e) => getCustomerItems(e)}>
+                                    <option></option>
+                                    {getCustomerSales?.map(cus =>
+                                        <option value={cus.name}>{cus.name}</option>
+                                    )}
+                                </select> </> : null}
+
+
+                    </li>
+                </div>
+
                 <div className="col-12 grid-margin">
                     <div className="card">
                         <div className="card-body">

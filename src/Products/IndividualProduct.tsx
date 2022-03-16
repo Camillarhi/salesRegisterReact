@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { urlProducts } from "../endpoints";
+import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
 import customConfirm from "../Utils/customConfirm";
 import { ProductDTO } from "./product.model";
@@ -9,38 +10,38 @@ import { ProductDTO } from "./product.model";
 export default function IndividualProduct() {
     const [products, setProducts] = useState<ProductDTO[]>();
 
-    useEffect(()=>{
+    useEffect(() => {
         loadData();
-    },[]);
+    }, []);
 
-    function loadData(){
+    function loadData() {
         axios.get(urlProducts)
-            .then((response:AxiosResponse<ProductDTO[]>)=>{
+            .then((response: AxiosResponse<ProductDTO[]>) => {
                 setProducts(response.data);
             })
     }
 
-    async function deleteProduct(id:number) {
-        try{
+    async function deleteProduct(id: number) {
+        try {
             await axios.delete(`${urlProducts}/${id}`);
             loadData();
         }
-        catch (error){
+        catch (error) {
             console.error(error);
         }
     }
 
-    return(
-        
+    return (
+
         <>
-           
+
 
             <h1>Product List</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">Back</a></li>
+                        <Backbutton />
                     </ol>
                 </nav>
             </div>
@@ -49,40 +50,40 @@ export default function IndividualProduct() {
                     <div className="card-body">
                         <div className="table-responsive">
                             <table className="table table-bordered ">
-               
-                    <th>Product Code</th>
-                    <th>Product</th>
-                    <th>Measure</th>
-                    <th>Price</th>                    
-                    <th></th>
-                    
-                
-                <tbody>
-                    {products?.map(product=>
-                        <tr key={product.id}>
-                            <td>{product.productCode}</td>
-                        <td>{product.product}</td>
-                        <td>{product.measure}</td>
-                       
-                        <td>{product.unitPrice}</td>
-                       <td> <button>View</button>
-                      
-                       <Link className="form-button" to={`/Products/edit/${product.id}`}>Edit</Link>
-                        <Button onClick={()=>customConfirm(()=> deleteProduct(product.id))} className="form-button">Delete</Button>
-                        </td>
-                    </tr>
-                        )}
-                
-                
-                     </tbody>
-               
-            </table>
-            
-            </div>
+
+                                <th>Product Code</th>
+                                <th>Product</th>
+                                <th>Measure</th>
+                                <th>Price</th>
+                                <th></th>
+
+
+                                <tbody>
+                                    {products?.map(product =>
+                                        <tr key={product.id}>
+                                            <td>{product.productCode}</td>
+                                            <td>{product.product}</td>
+                                            <td>{product.measure}</td>
+
+                                            <td>{product.unitPrice}</td>
+                                            <td>
+                                                <div className="d-flex justify-content-between">
+                                                    <i className=" mdi mdi-eye text-primary" onClick={() => customConfirm(() => deleteProduct(product.id))}></i>
+                                                    <Link to={`/Products/edit/${product.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
+                                                    <i className=" mdi mdi-delete-forever text-danger" onClick={() => customConfirm(() => deleteProduct(product.id))}></i>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+
+                            </table>
+
+                        </div>
                     </div>
                 </div>
             </div>
         </>
     )
-    
+
 }

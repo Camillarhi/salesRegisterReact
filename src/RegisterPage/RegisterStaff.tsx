@@ -19,7 +19,7 @@ export default function RegisterStaff() {
 
     return(
         <>
-        <h1>Staff Login Registration</h1>
+        <h1>Staff Registration</h1>
             <RegisterForm model={{userName:'', password:'', confirmPassword:''}}
               onSubmit={async value => {
             await create(value);
