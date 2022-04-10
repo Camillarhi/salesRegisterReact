@@ -1,30 +1,278 @@
-import axios from "axios"
-import { useHistory } from "react-router-dom"
-import { urlProducts } from "../endpoints"
-import { ProductCreationDTO } from "./product.model"
-import ProductForm from "./ProductForm"
+import axios from "axios";
+import { useState } from "react";
+import { useForm } from 'react-hook-form';
+import { useHistory } from "react-router-dom";
+import Backbutton from "../Utils/Backbutton";
+import Button from "../Utils/Button";
+import customConfirm from "../Utils/customConfirm";
+import { ProductCreationDTO, ProductDTO, ProductMeasureDTO } from "./product.model";
+
 
 export default function CreateProduct() {
-    const history=useHistory();
-    async function create(product:ProductCreationDTO) {
-        try {
-            await axios.post(urlProducts, product);
-            history.push("/products");
-        }
-        catch (error){
-            console.error(error);
+    const { register, handleSubmit, formState: { errors }, reset, watch, trigger, control, setValue, getValues } = useForm({
+        mode: "onChange",
+        reValidateMode: 'onChange'
+    });
+    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: errors2 }, reset: reset2, watch: watch2, trigger: trigger2, control: control2, setValue: setValue2, getValues: getValue2 } = useForm({
+        mode: "onChange",
+        reValidateMode: 'onChange'
+    });
+    const [productDetails, setProductDetails] = useState<ProductMeasureDTO[]>([]);
+    const [edit, setEdit] = useState(false);
+    const history = useHistory();
+
+    // async function create() {
+    //     try {
+    //         await axios.post(urlDailySales, dailySales);
+    //         history.push("/dailySales");
+
+    //         // let sale = JSON.parse(localStorage.getItem("sales") || '');
+
+    //         // await axios.post(urlDailySales, sale);
+    //         // localStorage.clear();
+    //         // history.push("/dailySales");
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
+
+    // //get quantity value
+    // function handleChange(e: any) {
+    //     if (e.target.name === "measure") {
+    //         const unit = measureAndPrice.find(x => x.measure === e.target.value)
+    //         setValue("unitPrice", unit?.unitPrice);
+    //     } else if (e.target.name === "quantity") {
+    //         const amt = e.target.value * getValues("unitPrice");
+    //         setValue("amount", amt)
+    //     }
+    // }
+
+    async function deleteMeasure(id: any) {
+        // try {
+        //     await axios.delete(`${urlRoles}/${id}`);
+        // }
+        // catch (error) {
+        //     console.error(error);
+        // }
+    }
+
+    // //add to table
+    const saveMeasure = async (salesData: any) => {
+        const x = productDetails?.find(y => y.measure === salesData.measure)
+        if (!x) {
+            if (edit) {
+                setEdit(false)
+            } else {
+
+            }
+            setProductDetails([...productDetails, salesData]);
+            reset2(salesData.value);
+            // reset(measureAndPrice)
+        } else {
+            // notifyError("Product Already Exists In Table")
         }
     }
 
+    //edit tablerow
+    const editTableRow = (measure: any) => {
+        const x = productDetails?.find(y => y.measure === measure);
+        const editRow = productDetails?.filter(y => y.measure != measure);
+        setValue2("qtyPerMeasure", x?.qtyPerMeasure);
+        setValue2("measure", x?.measure);
+        setValue2("unitPrice", x?.unitPrice);
+        setValue2("costPrice", x?.costPrice);
+        setProductDetails(editRow)
+        setEdit(true);
+    }
+
+    //delete tablerow
+    const deleteTableRow = (measure: any) => {
+        const deleteRow = productDetails?.filter(y => y.measure != measure);
+        setProductDetails(deleteRow)
+    }
+
     return (
-        <>
-        <h1>Create Product</h1>
-        <ProductForm model={{productCode:'',product:'',measure:'',unitPrice:0}}
-         onSubmit={async value => {
-            await create(value);
-         }}/>
-       
+        < >
+            <div className="page-header">
+                <h3 className="page-title">Create Product</h3>
+                <nav aria-label="breadcrumb">
+                    <Backbutton />
+                </nav>
+            </div>
+            <form className="forms-sample">
+                <div className="breadcrumb d-flex justify-content-end">
+                        <button type="submit" className="btn btn-primary mr-2" >
+                           SAVE
+                        </button> 
+                </div>
+                <div className="col-12 grid-margin">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group row">
+                                        <label htmlFor="productName" className="col-sm-3 col-form-label">Product Name
+                                            {errors.productName &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
+                                        <div className="col-sm-9">
+                                            <input type="text"
+                                                className="form-control text-uppercase text-dark"
+                                                id="productName"
+                                                placeholder="Product Name"
+                                                {...register("productName", {
+                                                    required: true,
+                                                })}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+                <form>
+                <h3 className="text-center">Add Product Measure</h3>
+                <div className="col-12 grid-margin">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group row">
+                                        <label htmlFor="measure" className="col-sm-3 col-form-label ">Measure
+                                            {errors2.measure &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
+                                        <div className='col-sm-9'>
+                                            <input type="text" className="form-control text-uppercase text-dark"
+                                                id="measure"
+                                                {...register2("measure", {
+                                                    required: true,
+                                                })}
+                                                placeholder="Measure" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group row">
+                                        <label htmlFor="qtyPerMeasure" className="col-sm-3 col-form-label">Qty Per Measure
+                                            {errors2.qtyPerMeasure &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
+                                        <div className="col-sm-9">
+                                            <input type="number"
+                                                className="form-control text-uppercase"
+                                                id="qtyPerMeasure"
+                                                placeholder="0"
+                                                {...register2("qtyPerMeasure", {
+                                                    required: true,
+                                                    // onChange: (e) => { handleChange(e) },
+                                                })}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group row">
+                                        <label htmlFor="costPrice" className="col-sm-3 col-form-label">Cost Price
+                                            {errors2.costPrice &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
+                                        <div className="col-sm-9">
+                                            <input type="number"
+                                                className="form-control text-uppercase"
+                                                id="costPrice"
+                                                placeholder="0"
+                                                {...register2("costPrice", {
+                                                    required: true,
+                                                    // onChange: (e) => { handleChange(e) },
+                                                })}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group row">
+                                        <label htmlFor="unitPrice" className="col-sm-3 col-form-label">Unit Price
+                                            {errors2.unitPrice &&
+                                                <span className="text-danger font-weight-bold"> required</span>}</label>
+                                        <div className="col-sm-9">
+                                            <input type="text"
+                                                className="form-control text-uppercase text-dark"
+                                                id="unitPrice"
+                                                placeholder="0"
+                                                {...register2("unitPrice", {
+                                                    required: true,
+                                                })}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" onClick={handleSubmit2(saveMeasure)} className="btn btn-primary mr-2" >
+                                Add
+                            </button>
+                            <Button className="btn btn-dark"  >Clear</Button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <h3 className="text-center">Product Measures</h3>
+            <div className="col-lg-12 grid-margin stretch-card">
+                <div className="card">
+                    <div className="card-body">
+                        <div className="table-responsive">
+                            <table className="table table-bordered ">
+
+                                <th>S/N</th>
+                                <th>MEASURE</th>
+                                <th>QTY PER MEASURE</th>
+                                <th>COST PRICE</th>
+                                <th>UNIT PRICE</th>
+                                <th>ACTIONS</th>
+                                <tbody>
+                                    {productDetails?.map((measure, index) =>
+                                        <tr key={measure.measure}>
+                                            <td>{index + 1}</td>
+                                            <td>{measure.measure}</td>
+                                            <td>{measure.qtyPerMeasure}</td>
+                                            <td><span className="float-right">{measure.costPrice}</span></td>
+                                            <td><span className="float-right">{measure.unitPrice}</span></td>
+                                            <td>
+                                                <div className="d-flex justify-content-between">
+                                                    {!edit ? <>
+                                                        <i className="mdi mdi-lead-pencil text-success btn-icon-append" onClick={() => editTableRow(measure.measure)}></i>
+                                                        <i className=" mdi mdi-delete-forever text-danger" onClick={() => deleteTableRow(measure.measure)}></i> </>
+                                                        :
+                                                        <i className=" mdi mdi-delete-forever text-danger" onClick={() => deleteTableRow(measure.measure)}></i>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )}
+                                </tbody>
+
+                            </table>
+                            {/* <Button onClick={create} className="btn btn-primary mr-2" type="submit" > Finish</Button> */}
+                            {/* <Button onClick={() => storeInLocal(dailySales)} className="btn btn-primary mr-2" type="submit" >Save </Button> */}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </>
     )
-    
 }
+
+
+
+// interface dailySalesFormProps {
+//     model: DailySalesCreationDTO,
+//     onSubmit(values: DailySalesCreationDTO, action: FormikHelpers<DailySalesCreationDTO>): void
+// }
+// interface filterProduct {
+//     product: string;
+// }

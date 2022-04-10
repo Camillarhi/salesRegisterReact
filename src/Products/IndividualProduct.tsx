@@ -21,7 +21,7 @@ export default function IndividualProduct() {
             })
     }
 
-    async function deleteProduct(id: number) {
+    async function deleteProduct(id: any) {
         try {
             await axios.delete(`${urlProducts}/${id}`);
             loadData();
@@ -62,10 +62,7 @@ export default function IndividualProduct() {
                                     {products?.map(product =>
                                         <tr key={product.id}>
                                             <td>{product.productCode}</td>
-                                            <td>{product.product}</td>
-                                            <td>{product.measure}</td>
-
-                                            <td>{product.unitPrice}</td>
+                                            <td>{product.productName}</td>
                                             <td>
                                                 <div className="d-flex justify-content-between">
                                                     <i className=" mdi mdi-eye text-primary" onClick={() => customConfirm(() => deleteProduct(product.id))}></i>

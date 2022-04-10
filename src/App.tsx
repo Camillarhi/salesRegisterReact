@@ -6,8 +6,8 @@ import LandingPageNavBar from './LandingPage/LandingPageNavBar';
 import Launch from './LaunchAppPage/Launch';
 import Menu from './Utils/Menu';
 import routes, { routers } from './route-config';
-import IndividualStaff from './Staffs/IndividualStaff';
-import StaffList from './Staffs/StaffList';
+import IndividualStaff from './User/IndividualStaff';
+import StaffList from './User/StaffList';
 import SideBar from './Utils/SideBar';
 import Login from './Accounts/Login';
 

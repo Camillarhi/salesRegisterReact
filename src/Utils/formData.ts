@@ -1,4 +1,4 @@
-import { staffCreationDTO } from "../Staffs/Staff.model"
+import { staffCreationDTO } from "../User/Staff.model"
 
 
 export function convertToFormData(staff: staffCreationDTO): FormData{
@@ -8,7 +8,6 @@ export function convertToFormData(staff: staffCreationDTO): FormData{
     formData.append('lastName', staff.lastName);
     formData.append('userName', staff.userName);
     formData.append('gender', staff.gender);
-    formData.append('department', staff.department);
     formData.append('address', staff.address);
     formData.append('phoneNumber', staff.phoneNumber);
 
@@ -22,6 +21,12 @@ export function convertToFormData(staff: staffCreationDTO): FormData{
 
     if(staff.staffId){
         formData.append('staffId', staff.staffId);
+    }
+    if(staff.department){
+        formData.append('department', staff.department);
+    }
+    if(staff.companyName){
+        formData.append('companyName', staff.companyName);
     }
 
     return formData;

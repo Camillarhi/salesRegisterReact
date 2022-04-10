@@ -15,15 +15,17 @@ import CreateRoles from "./Roles/CreateRoles";
 import EditRoles from "./Roles/EditRoles";
 import RolesList from "./Roles/RolesList";
 import Routes from "./Routes";
-import CreateStaff from "./Staffs/CreateStaff";
-import EditStaff from "./Staffs/EditStaff";
-import StaffList from "./Staffs/StaffList";
+import CreateStaff from "./User/CreateStaff";
+import EditStaff from "./User/EditStaff";
+import StaffList from "./User/StaffList";
 import DailyStockBalanceList from "./StockBalance/DailyStockBalanceList";
 import StockBalanceList from "./StockBalance/StockBalanceList";
 import CreateSalesTotal from "./Total/CreateSalesTotal";
 import IndexTotal from "./Total/IndexTotal";
 import UpdateText from "./UpdateText";
 import RedirectToLandingPage from "./Utils/RedirectToLandingPage";
+import CreateAdmin from "./User/CreateAdmin";
+import EditAdmin from "./User/EditAdmin";
 
 const routes = [
    {path:'/', component: Dashboard, exact:true},  
@@ -58,6 +60,8 @@ const routes = [
     {path: '/dailyStockBalance', component: DailyStockBalanceList},
 
     // {path: '/login', component: Login, exact:true},
+    {path: '/account/create', component: CreateAdmin},
+    {path: '/account/edit/:id(\\d+)', component: EditAdmin},
 
    {path: '/launch', component: Routes, exact:true},
    {path: '/test', component: UpdateText, exact:true},

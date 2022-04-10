@@ -3,13 +3,14 @@ export interface staffCreationDTO{
     lastName:string;
     userName:string;
     gender:string;
-    department:string;
+    department?:string;
     dateOfBirth?:Date;
     address:string;
     profilePicture?:File;
     profilePictureURL?:string;
     phoneNumber:string;
     staffId?:string;
+    companyName?:string;
 }
 
 export interface staffDTO {
@@ -18,10 +19,11 @@ export interface staffDTO {
     lastName:string;
     userName:string;
     gender:string;
-    // department:string;
+     department:string;
     dateOfBirth?:Date;
     address:string;
     profilePicture:string;
     phoneNumber:string;
     staffId:string;
+    companyName?:string;
 }
