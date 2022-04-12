@@ -50,11 +50,9 @@ export default function IndividualProduct() {
                     <div className="card-body">
                         <div className="table-responsive">
                             <table className="table table-bordered ">
-
+                    
                                 <th>Product Code</th>
                                 <th>Product</th>
-                                <th>Measure</th>
-                                <th>Price</th>
                                 <th></th>
 
 

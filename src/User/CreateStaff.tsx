@@ -13,7 +13,7 @@ export default function CreateStaff(){
             const formData = convertToFormData(staff);
             await axios({
                 method:'post',
-                url:`${urlStaffs}/register`,
+                url:`${urlStaffs}/registerstaff`,
                 data:formData,
                 headers:{'Content-Type': 'multipart/form-data'}
             })
@@ -26,7 +26,7 @@ export default function CreateStaff(){
     return (
         <>
         <h1>Create Staff</h1>
-        <StaffForm model={{firstName: "", lastName: "", userName: "", gender: "", department: "", address: "", profilePictureURL: "", phoneNumber: "", dateOfBirth: undefined, staffId: ""}}
+        <StaffForm model={{firstName: "", lastName: "", userName: "", gender: "", department: "", address: "", profilePictureURL: "", phoneNumber: "", dateOfBirth: undefined}}
          onSubmit={async value => {
             await create(value);
          }}/>

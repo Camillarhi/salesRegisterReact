@@ -9,8 +9,8 @@ export default function RegisterStaff() {
     const history= useHistory();
     async function create(register:RegisterCreationDTO) {
         try{
-            await axios.post(`${urlStaffs}/createUser`, register);
-            history.push("/staffs/create");
+            await axios.post(`${urlStaffs}/createadmin`, register);
+            history.push("/account/create");
         }
         catch (error){
             console.error(error);

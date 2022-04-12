@@ -4,11 +4,10 @@ import { staffCreationDTO, staffDTO } from "./Staff.model";
 import StaffForm from "./StaffForm";
 
 export default function EditStaff(){
-   
     return(
         <>
         <EditEntity<staffCreationDTO, staffDTO>
-            url={urlStaffs} entityName="Staffs"
+            url={`${urlStaffs}/staff`} entityName="Staffs"
             indexUrl="/Staffs">
             {(entity, edit) =>
                 <StaffForm model={entity} onSubmit={async value => {

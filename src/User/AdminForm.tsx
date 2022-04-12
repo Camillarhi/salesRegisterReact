@@ -9,9 +9,9 @@ import TextField from "../Utils/TextField";
 import { staffCreationDTO } from "./Staff.model";
 
 export default function AdminForm(props: staffFormProps) {
-    const history=useHistory();
+    const history = useHistory();
 
-    const returnToPrevious =() =>{
+    const returnToPrevious = () => {
         history.goBack();
     }
     return (
@@ -21,7 +21,7 @@ export default function AdminForm(props: staffFormProps) {
                 <h3 className="page-title">Account Setup </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                       <Backbutton />
+                        <Backbutton />
                     </ol>
                 </nav>
             </div>
@@ -41,7 +41,6 @@ export default function AdminForm(props: staffFormProps) {
                                                 <TextField field="firstName" displayName="First Name:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
-
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
@@ -52,7 +51,6 @@ export default function AdminForm(props: staffFormProps) {
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group row">
-
                                                 <TextField type="email" field="userName" displayName="Email:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
@@ -61,10 +59,10 @@ export default function AdminForm(props: staffFormProps) {
                                             <div className="form-group row">
                                                 <label htmlFor="gender" className="col-sm-3 col-form-label">Gender</label>
                                                 <div className="col-sm-9">
-                                                    <select className="form-control">
-                                                        <option>Male</option>
-                                                        <option>Female</option>
-                                                    </select>
+                                                    <Field name="gender" id="gender" className="form-control text-light" as='select'>
+                                                        <option  value='male'>Male</option>
+                                                        <option value='female'>Female</option>
+                                                    </Field>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,7 +73,7 @@ export default function AdminForm(props: staffFormProps) {
                                                 <DateField displayName="Date Of Birth" field="dateOfBirth" labelClassName="col-sm-3 col-form-label" />
                                             </div>
                                         </div>
-                                        
+
                                         <div className="col-md-6">
                                             <div className="form-group row">
                                                 <TextField field="companyName" displayName="Company Name:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
@@ -106,18 +104,12 @@ export default function AdminForm(props: staffFormProps) {
                                                 <ImageField displayName="Picture" field="profilePicture" imageURL={props.model.profilePictureURL} labelClassName="col-sm-3 col-form-label" />
                                             </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <div className="form-group row">
-
-                                                <TextField field="staffId" displayName="Staff Id:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
-                                            </div>
-                                        </div>
                                     </div>
 
 
 
                                     <Button disabled={formikProps.isSubmitting} className="btn btn-primary mr-2" type="submit" >Save</Button>
-                                    <Button className="btn btn-dark"  >Cancel</Button>
+                                    <Button className="btn btn-dark" >Cancel</Button>
 
                                 </Form>
                             )}

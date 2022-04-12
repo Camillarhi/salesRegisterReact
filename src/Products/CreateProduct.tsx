@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
+import { urlProducts, urlRoles } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
 import customConfirm from "../Utils/customConfirm";
@@ -21,44 +22,29 @@ export default function CreateProduct() {
     const [edit, setEdit] = useState(false);
     const history = useHistory();
 
-    // async function create() {
+    async function createProduct(data: any) {
+        try {
+            let obj = {
+                productName: data?.productName,
+                productMeasures: productDetails
+            };
+            await axios.post(urlProducts, obj);
+            history.push("/products");
+        }
+        catch (error) {
+            console.error(error);
+        }
+    }
+    // async function deleteMeasure(id: any) {
     //     try {
-    //         await axios.post(urlDailySales, dailySales);
-    //         history.push("/dailySales");
-
-    //         // let sale = JSON.parse(localStorage.getItem("sales") || '');
-
-    //         // await axios.post(urlDailySales, sale);
-    //         // localStorage.clear();
-    //         // history.push("/dailySales");
+    //         await axios.delete(`${urlProducts}/deletemeasure/${id}`);
     //     }
     //     catch (error) {
     //         console.error(error);
     //     }
     // }
 
-
-    // //get quantity value
-    // function handleChange(e: any) {
-    //     if (e.target.name === "measure") {
-    //         const unit = measureAndPrice.find(x => x.measure === e.target.value)
-    //         setValue("unitPrice", unit?.unitPrice);
-    //     } else if (e.target.name === "quantity") {
-    //         const amt = e.target.value * getValues("unitPrice");
-    //         setValue("amount", amt)
-    //     }
-    // }
-
-    async function deleteMeasure(id: any) {
-        // try {
-        //     await axios.delete(`${urlRoles}/${id}`);
-        // }
-        // catch (error) {
-        //     console.error(error);
-        // }
-    }
-
-    // //add to table
+    //add to table
     const saveMeasure = async (salesData: any) => {
         const x = productDetails?.find(y => y.measure === salesData.measure)
         if (!x) {
@@ -69,7 +55,6 @@ export default function CreateProduct() {
             }
             setProductDetails([...productDetails, salesData]);
             reset2(salesData.value);
-            // reset(measureAndPrice)
         } else {
             // notifyError("Product Already Exists In Table")
         }
@@ -103,9 +88,9 @@ export default function CreateProduct() {
             </div>
             <form className="forms-sample">
                 <div className="breadcrumb d-flex justify-content-end">
-                        <button type="submit" className="btn btn-primary mr-2" >
-                           SAVE
-                        </button> 
+                    <button type="submit" onClick={handleSubmit(createProduct)} className="btn btn-primary mr-2" >
+                        SAVE
+                    </button>
                 </div>
                 <div className="col-12 grid-margin">
                     <div className="card">
@@ -132,8 +117,8 @@ export default function CreateProduct() {
                         </div>
                     </div>
                 </div>
-                </form>
-                <form>
+            </form>
+            <form>
                 <h3 className="text-center">Add Product Measure</h3>
                 <div className="col-12 grid-margin">
                     <div className="card">
@@ -255,9 +240,6 @@ export default function CreateProduct() {
                                 </tbody>
 
                             </table>
-                            {/* <Button onClick={create} className="btn btn-primary mr-2" type="submit" > Finish</Button> */}
-                            {/* <Button onClick={() => storeInLocal(dailySales)} className="btn btn-primary mr-2" type="submit" >Save </Button> */}
-
                         </div>
                     </div>
                 </div>
@@ -266,13 +248,3 @@ export default function CreateProduct() {
         </>
     )
 }
-
-
-
-// interface dailySalesFormProps {
-//     model: DailySalesCreationDTO,
-//     onSubmit(values: DailySalesCreationDTO, action: FormikHelpers<DailySalesCreationDTO>): void
-// }
-// interface filterProduct {
-//     product: string;
-// }

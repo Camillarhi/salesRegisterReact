@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { Field, Form, Formik, FormikHelpers, FormikProvider, useFormik } from "formik";
 import { useEffect, useState } from "react";
 import { urlDailySales, urlProducts } from "../endpoints";
-import { ProductDTO } from "../Products/product.model";
+import { ProductDTO, ProductMeasureDTO } from "../Products/product.model";
 import ProductList from "../Products/ProductList";
 import Button from "../Utils/Button";
 import TextField from "../Utils/TextField";
@@ -20,17 +20,12 @@ export default function CreateDailySales() {
         reValidateMode: 'onChange'
     });
     const [products, setProducts] = useState<ProductDTO[]>();
-    const [measureAndPrice, setMeasureAndPrice] = useState([
-        {
-            measure: "",
-            unitPrice: 0
-        }
-    ]);
     const [returnedCustomer, setReturnedCustomer] = useState(false);
     let [customer, setCustomer] = useState("")
     const [edit, setEdit] = useState(false);
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>([]);
     const [sales, setSales] = useState<DailySalesDTO[]>([]);
+    const [selectedProduct, setSelectedProduct] = useState<ProductDTO>();
     const [getCustomerSales, setGetCustomerSales] = useState([{
         id: 0,
         name: ""
@@ -39,7 +34,7 @@ export default function CreateDailySales() {
 
 
     useEffect(() => {
-        axios.get(`${urlProducts}/getProduct`)
+        axios.get(urlProducts)
             .then((response: AxiosResponse<ProductDTO[]>) => {
                 setProducts(response.data);
                 console.log("res", response)
@@ -93,27 +88,21 @@ export default function CreateDailySales() {
         }
 
     }
-    function loadData() {
-        let getSales: any;
-        if (localStorage.getItem("sales") === null) {
-            getSales = [];
-        } else {
-            getSales = JSON.parse(localStorage.getItem("sales") || '');
+    // function loadData() {
+    //     let getSales: any;
+    //     if (localStorage.getItem("sales") === null) {
+    //         getSales = [];
+    //     } else {
+    //         getSales = JSON.parse(localStorage.getItem("sales") || '');
 
-        }
-        console.log("getsales", getSales);
-        setDailySales(getSales);
-    }
+    //     }
+    //     console.log("getsales", getSales);
+    //     setDailySales(getSales);
+    // }
     async function create() {
         try {
             await axios.post(urlDailySales, dailySales);
             history.push("/dailySales");
-
-            // let sale = JSON.parse(localStorage.getItem("sales") || '');
-
-            // await axios.post(urlDailySales, sale);
-            // localStorage.clear();
-            // history.push("/dailySales");
         }
         catch (error) {
             console.error(error);
@@ -153,7 +142,7 @@ export default function CreateDailySales() {
             } else {
                 cust = JSON.parse(localStorage.getItem("customer") || '');
             }
-            
+
             for (let i = 0; i < cust.length; i++) {
                 if (e.target.value === cust[i].name) {
                     let customer = cust[i];
@@ -171,55 +160,48 @@ export default function CreateDailySales() {
         }
     }
 
-    async function deleteProduct(id: any) {
-        try {
-            let getSales: any;
-            if (localStorage.getItem('sales') === null) {
-                getSales = [];
-            } else {
-                getSales = JSON.parse(localStorage.getItem("sales") || '');
-            }
-            for (var i = 0; i < getSales.length; i++) {
-                if (id === getSales[i].id) {
-                    var getSalesById = getSales[i];
-                    getSales.forEach(function (task: any, index: any) {
-                        if (getSalesById === task) {
-                            getSales.splice(index, 1);
-                        }
-                    });
-                }
-            }
+    // async function deleteProduct(id: any) {
+    //     try {
+    //         let getSales: any;
+    //         if (localStorage.getItem('sales') === null) {
+    //             getSales = [];
+    //         } else {
+    //             getSales = JSON.parse(localStorage.getItem("sales") || '');
+    //         }
+    //         for (var i = 0; i < getSales.length; i++) {
+    //             if (id === getSales[i].id) {
+    //                 var getSalesById = getSales[i];
+    //                 getSales.forEach(function (task: any, index: any) {
+    //                     if (getSalesById === task) {
+    //                         getSales.splice(index, 1);
+    //                     }
+    //                 });
+    //             }
+    //         }
 
-            localStorage.setItem("sales", JSON.stringify(getSales));
-            // loadData();
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
+    //         localStorage.setItem("sales", JSON.stringify(getSales));
+    //         // loadData();
+    //     }
+    //     catch (error) {
+    //         console.error(error);
+    //     }
+    // }
 
     const selectProduct = (i: any) => {
         setValue("product", i);
-        axios.get(`${urlProducts}/productname/?name=${i}`)
-            .then(function (response) {
-                setMeasureAndPrice(response.data)
-                console.log("dat", response.data)
-            })
+        const x = products?.find(y => y.id === i);
+        setSelectedProduct(x)
     }
     //get quantity value
     function handleChange(e: any) {
         if (e.target.name === "measure") {
-            const unit = measureAndPrice.find(x => x.measure === e.target.value)
+            const unit = selectedProduct?.productMeasures?.find(x => x.measure === e.target.value)
             setValue("unitPrice", unit?.unitPrice);
         } else if (e.target.name === "quantity") {
-            const amt = e.target.value * getValues("unitPrice");
+            const amt = e.target.value * Number(getValues("unitPrice"));
             setValue("amount", amt)
         }
     }
-
-    //set unitprice value
-
-    //cal amount price*quantity
 
     //add to table
     const saveProductInput = async (salesData: any) => {
@@ -243,10 +225,8 @@ export default function CreateDailySales() {
     const editTableRow = (item: any, unit: any) => {
         const x = dailySales?.find(y => y.product === item && y.measure === unit);
         const editRow = dailySales?.filter(y => y.product != item || y.measure != unit);
-        axios.get(`${urlProducts}/productname/?name=${item}`)
-            .then(function (response) {
-                setMeasureAndPrice(response.data)
-            })
+        const meas = products?.find(z=>z.productName===item);
+        setSelectedProduct(meas);
         setValue("product", x?.product);
         setValue("measure", x?.measure);
         setValue("unitPrice", x?.unitPrice);
@@ -349,7 +329,7 @@ export default function CreateDailySales() {
                                                 })}
                                             >
                                                 <option>Select Measure</option>
-                                                {measureAndPrice?.map(product =>
+                                                {selectedProduct?.productMeasures?.map(product =>
                                                     <option value={product.measure} >{product.measure}</option>
                                                 )}
                                             </select>
@@ -532,11 +512,11 @@ export default function CreateDailySales() {
                                                                         {index + 1}
                                                                     </td>
                                                                     <td>
-                                                                        <span className="text-uppercase">{product}</span>
+                                                                        <span className="text-uppercase">{product?.productName}</span>
                                                                     </td>
                                                                     <td>
                                                                         <button
-                                                                            type="button" onClick={() => selectProduct(product)}
+                                                                            type="button" onClick={() => selectProduct(product.id)}
                                                                             className="btn btn-primary btn-sm btn-icon-text text-white d-flex"
                                                                             data-toggle="modal"
                                                                             data-target="#productsModal">

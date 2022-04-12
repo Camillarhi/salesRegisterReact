@@ -9,7 +9,6 @@ export interface staffCreationDTO{
     profilePicture?:File;
     profilePictureURL?:string;
     phoneNumber:string;
-    staffId?:string;
     companyName?:string;
 }
 

@@ -19,9 +19,6 @@ export function convertToFormData(staff: staffCreationDTO): FormData{
         formData.append('profilePicture', staff.profilePicture)
     }
 
-    if(staff.staffId){
-        formData.append('staffId', staff.staffId);
-    }
     if(staff.department){
         formData.append('department', staff.department);
     }

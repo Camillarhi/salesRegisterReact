@@ -18,7 +18,7 @@ export default function CreateAdmin(){
                 data:formData,
                 headers:{'Content-Type': 'multipart/form-data'}
             })
-            history.push("/staffs");
+            history.push("/dashboard");
         }
         catch (error){
             console.error(error);
@@ -27,7 +27,7 @@ export default function CreateAdmin(){
     return (
         <>
         <h1>Create Account</h1>
-        <AdminForm model={{firstName: "", lastName: "", userName: "", gender: "", address: "", profilePictureURL: "", phoneNumber: "", dateOfBirth: undefined, staffId: "", companyName: undefined}}
+        <AdminForm model={{firstName: "", lastName: "", userName: "", gender: "", department:'Admin', address: "", profilePictureURL: "", phoneNumber: "", dateOfBirth: undefined, companyName: undefined}}
          onSubmit={async value => {
             await create(value);
          }}/>

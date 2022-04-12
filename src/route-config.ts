@@ -23,12 +23,12 @@ import StockBalanceList from "./StockBalance/StockBalanceList";
 import CreateSalesTotal from "./Total/CreateSalesTotal";
 import IndexTotal from "./Total/IndexTotal";
 import UpdateText from "./UpdateText";
-import RedirectToLandingPage from "./Utils/RedirectToLandingPage";
+import {RedirectToLandingPage,RedirectToDashBoard} from "./Utils/RedirectToLandingPage";
 import CreateAdmin from "./User/CreateAdmin";
 import EditAdmin from "./User/EditAdmin";
 
 const routes = [
-   {path:'/', component: Dashboard, exact:true},  
+   {path:'/dashboard', component: Dashboard, exact:true},  
 
 
     {path: '/staffs', component: StaffList, exact:true},
@@ -66,12 +66,12 @@ const routes = [
    {path: '/launch', component: Routes, exact:true},
    {path: '/test', component: UpdateText, exact:true},
 
-    {path: '*', component:RedirectToLandingPage}
+    {path: '*', component:RedirectToDashBoard}
 ];
 export const routers=[
    {path:'/', component: LandingPage, exact:true},  
    {path: '/login', component: Login, exact:true},
-
+   {path: '*', component:RedirectToLandingPage}
 ]
 
 export default routes; 
