@@ -9,9 +9,9 @@ import TextField from "../Utils/TextField";
 import { staffCreationDTO } from "./Staff.model";
 
 export default function StaffForm(props: staffFormProps) {
-    const history=useHistory();
+    const history = useHistory();
 
-    const returnToPrevious =() =>{
+    const returnToPrevious = () => {
         history.goBack();
     }
     return (
@@ -21,7 +21,7 @@ export default function StaffForm(props: staffFormProps) {
                 <h3 className="page-title">Staff Form </h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
-                       <Backbutton />
+                        <Backbutton />
                     </ol>
                 </nav>
             </div>
@@ -76,7 +76,7 @@ export default function StaffForm(props: staffFormProps) {
                                                 <DateField displayName="Date Of Birth" field="dateOfBirth" labelClassName="col-sm-3 col-form-label" />
                                             </div>
                                         </div>
-                                        
+
                                         <div className="col-md-6">
                                             <div className="form-group row">
                                                 <TextField field="department" displayName="Department:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
@@ -110,7 +110,16 @@ export default function StaffForm(props: staffFormProps) {
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
-                                                <TextField field="staffId" displayName="Staff Id:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                                <TextField field="password" displayName="PassWord:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+
+                                        <div className="col-md-6">
+                                            <div className="form-group row">
+
+                                                <TextField field="confirmPassword" displayName="Confirm PassWord:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
                                     </div>

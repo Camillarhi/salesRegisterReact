@@ -33,17 +33,17 @@ const routes = [
 
     {path: '/staffs', component: StaffList, exact:true},
     {path: '/staffs/create', component: CreateStaff},
-    {path: '/staffs/edit/:id(\\d+)', component: EditStaff},
+    {path: '/staffs/edit/:id', component: EditStaff},
 
     {path: '/products', component: ProductList, exact:true},
-    {path: '/products/create', component: CreateProduct},
-    {path: '/products/edit/:id(\\d+)', component: EditProduct},
+    {path: '/products/create', component: CreateProduct, isAdmin:true},
+    {path: '/products/edit/:id', component: EditProduct},
 
     {path: '/register', component: RegisterStaff, exact:true},
 
     {path: '/company', component: CompanyNameList, exact:true},
     {path: '/company/create', component: CreateCompanyName},
-    {path: '/company/edit/:id(\\d+)', component: EditCompanyName},
+    {path: '/company/edit/:id', component: EditCompanyName},
 
 
     {path: '/total', component: IndexTotal, exact:true},
@@ -51,7 +51,7 @@ const routes = [
 
     {path: '/roles', component: RolesList, exact:true},
     {path: '/roles/create', component: CreateRoles},
-    {path: '/roles/edit/:id(\\d+)', component: EditRoles},
+    {path: '/roles/edit/:id', component: EditRoles},
 
     {path: '/dailySales', component: DailySalesList, exact:true},
     {path: '/dailySales/create', component: CreateDailySales},
@@ -61,10 +61,12 @@ const routes = [
 
     // {path: '/login', component: Login, exact:true},
     {path: '/account/create', component: CreateAdmin},
-    {path: '/account/edit/:id(\\d+)', component: EditAdmin},
+    {path: '/account/edit/:id', component: EditAdmin},
 
    {path: '/launch', component: Routes, exact:true},
    {path: '/test', component: UpdateText, exact:true},
+   {path: '/login', component: Login, exact:true},
+
 
     {path: '*', component:RedirectToDashBoard}
 ];

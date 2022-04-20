@@ -15,7 +15,7 @@ export default function IndividualStaff() {
     }, []);
 
     function loadData() {
-        axios.get(`${urlStaffs}/staff`)
+        axios.get(`${urlStaffs}/staff`, {withCredentials:true})
             .then((response: AxiosResponse<staffDTO[]>) => {
                 setStaffs(response.data);
             })

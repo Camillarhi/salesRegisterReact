@@ -4,7 +4,7 @@ export interface StockBalanceDTO{
     product:string;
     measure:string;
     quantity:number;
-    date:Date;
+    date:string;
 }
 
 export interface DailyStockBalanceDTO{
@@ -13,5 +13,5 @@ export interface DailyStockBalanceDTO{
     product:string;
     measure:string;
     quantity:number;
-    date:Date;
+    date:string;
 }

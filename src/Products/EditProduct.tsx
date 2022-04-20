@@ -38,7 +38,7 @@ export default function EditProduct() {
                 productName: data?.productName,
                 productMeasures: productDetails
             };
-            await axios.post(urlProducts, obj);
+            await axios.put(urlProducts, obj);
             history.push("/products");
         }
         catch (error) {

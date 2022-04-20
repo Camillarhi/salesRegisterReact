@@ -1,10 +1,10 @@
 export interface TotalCreationDTO{
-    date?:Date;
+    date?:string;
     total:number;
 }
 
 export interface TotalDTO{
     id:number;
-    date:Date;
+    date:string;
     total:number;
 }

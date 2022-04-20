@@ -16,7 +16,7 @@ export default function StockBalanceList() {
         axios.get(urlProductBalance)
             .then((response: AxiosResponse<StockBalanceDTO[]>) => {
                 setStockBalance(response.data);
-            })
+            }) 
     }
 
 

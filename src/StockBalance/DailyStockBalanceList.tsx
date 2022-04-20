@@ -52,6 +52,7 @@ export default function DailyStockBalanceList() {
                                             <td>{stock.quantity}</td>
                                             <td>{stock.date}</td>
 
+
                                             {/* <td> <button>View</button>
                       
                        <Link className="form-button" to={`/Staffs/edit/${staff.id}`}>Edit</Link>

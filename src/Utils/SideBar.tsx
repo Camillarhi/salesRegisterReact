@@ -1,3 +1,5 @@
+import Authorize from "../Auth/Authorize";
+
 export default function SideBar() {
     return(
         <>
@@ -56,6 +58,8 @@ export default function SideBar() {
         </div>
       </div>
     </li>
+    <Authorize role="admin" authorize={<>you are authorized</>} notAuthorized={<>you are not authorized</>} />
+
     <li className="nav-item nav-category">
       <span className="nav-link">Navigation</span>
     </li>
