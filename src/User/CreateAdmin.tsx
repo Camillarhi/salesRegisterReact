@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { saveToken } from "../Auth/HandleJWT";
 import { urlStaffs } from "../endpoints";
 import Button from "../Utils/Button";
 import { convertToFormData } from "../Utils/formData";
@@ -12,12 +13,13 @@ export default function CreateAdmin(){
     async function create(staff:staffCreationDTO) {
         try {
             const formData = convertToFormData(staff);
-            await axios({
+           const response = await axios({
                 method:'post',
                 url:`${urlStaffs}/setupadmin`,
                 data:formData,
                 headers:{'Content-Type': 'multipart/form-data'}
             })
+            saveToken(response.data)
             history.push("/dashboard");
         }
         catch (error){

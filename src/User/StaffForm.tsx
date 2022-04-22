@@ -110,16 +110,15 @@ export default function StaffForm(props: staffFormProps) {
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
-                                                <TextField field="password" displayName="PassWord:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                                <TextField field="password" displayName="Password:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
                                     </div>
                                     <div className="row">
-
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
-                                                <TextField field="confirmPassword" displayName="Confirm PassWord:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                                <TextField field="confirmPassword" displayName="Confirm Password:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
                                     </div>

@@ -9,7 +9,7 @@ export interface DailySalesCreationDTO{
 
 
 export interface DailySalesDTO{
-    id:number;
+    id:string;
     quantity:number;
     product:string;
     measure:string;

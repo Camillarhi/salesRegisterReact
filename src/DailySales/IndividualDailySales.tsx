@@ -21,7 +21,7 @@ export default function InividualDailySales() {
             })
     }
 
-    async function deleteProduct(id: number) {
+    async function deleteProduct(id: any) {
         try {
             await axios.delete(`${urlDailySales}/${id}`);
             loadData();

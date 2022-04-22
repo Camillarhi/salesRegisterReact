@@ -1,37 +1,34 @@
 import axios, { AxiosResponse } from "axios";
-import { Field, Form, Formik, FormikHelpers, FormikProvider, useFormik } from "formik";
 import { useEffect, useState } from "react";
+import { useForm } from 'react-hook-form';
+import { useHistory } from "react-router-dom";
 import { urlDailySales, urlProducts } from "../endpoints";
-import { ProductDTO, ProductMeasureDTO } from "../Products/product.model";
-import ProductList from "../Products/ProductList";
-import Button from "../Utils/Button";
-import TextField from "../Utils/TextField";
-import { DailySalesCreationDTO, DailySalesDTO } from "./dailySales.model";
-import { useForm } from 'react-hook-form'
-import { Link, useHistory } from "react-router-dom";
-import customConfirm from "../Utils/customConfirm";
+import { ProductDTO } from "../Products/product.model";
 import TotalForm from "../Total/TotalForm";
 import Backbutton from "../Utils/Backbutton";
+import Button from "../Utils/Button";
+import { DailySalesDTO } from "./dailySales.model";
 
 
 export default function CreateDailySales() {
-    const { register, handleSubmit, formState: { errors }, reset, watch, trigger, control, setValue, getValues } = useForm({
+    const { register, handleSubmit, formState: { errors }, resetField, reset, watch, trigger, control, setValue, getValues } = useForm({
+        mode: "onChange",
+        reValidateMode: 'onChange'
+    });
+    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: error2 }, resetField: resetField2, reset: reset2, watch: watch2, trigger: trigger2, control: control2, setValue: setValue2, getValues: getValues2 } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
     const [products, setProducts] = useState<ProductDTO[]>();
     const [returnedCustomer, setReturnedCustomer] = useState(false);
-    let [customer, setCustomer] = useState("")
     const [edit, setEdit] = useState(false);
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>([]);
     const [sales, setSales] = useState<DailySalesDTO[]>([]);
     const [selectedProduct, setSelectedProduct] = useState<ProductDTO>();
     const [getCustomerSales, setGetCustomerSales] = useState([{
-        id: 0,
-        name: ""
+        phone: ""
     }]);
     const history = useHistory();
-
 
     useEffect(() => {
         axios.get(urlProducts)
@@ -45,63 +42,54 @@ export default function CreateDailySales() {
     async function storeInLocal(dailySales: any) {
         try {
             let sale: any;
-            let cust: any;
-            // dailySales.id = Math.floor(Math.random() * 100).toString()
-            if (localStorage.getItem(customer) === null) {
+            if (localStorage.getItem("customer") === null) {
                 sale = [];
             } else {
-                sale = JSON.parse(localStorage.getItem(customer) || '');
-
+                sale = JSON.parse(localStorage.getItem("customer") || '');
             }
-            if (localStorage.getItem("customer") === null) {
-                cust = [];
-            } else {
-                cust = JSON.parse(localStorage.getItem("customer") || '');
-            }
-            const newCust = {
-                id: Math.floor(Math.random() * 1000).toString(),
-                name: getValues("customerName")
-            }
-            if (cust.length === 0) {
-                cust.push(newCust)
-                localStorage.setItem("customer", JSON.stringify(cust));
-            } else {
-                const x = cust.find((y: { id: string; }) => y.id === newCust.id);
-                if (!x) {
-                    cust.push(newCust)
-                    localStorage.setItem("customer", JSON.stringify(cust));
-                }
-
-            }
-
-            sale = (dailySales);
-            localStorage.setItem(customer, JSON.stringify(sale));
-            setValue("customerName", '')
+            const phone = getValues2("phoneNumber")
+            const custName = getValues2("customerName")
+            sale.push({ phone, custName, dailySales })
+            localStorage.setItem("customer", JSON.stringify(sale));
+            resetField2("customerName");
+            resetField2("phoneNumber");
             setDailySales(sales)
             getCustomers();
             setReturnedCustomer(false);
-
             // loadData();
         }
         catch (error) {
             console.error(error);
         }
-
     }
-    // function loadData() {
-    //     let getSales: any;
-    //     if (localStorage.getItem("sales") === null) {
-    //         getSales = [];
-    //     } else {
-    //         getSales = JSON.parse(localStorage.getItem("sales") || '');
-
-    //     }
-    //     console.log("getsales", getSales);
-    //     setDailySales(getSales);
-    // }
+    
     async function create() {
         try {
-            await axios.post(urlDailySales, dailySales);
+            let details = [];
+
+            let objDetails;
+            for (let i = 0; i < dailySales.length; i++) {
+                var paramId = products?.find((x: any) => x?.id === dailySales[i].id);
+                var meaId = paramId?.productMeasures.find((x: any) => x?.measure === dailySales[i].measure)
+                objDetails = {
+                    product: dailySales[i].product,
+                    productId: dailySales[i].id,
+                    productCode: paramId?.productCode,
+                    measure: dailySales[i].measure,
+                    measureId: meaId?.id,
+                    quantity: Number(dailySales[i].quantity),
+                    unitPrice: Number(dailySales[i].unitPrice),
+                    amount: Number(dailySales[i].amount),
+                }
+                details.push(objDetails)
+            }
+            let obj = {
+                customerName: getValues2("customerName"),
+                phoneNumber: getValues2("phoneNumber"),
+                total: 0,
+                invoiceDetail: details
+            }
+            await axios.post(urlDailySales, obj);
             history.push("/dailySales");
         }
         catch (error) {
@@ -126,67 +114,25 @@ export default function CreateDailySales() {
 
     async function getCustomerItems(e: any) {
         try {
-            let getCust: any;
             let cust: any;
-            if (localStorage.getItem(e.target.value) === null) {
-                getCust = [];
-            } else {
-                getCust = JSON.parse(localStorage.getItem(e.target.value) || '');
-            }
-            localStorage.removeItem(e.target.value)
-            setValue("customerName", e.target.value)
-            setDailySales(getCust)
-            setReturnedCustomer(true);
             if (localStorage.getItem("customer") === null) {
                 cust = [];
             } else {
                 cust = JSON.parse(localStorage.getItem("customer") || '');
             }
-
-            for (let i = 0; i < cust.length; i++) {
-                if (e.target.value === cust[i].name) {
-                    let customer = cust[i];
-                    cust.forEach(function (task: any, index: any) {
-                        if (customer === task) {
-                            cust.splice(index, 1);
-                        }
-                    });
-                }
-            }
-            localStorage.setItem("customer", JSON.stringify(cust));
-
+            const sale = cust?.find((x: any) => x?.phone === e.target.value);
+            setValue2("customerName", sale?.custName)
+            setValue2("phoneNumber", e.target.value)
+            setDailySales(sale?.dailySales)
+            setReturnedCustomer(true);
+            const filteredSales = cust?.filter((y: any) => y.phone != e.target.value);
+            localStorage.setItem("customer", JSON.stringify(filteredSales));
         } catch (error) {
             console.log(error)
         }
     }
 
-    // async function deleteProduct(id: any) {
-    //     try {
-    //         let getSales: any;
-    //         if (localStorage.getItem('sales') === null) {
-    //             getSales = [];
-    //         } else {
-    //             getSales = JSON.parse(localStorage.getItem("sales") || '');
-    //         }
-    //         for (var i = 0; i < getSales.length; i++) {
-    //             if (id === getSales[i].id) {
-    //                 var getSalesById = getSales[i];
-    //                 getSales.forEach(function (task: any, index: any) {
-    //                     if (getSalesById === task) {
-    //                         getSales.splice(index, 1);
-    //                     }
-    //                 });
-    //             }
-    //         }
-
-    //         localStorage.setItem("sales", JSON.stringify(getSales));
-    //         // loadData();
-    //     }
-    //     catch (error) {
-    //         console.error(error);
-    //     }
-    // }
-
+  
     const selectProduct = (i: any) => {
         const x = products?.find(y => y.id === i);
         setValue("product", x?.productName);
@@ -212,9 +158,14 @@ export default function CreateDailySales() {
             } else {
 
             }
+            salesData.id = selectedProduct?.id;
+            const phone = getValues2("phoneNumber")
+            const custName = getValues2("customerName")
             setDailySales([...dailySales, salesData]);
             reset(salesData.value);
-            setValue("customerName", customer)
+            setValue2("customerName", custName)
+            setValue2("phoneNumber", phone)
+
             // reset(measureAndPrice)
         } else {
             // notifyError("Product Already Exists In Table")
@@ -225,7 +176,7 @@ export default function CreateDailySales() {
     const editTableRow = (item: any, unit: any) => {
         const x = dailySales?.find(y => y.product === item && y.measure === unit);
         const editRow = dailySales?.filter(y => y.product != item || y.measure != unit);
-        const meas = products?.find(z=>z.productName===item);
+        const meas = products?.find(z => z.productName === item);
         setSelectedProduct(meas);
         setValue("product", x?.product);
         setValue("measure", x?.measure);
@@ -254,22 +205,33 @@ export default function CreateDailySales() {
             </div>
             <form className="forms-sample">
                 <div className="breadcrumb d-flex justify-content-between">
-                    <li >
-                        <label htmlFor="customerName" >Customer Name {errors.customerName &&
-                            <span className="text-danger font-weight-bold"> required</span>}</label>
-                        <input type="text" className="form-control breadcrumb-item text-uppercase" id="product"
-                            {...register("customerName", {
-                                required: true,
-                                onChange: (e) => { setCustomer(e.target.value) },
-                            })} /></li>
+                    <div className="breadcrumb d-flex justify-content-between">
+                        <li className="mr-2">
+                            <label htmlFor="customerName" >Customer Name {errors.customerName &&
+                                <span className="text-danger font-weight-bold"> required</span>}</label>
+                            <input type="text" className="form-control breadcrumb-item text-uppercase" id="customerName"
+                                {...register2("customerName", {
+                                    required: true,
+                                })} />
+                        </li>
+                        <li >
+                            <label htmlFor="phoneNumber" >Phone No. {errors.phoneNumber &&
+                                <span className="text-danger font-weight-bold"> required</span>}</label>
+                            <input type="text" className="form-control breadcrumb-item text-uppercase" id="phoneNumber"
+                                {...register2("phoneNumber", {
+                                    required: true,
+                                    // onChange: (e) => setValue("phoneNumber", e.target.value),
+                                })} />
+                        </li>
+                    </div>
                     <li className="float-right">
                         {!returnedCustomer ?
                             <>
                                 <label htmlFor="measure" >Pending Customers</label>
                                 <select className="form-control text-light breadcrumb-item" onChange={(e) => getCustomerItems(e)}>
-                                    <option></option>
+                                    <option>Customers</option>
                                     {getCustomerSales?.map(cus =>
-                                        <option value={cus.name}>{cus.name}</option>
+                                        <option value={cus.phone}>{cus.phone}</option>
                                     )}
                                 </select> </> : null}
 
@@ -407,14 +369,7 @@ export default function CreateDailySales() {
                     </div>
                 </div>
             </form>
-            <div className="page-header">
-                <h3 className="page-title"> </h3>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><a href="#">Display Customer Name</a></li>
-                    </ol>
-                </nav>
-            </div>
+            <h3 className="text-center">Sales Details</h3>
             <div className="col-lg-12 grid-margin stretch-card">
                 <div className="card">
                     <div className="card-body">
