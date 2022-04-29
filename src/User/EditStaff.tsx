@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from "react-router-dom";
 import { urlStaffs } from "../endpoints";

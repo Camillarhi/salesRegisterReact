@@ -9,8 +9,6 @@ import TextField from "../Utils/TextField";
 import { staffCreationDTO } from "./Staff.model";
 
 export default function StaffForm(props: staffFormProps) {
-    const history = useHistory();
-
     return (
 
         < >

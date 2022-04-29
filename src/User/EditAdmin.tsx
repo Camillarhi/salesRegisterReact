@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from "react-router-dom";
 import { urlStaffs } from "../endpoints";
@@ -7,7 +7,6 @@ import "../forms.css";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
 import { convertToFormData } from "../Utils/formData";
-import { staffDTO } from "./Staff.model";
 
 export default function EditAdmin() {
     const { register, handleSubmit, formState: { errors },setValue} = useForm({
