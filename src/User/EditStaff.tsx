@@ -33,7 +33,8 @@ export default function EditStaff() {
                 // setStaff(response.data)
                 console.log(response.data)
             })
-    }, [])
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id])
 
     const editStaff = async (data: any) => {
         try{

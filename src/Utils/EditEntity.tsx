@@ -14,7 +14,8 @@ export default function EditEntity<TCreation, TRead>(props:editEntityProps<TRead
         .then((response:AxiosResponse<TRead>)=>{
             setEntity(props.transform(response.data))
         })
-    },[]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[id]);
 
     async function edit(editEntity:TCreation) {
         try{

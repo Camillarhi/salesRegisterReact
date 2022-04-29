@@ -29,7 +29,8 @@ export default function EditProduct() {
                 setProductDetails(response?.data?.productMeasures)
                 setValue("productName", response?.data?.productName)
             })
-    }, []);
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
 
     async function editProduct(data: any) {
         try {
