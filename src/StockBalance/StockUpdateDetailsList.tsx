@@ -10,7 +10,8 @@ export default function DailyStockBalanceDetailsList() {
     const { id }: any = useParams();
     useEffect(() => {
         loadData();
-    }, []);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
 
     function loadData() {
         axios.get(`${urlStockBalance}/${id}`)
