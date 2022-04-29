@@ -9,7 +9,7 @@ export default function StockInwardsDetailsList() {
     const [stockInward, setStockInward] = useState<StockInwardsDto>();
     const { id }: any = useParams();
     useEffect(() => {
-        loadData;
+        loadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
