@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
 import { urlDailySales, urlProducts } from "../endpoints";
@@ -11,11 +11,11 @@ import { DailySalesDTO } from "./dailySales.model";
 
 
 export default function CreateDailySales() {
-    const { register, handleSubmit, formState: { errors }, resetField, reset, watch, trigger, control, setValue, getValues } = useForm({
+    const { register, handleSubmit, formState: { errors }, reset, setValue, getValues } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
-    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: error2 }, resetField: resetField2, reset: reset2, watch: watch2, trigger: trigger2, control: control2, setValue: setValue2, getValues: getValues2 } = useForm({
+    const { register: register2, resetField: resetField2, setValue: setValue2, getValues: getValues2 } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
@@ -23,7 +23,8 @@ export default function CreateDailySales() {
     const [returnedCustomer, setReturnedCustomer] = useState(false);
     const [edit, setEdit] = useState(false);
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>([]);
-    const [sales, setSales] = useState<DailySalesDTO[]>([]);
+    // const [sales, setSales] = useState<DailySalesDTO[]>([]);
+    const sales: SetStateAction<DailySalesDTO[]>= []
     const [selectedProduct, setSelectedProduct] = useState<ProductDTO>();
     const [getCustomerSales, setGetCustomerSales] = useState([{
         phone: ""
@@ -125,7 +126,7 @@ export default function CreateDailySales() {
             setValue2("phoneNumber", e.target.value)
             setDailySales(sale?.dailySales)
             setReturnedCustomer(true);
-            const filteredSales = cust?.filter((y: any) => y.phone != e.target.value);
+            const filteredSales = cust?.filter((y: any) => y.phone !== e.target.value);
             localStorage.setItem("customer", JSON.stringify(filteredSales));
         } catch (error) {
             console.log(error)
@@ -175,7 +176,7 @@ export default function CreateDailySales() {
     //edit tablerow
     const editTableRow = (item: any, unit: any) => {
         const x = dailySales?.find(y => y.product === item && y.measure === unit);
-        const editRow = dailySales?.filter(y => y.product != item || y.measure != unit);
+        const editRow = dailySales?.filter(y => y.product !== item || y.measure !== unit);
         const meas = products?.find(z => z.productName === item);
         setSelectedProduct(meas);
         setValue("product", x?.product);
@@ -189,7 +190,7 @@ export default function CreateDailySales() {
 
     //delete tablerow
     const deleteTableRow = (item: any, unit: any) => {
-        const deleteRow = dailySales?.filter(y => y.product != item || y.measure != unit);
+        const deleteRow = dailySales?.filter(y => y.product !== item || y.measure !== unit);
         setDailySales(deleteRow)
     }
 

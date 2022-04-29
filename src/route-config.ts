@@ -18,7 +18,7 @@ import Routes from "./Routes";
 import CreateStaff from "./User/CreateStaff";
 import EditStaff from "./User/EditStaff";
 import StaffList from "./User/StaffList";
-import DailyStockBalanceList from "./StockBalance/DailyStockBalanceList";
+import DailyStockBalanceList from "./StockBalance/StockBalanceUpdateList";
 import StockBalanceList from "./StockBalance/StockBalanceList";
 import CreateSalesTotal from "./Total/CreateSalesTotal";
 import IndexTotal from "./Total/IndexTotal";
@@ -26,6 +26,12 @@ import UpdateText from "./UpdateText";
 import {RedirectToLandingPage,RedirectToDashBoard} from "./Utils/RedirectToLandingPage";
 import CreateAdmin from "./User/CreateAdmin";
 import EditAdmin from "./User/EditAdmin";
+import ViewAdminProfile from "./User/ViewAdminProfile";
+import ViewStaff from "./User/ViewStaff";
+import ViewProduct from "./Products/ViewProduct";
+import StockInwardsList from "./StockInwards/StockInwardsList";
+import DailyStockBalanceDetailsList from "./StockBalance/StockUpdateDetailsList";
+import StockInwardsDetailsList from "./StockInwards/StockInwardsDetailsList";
 
 const routes = [
    {path:'/dashboard', component: Dashboard, exact:true},  
@@ -34,10 +40,14 @@ const routes = [
     {path: '/staffs', component: StaffList, exact:true},
     {path: '/staffs/create', component: CreateStaff},
     {path: '/staffs/edit/:id', component: EditStaff},
+    {path: '/staffs/view/:id', component: ViewStaff},
+
 
     {path: '/products', component: ProductList, exact:true},
     {path: '/products/create', component: CreateProduct, isAdmin:true},
     {path: '/products/edit/:id', component: EditProduct},
+    {path: '/products/view/:id', component: ViewProduct},
+
 
     {path: '/register', component: RegisterStaff, exact:true},
 
@@ -57,16 +67,21 @@ const routes = [
     {path: '/dailySales/create', component: CreateDailySales},
 
     {path: '/stockBalance', component: StockBalanceList, exact:true},
-    {path: '/dailyStockBalance', component: DailyStockBalanceList},
+    {path: '/dailyStockBalance', component: DailyStockBalanceList,exact:true},
+    {path: '/viewdailyStockBalance/:id', component: DailyStockBalanceDetailsList,exact:true},
+
 
     // {path: '/login', component: Login, exact:true},
     {path: '/account/create', component: CreateAdmin},
     {path: '/account/edit/:id', component: EditAdmin},
+    {path: '/account/view/:id', component: ViewAdminProfile},
 
    {path: '/launch', component: Routes, exact:true},
    {path: '/test', component: UpdateText, exact:true},
    {path: '/login', component: Login, exact:true},
 
+   {path: '/stockinwardslist', component: StockInwardsList, exact:true},
+   {path: '/viewstockinwards/:id', component: StockInwardsDetailsList, exact:true},
 
     {path: '*', component:RedirectToDashBoard}
 ];

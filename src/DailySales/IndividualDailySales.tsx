@@ -1,10 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { urlDailySales } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
-import Button from "../Utils/Button";
-import customConfirm from "../Utils/customConfirm";
 import { DailySalesDTO } from "./dailySales.model";
 
 export default function InividualDailySales() {
@@ -57,10 +54,6 @@ export default function InividualDailySales() {
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Amount</th>
-
-                                <th></th>
-
-
                                 <tbody>
                                     {dailySales?.map(sales =>
                                         <tr key={sales.id}>
@@ -69,14 +62,6 @@ export default function InividualDailySales() {
                                             <td>{sales.unitPrice}</td>
                                             <td>{sales.quantity}</td>
                                             <td>{sales.amount}</td>
-                                            <td>
-                                                <div className="d-flex justify-content-between">
-                                                    <i className=" mdi mdi-eye text-primary" onClick={() => customConfirm(() => deleteProduct(sales.id))}></i>
-                                                    <Link to={`/Products/edit/${sales.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
-                                                    <i className=" mdi mdi-delete-forever text-danger" onClick={() => customConfirm(() => deleteProduct(sales.id))}></i>
-                                                </div>
-
-                                            </td>
                                         </tr>
                                     )}
 

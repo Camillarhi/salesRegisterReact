@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { urlProducts, urlRoles } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
@@ -22,15 +22,15 @@ export default function EditProduct() {
     const [edit, setEdit] = useState(false);
     // const [products, setProducts] = useState<ProductDTO[]>();
     const history = useHistory();
+    const { id }: any = useParams();
 
     useEffect(() => {
-        axios.get(urlProducts)
+        axios.get(`${urlProducts}/${id}`)
             .then((response) => {
-                // setProducts(response.data);
                 setProductDetails(response?.data?.productMeasures)
                 setValue("productName", response?.data?.productName)
             })
-    }, []);
+    }, [id]);
 
     async function editProduct(data: any) {
         try {
@@ -38,22 +38,14 @@ export default function EditProduct() {
                 productName: data?.productName,
                 productMeasures: productDetails
             };
-            await axios.put(urlProducts, obj);
+            await axios.put(`${urlProducts}/${id}`, obj);
             history.push("/products");
         }
         catch (error) {
             console.error(error);
         }
     }
-    // async function deleteMeasure(id: any) {
-    //     try {
-    //         await axios.delete(`${urlProducts}/deletemeasure/${id}`);
-    //     }
-    //     catch (error) {
-    //         console.error(error);
-    //     }
-    // }
-
+   
     //add to table
     const saveMeasure = async (salesData: any) => {
         const x = productDetails?.find(y => y.measure === salesData.measure)

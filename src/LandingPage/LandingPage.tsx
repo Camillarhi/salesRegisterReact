@@ -1,7 +1,5 @@
-import landingpage from './landingpage.jpeg'
 import "./landingpage.css"
-import { Link } from 'react-router-dom'
-import Button from '../Utils/Button'
+import landingpage from './landingpage.jpeg'
 
 export default function LandingPage(props:landingPageProps){
     return(

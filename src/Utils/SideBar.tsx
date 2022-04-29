@@ -131,7 +131,9 @@ export default function SideBar() {
         <ul className="nav flex-column sub-menu">
           <li className="nav-item"> <a className="nav-link" href="/total">Daily Sales Total </a></li>
           <li className="nav-item"> <a className="nav-link" href="/dailySales"> Daily Sales </a></li>
+          <li className="nav-item"> <a className="nav-link" href="/stockinwardslist"> Stock Inwards </a></li>
           <li className="nav-item"> <a className="nav-link" href="/stockBalance"> Stock Balance </a></li>
+          <li className="nav-item"> <a className="nav-link" href="/dailyStockBalance"> Stock Balance Update </a></li>
           <li className="nav-item"> <a className="nav-link" href="/login"> Login </a></li>
           {/* <li className="nav-item"> <a className="nav-link" href="pages/samples/register.html"> Register </a></li> */}
         </ul>

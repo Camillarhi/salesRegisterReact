@@ -59,7 +59,7 @@ export default function EditStaff() {
 
         < >
             <div className="page-header">
-                <h3 className="page-title">Staff Form </h3>
+                <h3 className="page-title">EDIT STAFF</h3>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                         <Backbutton />
@@ -162,7 +162,7 @@ export default function EditStaff() {
                                     </div>
                                 </div>
 
-                                <div className="col-md-6">
+                                {/* <div className="col-md-6">
                                     <div className="form-group row">
                                         <label htmlFor="department" className="col-sm-3 col-form-label">Department
                                             {errors.department &&
@@ -178,7 +178,7 @@ export default function EditStaff() {
                                             />
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="row">
 

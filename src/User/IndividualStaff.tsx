@@ -15,7 +15,7 @@ export default function IndividualStaff() {
     }, []);
 
     function loadData() {
-        axios.get(`${urlStaffs}/staff`, {withCredentials:true})
+        axios.get(`${urlStaffs}/staff`, { withCredentials: true })
             .then((response: AxiosResponse<staffDTO[]>) => {
                 setStaffs(response.data);
             })
@@ -64,7 +64,7 @@ export default function IndividualStaff() {
                                             <td>{staff.phoneNumber}</td>
                                             <td>
                                                 <div className="d-flex justify-content-between">
-                                                    <i className=" mdi mdi-eye text-primary" onClick={() => deleteProduct(staff.id)}></i>
+                                                    <Link to={`/Staffs/view/${staff.id}`}><i className=" mdi mdi-eye text-primary"></i></Link>
                                                     <Link to={`/Staffs/edit/${staff.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
                                                     <i className=" mdi mdi-delete-forever text-danger" onClick={() => deleteProduct(staff.id)}></i>
                                                 </div>

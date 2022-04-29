@@ -1,42 +1,29 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { urlProducts } from "../endpoints";
+import { urlStockInwards } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
 import customConfirm from "../Utils/customConfirm";
-import { ProductDTO } from "./product.model";
+import { StockInwardsDto } from "./StockInwards.model";
 
-export default function IndividualProduct() {
-    const [products, setProducts] = useState<ProductDTO[]>();
+export default function StockInwardsList() {
+    const [stockInward, setStockInward] = useState<StockInwardsDto[]>();
 
     useEffect(() => {
         loadData();
     }, []);
 
     function loadData() {
-        axios.get(urlProducts)
-            .then((response: AxiosResponse<ProductDTO[]>) => {
-                setProducts(response.data);
+        axios.get(urlStockInwards)
+            .then((response: AxiosResponse<StockInwardsDto[]>) => {
+                setStockInward(response.data);
             })
     }
 
-    async function deleteProduct(id: any) {
-        try {
-            await axios.delete(`${urlProducts}/${id}`);
-            loadData();
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
     return (
-
         <>
-
-
-            <h1>Product List</h1>
+            <h1>Stock Inwards List</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
                 <nav aria-label="breadcrumb">
@@ -50,22 +37,22 @@ export default function IndividualProduct() {
                     <div className="card-body">
                         <div className="table-responsive">
                             <table className="table table-bordered ">
-                    
-                                <th>Product Code</th>
-                                <th>Product</th>
-                                <th></th>
-
-
+                                <th>S/N</th>
+                                <th>SUPPLIER NAME</th>
+                                <th>DATE</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
                                 <tbody>
-                                    {products?.map(product =>
-                                        <tr key={product.id}>
-                                            <td>{product.productCode}</td>
-                                            <td>{product.productName}</td>
+                                    {stockInward?.map((sales, index) =>
+                                        <tr key={sales.id}>
+                                            <td>{index + 1}</td>
+                                            <td>{sales.supplierName}</td>
+                                            <td>{sales.date}</td>
+                                            <td>{sales.approve}</td>
                                             <td>
                                                 <div className="d-flex justify-content-between">
-                                                <Link to={`/Products/view/${product.id}`}><i className="mdi mdi-eye text-primary" ></i></Link>
-                                                    <Link to={`/Products/edit/${product.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
-                                                    <i className=" mdi mdi-delete-forever text-danger" onClick={() => customConfirm(() => deleteProduct(product.id))}></i>
+                                                <Link to={`/viewstockinwards/${sales.id}`}><i className="mdi mdi-eye text-primary" ></i></Link>
+                                                    <Link to={`/viewstockinwards/${sales.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
                                                 </div>
                                             </td>
                                         </tr>
@@ -73,11 +60,11 @@ export default function IndividualProduct() {
                                 </tbody>
 
                             </table>
-
                         </div>
                     </div>
                 </div>
             </div>
+
         </>
     )
 

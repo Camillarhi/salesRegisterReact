@@ -1,19 +1,19 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { urlProductBalance } from "../endpoints";
+import { urlDailyStockBalance } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
-import { DailyStockBalanceDTO } from "./stockBalance.model";
+import { StockBalanceUpdateDTO } from "./stockBalance.model";
 
 export default function DailyStockBalanceList() {
-    const [dailyStockBlance, setDailyStockBalance] = useState<DailyStockBalanceDTO[]>();
+    const [dailyStockBlance, setDailyStockBalance] = useState<StockBalanceUpdateDTO[]>();
 
     useEffect(() => {
         loadData();
     }, []);
 
     function loadData() {
-        axios.get(urlProductBalance)
-            .then((response: AxiosResponse<DailyStockBalanceDTO[]>) => {
+        axios.get(urlDailyStockBalance)
+            .then((response: AxiosResponse<StockBalanceUpdateDTO[]>) => {
                 setDailyStockBalance(response.data);
             })
     }
@@ -37,19 +37,12 @@ export default function DailyStockBalanceList() {
                     <div className="card-body">
                         <div className="table-responsive">
                             <table>
-                                <th>ProductCode</th>
-                                <th>Product</th>
-                                <th>Measure</th>
-                                <th>Quantity</th>
+                            <th>S/N</th>
                                 <th>Date</th>
                                 {/* <th></th> */}
                                 <tbody>
-                                    {dailyStockBlance?.map(stock =>
+                                    {dailyStockBlance?.map((stock,index) =>
                                         <tr key={stock.id}>
-                                            <td>{stock.productCode}</td>
-                                            <td>{stock.product}</td>
-                                            <td>{stock.measure}</td>
-                                            <td>{stock.quantity}</td>
                                             <td>{stock.date}</td>
 
 

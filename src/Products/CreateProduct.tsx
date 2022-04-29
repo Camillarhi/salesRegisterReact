@@ -2,11 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
-import { urlProducts, urlRoles } from "../endpoints";
+import { urlProducts } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
-import customConfirm from "../Utils/customConfirm";
-import { ProductCreationDTO, ProductDTO, ProductMeasureDTO } from "./product.model";
+import { ProductMeasureDTO } from "./product.model";
 
 
 export default function CreateProduct() {

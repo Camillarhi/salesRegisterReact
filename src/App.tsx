@@ -15,7 +15,8 @@ function App() {
 function isAdmin(){
   return claims.find (claim=> claim.name === 'role' && claim.value ==='admin')
 }
-  const [token, setToken] = useState(true);
+  // const [token, setToken] = useState(true);
+  const token = true;
   if (!token) {
     return <>
       <BrowserRouter>

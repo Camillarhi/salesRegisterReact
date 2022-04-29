@@ -1,17 +1,24 @@
-export interface StockBalanceDTO{
-    id:number;
-    productCode:string;
-    product:string;
-    measure:string;
-    quantity:number;
-    date:string;
+export interface StockBalanceDTO {
+    id: number,
+    productCode: string,
+    product: string,
+    measure: string,
+    quantity: number,
+    adminId: string,
 }
 
-export interface DailyStockBalanceDTO{
-    id:number;
-    productCode:string;
-    product:string;
-    measure:string;
-    quantity:number;
-    date:string;
+export interface StockBalanceUpdateDTO {
+    id: number,
+    date: string,
+    stockBalanceUpdateDetails: [
+        {
+            id: number,
+            productCode: string,
+            product: string,
+            measure: string,
+            quantity: number,
+            adminId: string,
+            date: string
+        }
+    ]
 }

@@ -1,20 +1,20 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { urlStockBalance } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
-import { StockBalanceDTO } from "./stockBalance.model";
+import { StockBalanceDTO, StockBalanceUpdateDTO } from "./stockBalance.model";
 
-export default function StockBalanceList() {
-    const [stockBlance, setStockBalance] = useState<StockBalanceDTO[]>();
-
+export default function DailyStockBalanceDetailsList() {
+    const [stockBlance, setStockBalance] = useState<StockBalanceUpdateDTO>();
+    const { id }: any = useParams();
     useEffect(() => {
         loadData();
-    }, []);
+    }, [id]);
 
     function loadData() {
-        axios.get(urlStockBalance)
-            .then((response: AxiosResponse<StockBalanceDTO[]>) => {
+        axios.get(`${urlStockBalance}/${id}`)
+            .then((response: AxiosResponse<StockBalanceUpdateDTO>) => {
                 setStockBalance(response.data);
             })
     }
@@ -23,6 +23,22 @@ export default function StockBalanceList() {
     return (
 
         <>
+            <div className="page-header">
+                <h3 className="page-title">Daily Stock DETAILS</h3>
+                <nav aria-label="breadcrumb" className="row d-flex float-right mt-2">
+                    <Backbutton />
+                </nav>
+            </div>
+            <div className="card">
+                <div className="card-body">
+                    <form className="row viewStockIssue mt-5" action="">
+                        <div className="form-group col-md-4">
+                            <label htmlFor="customerName">Date</label>
+                            <p >{stockBlance?.date}</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
             <h1>Stock Balance List</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
@@ -43,9 +59,8 @@ export default function StockBalanceList() {
                                 <th>Measure</th>
                                 <th>Quantity</th>
                                 <tbody>
-                                    {stockBlance?.map((stock, index) =>
+                                    {stockBlance?.stockBalanceUpdateDetails?.map(stock =>
                                         <tr key={stock.id}>
-                                            <td>{index + 1}</td>
                                             <td>{stock.productCode}</td>
                                             <td>{stock.product}</td>
                                             <td>{stock.measure}</td>
