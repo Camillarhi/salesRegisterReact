@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { urlStockInwards } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
-import Button from "../Utils/Button";
-import customConfirm from "../Utils/customConfirm";
 import { StockInwardsDto } from "./StockInwards.model";
 
 export default function StockInwardsDetailsList() {

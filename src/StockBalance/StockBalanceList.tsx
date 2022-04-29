@@ -1,6 +1,5 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { urlStockBalance } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import { StockBalanceDTO } from "./stockBalance.model";

@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { urlStaffs } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
-import Button from "../Utils/Button";
-import { staffDTO } from "./Staff.model"
+import { staffDTO } from "./Staff.model";
 
 
 export default function IndividualStaff() {

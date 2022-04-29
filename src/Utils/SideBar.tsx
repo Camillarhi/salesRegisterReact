@@ -21,9 +21,9 @@ export default function SideBar() {
             <span>Gold Member</span>
           </div>
         </div>
-        <a href="#" id="profile-dropdown" data-toggle="dropdown"><i className="mdi mdi-dots-vertical" /></a>
+        <li  id="profile-dropdown" data-toggle="dropdown"><i className="mdi mdi-dots-vertical" /></li>
         <div className="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-          <a href="#" className="dropdown-item preview-item">
+          <li  className="dropdown-item preview-item">
             <div className="preview-thumbnail">
               <div className="preview-icon bg-dark rounded-circle">
                 <i className="mdi mdi-settings text-primary" />
@@ -32,9 +32,9 @@ export default function SideBar() {
             <div className="preview-item-content">
               <p className="preview-subject ellipsis mb-1 text-small">Account settings</p>
             </div>
-          </a>
+          </li>
           <div className="dropdown-divider" />
-          <a href="#" className="dropdown-item preview-item">
+          <li  className="dropdown-item preview-item">
             <div className="preview-thumbnail">
               <div className="preview-icon bg-dark rounded-circle">
                 <i className="mdi mdi-onepassword  text-info" />
@@ -43,9 +43,9 @@ export default function SideBar() {
             <div className="preview-item-content">
               <p className="preview-subject ellipsis mb-1 text-small">Change Password</p>
             </div>
-          </a>
+          </li>
           <div className="dropdown-divider" />
-          <a href="#" className="dropdown-item preview-item">
+          <li  className="dropdown-item preview-item">
             <div className="preview-thumbnail">
               <div className="preview-icon bg-dark rounded-circle">
                 <i className="mdi mdi-calendar-today text-success" />
@@ -54,7 +54,7 @@ export default function SideBar() {
             <div className="preview-item-content">
               <p className="preview-subject ellipsis mb-1 text-small">To-do list</p>
             </div>
-          </a>
+          </li>
         </div>
       </div>
     </li>

@@ -18,16 +18,6 @@ export default function InividualDailySales() {
             })
     }
 
-    async function deleteProduct(id: any) {
-        try {
-            await axios.delete(`${urlDailySales}/${id}`);
-            loadData();
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
     return (
 
         <>

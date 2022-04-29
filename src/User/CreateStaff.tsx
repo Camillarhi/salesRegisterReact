@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { urlStaffs } from "../endpoints";
-import Button from "../Utils/Button";
 import { convertToFormData } from "../Utils/formData";
 import { staffCreationDTO } from "./Staff.model";
 import StaffForm from "./StaffForm";

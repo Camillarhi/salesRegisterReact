@@ -1,9 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { urlTotal } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
-import Button from "../Utils/Button";
 import { TotalDTO } from "./total.model";
 
 export default function IndexTotal() {
@@ -20,20 +18,8 @@ export default function IndexTotal() {
             })
     }
 
-    async function deleteProduct(id: number) {
-        try {
-            await axios.delete(`${urlTotal}/${id}`);
-            loadData();
-        }
-        catch (error) {
-            console.error(error);
-        }
-    }
-
     return (
         <>
-
-
             <h1>Sales Total</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>

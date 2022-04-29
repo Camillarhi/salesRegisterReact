@@ -9,11 +9,11 @@ import { ProductMeasureDTO } from "./product.model";
 
 
 export default function CreateProduct() {
-    const { register, handleSubmit, formState: { errors }, reset, watch, trigger, control, setValue, getValues } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
-    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: errors2 }, reset: reset2, watch: watch2, trigger: trigger2, control: control2, setValue: setValue2, getValues: getValue2 } = useForm({
+    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: errors2 }, reset: reset2, setValue: setValue2 } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
@@ -62,7 +62,7 @@ export default function CreateProduct() {
     //edit tablerow
     const editTableRow = (measure: any) => {
         const x = productDetails?.find(y => y.measure === measure);
-        const editRow = productDetails?.filter(y => y.measure != measure);
+        const editRow = productDetails?.filter(y => y.measure !== measure);
         setValue2("qtyPerMeasure", x?.qtyPerMeasure);
         setValue2("measure", x?.measure);
         setValue2("unitPrice", x?.unitPrice);
@@ -73,7 +73,7 @@ export default function CreateProduct() {
 
     //delete tablerow
     const deleteTableRow = (measure: any) => {
-        const deleteRow = productDetails?.filter(y => y.measure != measure);
+        const deleteRow = productDetails?.filter(y => y.measure !== measure);
         setProductDetails(deleteRow)
     }
 

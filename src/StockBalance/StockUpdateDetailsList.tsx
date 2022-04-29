@@ -1,16 +1,16 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { urlStockBalance } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
-import { StockBalanceDTO, StockBalanceUpdateDTO } from "./stockBalance.model";
+import { StockBalanceUpdateDTO } from "./stockBalance.model";
 
 export default function DailyStockBalanceDetailsList() {
     const [stockBlance, setStockBalance] = useState<StockBalanceUpdateDTO>();
     const { id }: any = useParams();
     useEffect(() => {
         loadData();
-    }, [id]);
+    }, []);
 
     function loadData() {
         axios.get(`${urlStockBalance}/${id}`)

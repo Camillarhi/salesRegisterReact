@@ -1,6 +1,5 @@
-import { rejects } from "assert";
 import { useFormikContext } from "formik";
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useState } from "react";
 
 export default function ImageField(props: imageFieldProps) {
 

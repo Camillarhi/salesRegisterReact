@@ -1,24 +1,21 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from "react-router-dom";
+import { urlStaffs } from "../endpoints";
 import "../forms.css";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
-import DateField from "../Utils/DateField";
-import ImageField from "../Utils/ImageField";
-import TextField from "../Utils/TextField";
-import { staffCreationDTO, staffDTO } from "./Staff.model";
-import { useForm } from 'react-hook-form';
-import { useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
-import { urlStaffs } from "../endpoints";
 import { convertToFormData } from "../Utils/formData";
+import { staffDTO } from "./Staff.model";
 
 export default function EditAdmin() {
-    const { register, handleSubmit, formState: { errors }, reset, watch, trigger, control, setValue, getValues } = useForm({
+    const { register, handleSubmit, formState: { errors },setValue} = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
     const history = useHistory();
-    const [profile, setProfile] = useState<staffDTO>();
+    // const [profile, setProfile] = useState<staffDTO>();
     const { id }: any = useParams();
     useEffect(() => {
         axios.get(`${urlStaffs}/admin/${id}`)
@@ -33,10 +30,10 @@ export default function EditAdmin() {
                 setValue('profilePicture', response?.data?.staff?.profilePicture);
                 setValue('companyName', response?.data?.company?.companyName)
 
-                setProfile(response.data)
+                // setProfile(response.data)
                 console.log(response.data)
             })
-    }, [id])
+    }, [])
     const editStaff = async (data: any) => {
         try {
             data.userName = data?.email

@@ -14,7 +14,7 @@ export default function EditEntity<TCreation, TRead>(props:editEntityProps<TRead
         .then((response:AxiosResponse<TRead>)=>{
             setEntity(props.transform(response.data))
         })
-    },[id]);
+    },[]);
 
     async function edit(editEntity:TCreation) {
         try{

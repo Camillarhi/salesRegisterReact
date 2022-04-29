@@ -18,7 +18,6 @@ export default function CreateSalesTotal() {
 
     return (
         <>
-        <h2></h2>
         <TotalForm model={{date:undefined,total:0}}
          onSubmit={async value => {
             await create(value);

@@ -1,20 +1,19 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useHistory, useParams } from "react-router-dom";
-import { urlProducts, urlRoles } from "../endpoints";
+import { urlProducts } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
-import customConfirm from "../Utils/customConfirm";
-import { ProductCreationDTO, ProductDTO, ProductMeasureDTO } from "./product.model";
+import { ProductMeasureDTO } from "./product.model";
 
 
 export default function EditProduct() {
-    const { register, handleSubmit, formState: { errors }, reset, watch, trigger, control, setValue, getValues } = useForm({
+    const { register, handleSubmit, formState: { errors }, setValue} = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
-    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: errors2 }, reset: reset2, watch: watch2, trigger: trigger2, control: control2, setValue: setValue2, getValues: getValue2 } = useForm({
+    const { register: register2, handleSubmit: handleSubmit2, formState: { errors: errors2 }, reset: reset2, setValue: setValue2, } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
@@ -30,7 +29,7 @@ export default function EditProduct() {
                 setProductDetails(response?.data?.productMeasures)
                 setValue("productName", response?.data?.productName)
             })
-    }, [id]);
+    }, []);
 
     async function editProduct(data: any) {
         try {
@@ -65,7 +64,7 @@ export default function EditProduct() {
     //edit tablerow
     const editTableRow = (measure: any) => {
         const x = productDetails?.find(y => y.measure === measure);
-        const editRow = productDetails?.filter(y => y.measure != measure);
+        const editRow = productDetails?.filter(y => y.measure !== measure);
         setValue2("qtyPerMeasure", x?.qtyPerMeasure);
         setValue2("measure", x?.measure);
         setValue2("unitPrice", x?.unitPrice);
@@ -76,7 +75,7 @@ export default function EditProduct() {
 
     //delete tablerow
     const deleteTableRow = (measure: any) => {
-        const deleteRow = productDetails?.filter(y => y.measure != measure);
+        const deleteRow = productDetails?.filter(y => y.measure !== measure);
         setProductDetails(deleteRow)
     }
 

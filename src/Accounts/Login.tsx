@@ -1,7 +1,5 @@
 import axios from "axios";
-import { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import AuthenticationContext from "../Auth/AuthenticationContext";
 import { saveToken } from "../Auth/HandleJWT";
 import { urlStaffs } from "../endpoints";
 import { LoginDTO } from "./login.model";

@@ -1,4 +1,4 @@
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Form, Formik, FormikHelpers } from "formik";
 import { useHistory } from "react-router-dom";
 import "../forms.css";
 import Backbutton from "../Utils/Backbutton";
@@ -11,9 +11,6 @@ import { staffCreationDTO } from "./Staff.model";
 export default function StaffForm(props: staffFormProps) {
     const history = useHistory();
 
-    const returnToPrevious = () => {
-        history.goBack();
-    }
     return (
 
         < >

@@ -11,9 +11,6 @@ import { staffCreationDTO } from "./Staff.model";
 export default function AdminForm(props: staffFormProps) {
     const history = useHistory();
 
-    const returnToPrevious = () => {
-        history.goBack();
-    }
     return (
 
         < >
