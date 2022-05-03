@@ -58,8 +58,6 @@ export default function SideBar() {
         </div>
       </div>
     </li>
-    <Authorize role="admin" authorize={<>you are authorized</>} notAuthorized={<>you are not authorized</>} />
-
     <li className="nav-item nav-category">
       <span className="nav-link">Navigation</span>
     </li>
@@ -71,22 +69,26 @@ export default function SideBar() {
         <span className="menu-title">Dashboard</span>
       </a>
     </li>
-    <li className="nav-item menu-items">
-      <a className="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-        <span className="menu-icon">
-          <i className="mdi mdi-laptop" />
-        </span>
-        <span className="menu-title">Staff</span>
-        <i className="menu-arrow" />
-      </a>
-      <div className="collapse" id="ui-basic">
-        <ul className="nav flex-column sub-menu">
-          <li className="nav-item"> <a className="nav-link" href="/staffs">Staff List</a></li>
-          {/* <li className="nav-item"> <a className="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li> */}
-          {/* <li className="nav-item"> <a className="nav-link" href="pages/ui-features/typography.html">Typography</a></li> */}
-        </ul>
-      </div>
-    </li>
+    <Authorize role="Admin"
+     authorize={<><li className="nav-item menu-items">
+     <a className="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+       <span className="menu-icon">
+         <i className="mdi mdi-laptop" />
+       </span>
+       <span className="menu-title">Staff</span>
+       <i className="menu-arrow" />
+     </a>
+     <div className="collapse" id="ui-basic">
+       <ul className="nav flex-column sub-menu">
+         <li className="nav-item"> <a className="nav-link" href="/staffs">Staff List</a></li>
+         {/* <li className="nav-item"> <a className="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li> */}
+         {/* <li className="nav-item"> <a className="nav-link" href="pages/ui-features/typography.html">Typography</a></li> */}
+       </ul>
+     </div>
+   </li></>}
+     />
+
+    
     <li className="nav-item menu-items">
       <a className="nav-link" href="/products">
         <span className="menu-icon">
@@ -103,22 +105,22 @@ export default function SideBar() {
         <span className="menu-title">Create Staff Login</span>
       </a>
     </li>
-    <li className="nav-item menu-items">
+    {/* <li className="nav-item menu-items">
       <a className="nav-link" href="/company">
         <span className="menu-icon">
           <i className="mdi mdi-chart-bar" />
         </span>
         <span className="menu-title">SetUp Company</span>
       </a>
-    </li>
-    <li className="nav-item menu-items">
+    </li> */}
+    {/* <li className="nav-item menu-items">
       <a className="nav-link" href="/roles">
         <span className="menu-icon">
           <i className="mdi mdi-contacts" />
         </span>
         <span className="menu-title">Department </span>
       </a>
-    </li>
+    </li> */}
     <li className="nav-item menu-items">
       <a className="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
         <span className="menu-icon">
@@ -129,11 +131,14 @@ export default function SideBar() {
       </a>
       <div className="collapse" id="auth">
         <ul className="nav flex-column sub-menu">
-          <li className="nav-item"> <a className="nav-link" href="/total">Daily Sales Total </a></li>
+          {/* <li className="nav-item"> <a className="nav-link" href="/total">Daily Sales Total </a></li> */}
           <li className="nav-item"> <a className="nav-link" href="/dailySales"> Daily Sales </a></li>
-          <li className="nav-item"> <a className="nav-link" href="/stockinwardslist"> Stock Inwards </a></li>
+
+          <Authorize role="Admin" 
+          authorize={<><li className="nav-item"> <a className="nav-link" href="/stockinwardslist"> Stock Inwards </a></li>
           <li className="nav-item"> <a className="nav-link" href="/stockBalance"> Stock Balance </a></li>
-          <li className="nav-item"> <a className="nav-link" href="/dailyStockBalance"> Stock Balance Update </a></li>
+          <li className="nav-item"> <a className="nav-link" href="/dailyStockBalance"> Stock Balance Update </a></li></>}
+            />
           <li className="nav-item"> <a className="nav-link" href="/login"> Login </a></li>
           {/* <li className="nav-item"> <a className="nav-link" href="pages/samples/register.html"> Register </a></li> */}
         </ul>

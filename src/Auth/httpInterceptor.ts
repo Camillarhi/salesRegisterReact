@@ -7,7 +7,7 @@ function configureInterceptor(){
         function (config){
             const token = getToken();
             if(token){
-               config.headers!.Authorization = `Bearer ${token}`;
+               config.headers!.Authorization = `Bearer ${token?.token}`;
                 // console.log(config.headers!.Authorization)
                 // config.headers!.common["Authorization"]= `bearer ${token}`;
             }

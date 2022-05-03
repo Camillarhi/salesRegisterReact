@@ -6,4 +6,7 @@ export interface claim {
 export interface authenticationResponse {
     token: string;
     expiration: Date;
+    id: string;
+    role:string;
+    email;string;
 }

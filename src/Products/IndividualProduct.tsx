@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Authorize from "../Auth/Authorize";
 import { urlProducts } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import customConfirm from "../Utils/customConfirm";
@@ -49,24 +50,24 @@ export default function IndividualProduct() {
                     <div className="card-body">
                         <div className="table-responsive">
                             <table className="table table-bordered ">
-                    
+
                                 <th>Product Code</th>
                                 <th>Product</th>
-                                <th></th>
-
+                                <Authorize role="Admin" authorize={<><th>Action</th></>} />
 
                                 <tbody>
                                     {products?.map(product =>
                                         <tr key={product.id}>
                                             <td>{product.productCode}</td>
                                             <td>{product.productName}</td>
-                                            <td>
-                                                <div className="d-flex justify-content-between">
-                                                <Link to={`/Products/view/${product.id}`}><i className="mdi mdi-eye text-primary" ></i></Link>
-                                                    <Link to={`/Products/edit/${product.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
-                                                    <i className=" mdi mdi-delete-forever text-danger" onClick={() => customConfirm(() => deleteProduct(product.id))}></i>
-                                                </div>
-                                            </td>
+                                            <Authorize role="Admin"
+                                                authorize={<> <td>
+                                                    <div className="d-flex justify-content-between">
+                                                        <Link to={`/Products/view/${product.id}`}><i className="mdi mdi-eye text-primary" ></i></Link>
+                                                        <Link to={`/Products/edit/${product.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
+                                                        <i className=" mdi mdi-delete-forever text-danger" onClick={() => customConfirm(() => deleteProduct(product.id))}></i>
+                                                    </div>
+                                                </td></>} />
                                         </tr>
                                     )}
                                 </tbody>

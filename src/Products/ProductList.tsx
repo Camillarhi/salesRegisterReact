@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Authorize from "../Auth/Authorize";
 import IndividualProduct from "./IndividualProduct";
 
 export default function ProductList() {
@@ -7,8 +8,8 @@ export default function ProductList() {
            {/* {props.staffs.map(staff=>
             <IndividualStaff id={0} name={""}  />)} */}
             <IndividualProduct />
-
-            <Link to="/products/create">Create Product</Link>
+            <Authorize role="Admin" authorize={<><Link to="/products/create">Create Product</Link></>} />
+            
        </div>
     )
     

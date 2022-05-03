@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { claim } from './Auth/auth.model';
 import AuthenticationContext from './Auth/AuthenticationContext';
+import { tokenKey } from './Auth/HandleJWT';
 import configureInterceptor from "./Auth/httpInterceptor";
 import routes, { routers } from './route-config';
 import Menu from './Utils/Menu';
@@ -11,12 +12,10 @@ import SideBar from './Utils/SideBar';
 configureInterceptor()
 function App() {
   const [claims, setClaims] = useState<claim[]>([{ name: "role", value: "admin" }]);
-  
+  const token = localStorage.getItem(tokenKey);
 function isAdmin(){
   return claims.find (claim=> claim.name === 'role' && claim.value ==='admin')
 }
-  // const [token, setToken] = useState(true);
-  const token = true;
   if (!token) {
     return <>
       <BrowserRouter>
