@@ -62,7 +62,7 @@ export default function Dashboard() {
                     </div>
                 </div>
             </div>
-            <div className='row'>
+            {/* <div className='row'>
                 <div className="col-md-12 col-xl-4 grid-margin stretch-card">
                     <div className="card">
                         <div className="card-body">
@@ -113,7 +113,7 @@ export default function Dashboard() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="row">
                 <div className="col-lg-6 grid-margin stretch-card">
                     <div className="card">

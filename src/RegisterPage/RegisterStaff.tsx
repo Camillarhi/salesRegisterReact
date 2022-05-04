@@ -1,30 +1,34 @@
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { saveToken } from "../Auth/HandleJWT";
 import { urlStaffs } from "../endpoints";
 import { RegisterCreationDTO } from "./register.model";
 import RegisterForm from "./RegisterForm";
 
 export default function RegisterStaff() {
 
-    const history= useHistory();
-    async function create(register:RegisterCreationDTO) {
-        try{
-            await axios.post(`${urlStaffs}/createadmin`, register);
+    const history = useHistory();
+    async function create(register: RegisterCreationDTO) {
+        try {
+            const response = await axios.post(`${urlStaffs}/createadmin`, register);
+            saveToken(response.data)
             history.push("/account/create");
+            window.location.reload()
+
         }
-        catch (error){
+        catch (error) {
             console.error(error);
         }
     }
 
-    return(
+    return (
         <>
-        <h1>Staff Registration</h1>
-            <RegisterForm model={{userName:'', password:'', confirmPassword:''}}
-              onSubmit={async value => {
-            await create(value);
-         }} />
+            {/* <h1>Staff Registration</h1> */}
+            <RegisterForm model={{ userName: '', password: '', confirmPassword: '' }}
+                onSubmit={async value => {
+                    await create(value);
+                }} />
         </>
     )
-    
+
 }

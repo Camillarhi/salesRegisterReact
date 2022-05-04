@@ -1,4 +1,5 @@
 import { Form, Formik, FormikHelpers } from "formik";
+import { Link } from "react-router-dom";
 import Button from "../Utils/Button";
 import TextField from "../Utils/TextField";
 import { LoginDTO } from "./login.model";
@@ -24,8 +25,8 @@ export default function LoginForm(props:loginFormProps) {
                                         <TextField type="password" field="password" displayName="Password*" className="form-control p_input" />
                                     </div>
                                     <div className="form-group d-flex align-items-center justify-content-between">
-                                       
                                         <li className="forgot-pass">Forgot password</li>
+                                      <li>No account yet?  <Link to="/register">sign up</Link></li>
                                     </div>
                                     <div className="text-center">
                                     <Button disabled={formikProps.isSubmitting} className="btn btn-primary btn-block enter-btn" type="submit" >Login</Button>

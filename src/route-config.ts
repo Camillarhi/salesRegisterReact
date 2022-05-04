@@ -87,7 +87,8 @@ const routes = [
 export const routers=[
    {path:'/', component: LandingPage, exact:true},  
    {path: '/login', component: Login, exact:true},
-   // {path:'/dashboard', component: Dashboard, exact:true},  
+   {path: '/register', component: RegisterStaff, exact:true},
+   {path: '/account/create', component: CreateAdmin},
    {path: '*', component:RedirectToLandingPage}
 ]
 

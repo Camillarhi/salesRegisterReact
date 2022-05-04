@@ -30,6 +30,7 @@ export function getClaims(): claim[] {
 
 export function logOut() {
     localStorage.removeItem(tokenKey);
+    window.location.reload()
     //localStorage.removeItem(expirationKy);
 }
 

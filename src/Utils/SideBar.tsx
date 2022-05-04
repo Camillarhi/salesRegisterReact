@@ -5,8 +5,8 @@ export default function SideBar() {
         <>
        <nav className="sidebar sidebar-offcanvas" id="sidebar">
   <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-    <a className="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
-    <a className="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+    {/* <a className="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a> */}
+    {/* <a className="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a> */}
   </div>
   <ul className="nav">
     <li className="nav-item profile">
@@ -17,13 +17,13 @@ export default function SideBar() {
             <span className="count bg-success" />
           </div>
           <div className="profile-name">
-            <h5 className="mb-0 font-weight-normal">Rita</h5>
-            <span>Gold Member</span>
+            <h5 className="mb-0 font-weight-normal">Ben</h5>
+            <span>Member</span>
           </div>
         </div>
         <li  id="profile-dropdown" data-toggle="dropdown"><i className="mdi mdi-dots-vertical" /></li>
         <div className="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
-          <li  className="dropdown-item preview-item">
+          {/* <li  className="dropdown-item preview-item">
             <div className="preview-thumbnail">
               <div className="preview-icon bg-dark rounded-circle">
                 <i className="mdi mdi-settings text-primary" />
@@ -32,7 +32,7 @@ export default function SideBar() {
             <div className="preview-item-content">
               <p className="preview-subject ellipsis mb-1 text-small">Account settings</p>
             </div>
-          </li>
+          </li> */}
           <div className="dropdown-divider" />
           <li  className="dropdown-item preview-item">
             <div className="preview-thumbnail">
@@ -45,7 +45,7 @@ export default function SideBar() {
             </div>
           </li>
           <div className="dropdown-divider" />
-          <li  className="dropdown-item preview-item">
+          {/* <li  className="dropdown-item preview-item">
             <div className="preview-thumbnail">
               <div className="preview-icon bg-dark rounded-circle">
                 <i className="mdi mdi-calendar-today text-success" />
@@ -54,7 +54,7 @@ export default function SideBar() {
             <div className="preview-item-content">
               <p className="preview-subject ellipsis mb-1 text-small">To-do list</p>
             </div>
-          </li>
+          </li> */}
         </div>
       </div>
     </li>
@@ -97,14 +97,14 @@ export default function SideBar() {
         <span className="menu-title">Product List</span>
       </a>
     </li>
-    <li className="nav-item menu-items">
+    {/* <li className="nav-item menu-items">
       <a className="nav-link" href="/register">
         <span className="menu-icon">
           <i className="mdi mdi-table-large" />
         </span>
         <span className="menu-title">Create Staff Login</span>
       </a>
-    </li>
+    </li> */}
     {/* <li className="nav-item menu-items">
       <a className="nav-link" href="/company">
         <span className="menu-icon">
@@ -139,7 +139,7 @@ export default function SideBar() {
           <li className="nav-item"> <a className="nav-link" href="/stockBalance"> Stock Balance </a></li>
           <li className="nav-item"> <a className="nav-link" href="/dailyStockBalance"> Stock Balance Update </a></li></>}
             />
-          <li className="nav-item"> <a className="nav-link" href="/login"> Login </a></li>
+          {/* <li className="nav-item"> <a className="nav-link" href="/login"> Login </a></li> */}
           {/* <li className="nav-item"> <a className="nav-link" href="pages/samples/register.html"> Register </a></li> */}
         </ul>
       </div>
