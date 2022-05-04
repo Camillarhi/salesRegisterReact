@@ -1,5 +1,4 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react'
-import AuthenticationContext from './AuthenticationContext';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { tokenKey } from './HandleJWT';
 
 export default function Authorize(props: authorizeProps) {
@@ -17,6 +16,7 @@ export default function Authorize(props: authorizeProps) {
         } else {
             setIsAuthorized(false)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.role])
     return (
         <>
