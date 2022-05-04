@@ -13,7 +13,8 @@ export default function Login(){
           const response =  await axios.post(`${urlStaffs}/login`, login);
           saveToken(response.data)
         //   update(getClaims());
-            history.push("/dashboard");
+        history.push("/dashboard");
+        window.location.reload()
             // console.log({response})
         }
         catch (error){
