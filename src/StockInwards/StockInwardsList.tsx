@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { urlStockInwards } from "../endpoints";
@@ -24,10 +25,12 @@ export default function StockInwardsList() {
             <h1>Stock Inwards List</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <Backbutton />
-                    </ol>
+                <nav aria-label="breadcrumb" className="row d-flex float-right mt-2">
+                    <Backbutton />
+                    <Link to={"/createstockinwards"}
+                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mr-2">
+                        Create
+                        </Link>
                 </nav>
             </div>
             <div className="col-lg-12 grid-margin stretch-card">
@@ -45,8 +48,17 @@ export default function StockInwardsList() {
                                         <tr key={sales.id}>
                                             <td>{index + 1}</td>
                                             <td>{sales.supplierName}</td>
-                                            <td>{sales.date}</td>
-                                            <td>{sales.approve}</td>
+                                            <td>{moment(sales.date).format('MMM D, YYYY')}</td>
+                                            <td>{sales.approve}
+                                            {!sales.approve ? <span className="badge bg-warning text-white p-2 font-weight-bold" >
+                                                        Pending
+                                                    </span>
+                                                        :
+                                                        <span className="badge bg-success text-white p-2 font-weight-bold" >
+                                                            Approved
+                                                        </span>
+                                                    }
+                                                    </td>
                                             <td>
                                                 <div className="d-flex justify-content-between">
                                                 <Link to={`/viewstockinwards/${sales.id}`}><i className="mdi mdi-eye text-primary" ></i></Link>

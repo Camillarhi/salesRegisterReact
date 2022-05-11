@@ -7,11 +7,16 @@ export interface StockInwardsDto{
     stockInwardDetails: [
       {
         id: number,
-        productCode: string,
+        productCode: string,   
         product: string,
         measure: string,
         quantity: number,
         adminId: string
       }
     ]
+  }
+
+  export interface StockInwardsCreationDto{
+    supplierName: string,
+    stockInwardsDetail?: File;
   }

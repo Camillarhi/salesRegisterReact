@@ -18,6 +18,7 @@ import Routes from "./Routes";
 import StockBalanceList from "./StockBalance/StockBalanceList";
 import DailyStockBalanceList from "./StockBalance/StockBalanceUpdateList";
 import DailyStockBalanceDetailsList from "./StockBalance/StockUpdateDetailsList";
+import CreateStockInwards from "./StockInwards/CreateStockInwards";
 import StockInwardsDetailsList from "./StockInwards/StockInwardsDetailsList";
 import StockInwardsList from "./StockInwards/StockInwardsList";
 import CreateSalesTotal from "./Total/CreateSalesTotal";
@@ -48,7 +49,7 @@ const routes = [
     {path: '/products/view/:id', component: ViewProduct},
 
 
-    {path: '/register', component: RegisterStaff, exact:true},
+   //  {path: '/register', component: RegisterStaff, exact:true},
 
     {path: '/company', component: CompanyNameList, exact:true},
     {path: '/company/create', component: CreateCompanyName},
@@ -71,16 +72,18 @@ const routes = [
 
 
     // {path: '/login', component: Login, exact:true},
-    {path: '/account/create', component: CreateAdmin},
+   //  {path: '/account/create', component: CreateAdmin},
     {path: '/account/edit/:id', component: EditAdmin},
     {path: '/account/view/:id', component: ViewAdminProfile},
 
-   {path: '/launch', component: Routes, exact:true},
-   {path: '/test', component: UpdateText, exact:true},
-   {path: '/login', component: Login, exact:true},
+   // {path: '/launch', component: Routes, exact:true},
+   // {path: '/test', component: UpdateText, exact:true},
+   // {path: '/login', component: Login, exact:true},
 
    {path: '/stockinwardslist', component: StockInwardsList, exact:true},
    {path: '/viewstockinwards/:id', component: StockInwardsDetailsList, exact:true},
+   {path: '/createstockinwards', component: CreateStockInwards, exact:true},
+
 
     {path: '*', component:RedirectToDashBoard}
 ];

@@ -54,6 +54,7 @@ export default function AdminForm(props: staffFormProps) {
                                                 <label htmlFor="gender" className="col-sm-3 col-form-label">Gender</label>
                                                 <div className="col-sm-9">
                                                     <Field name="gender" id="gender" className="form-control text-light" as='select'>
+                                                        <option>Select Gender</option>
                                                         <option  value='male'>Male</option>
                                                         <option value='female'>Female</option>
                                                     </Field>

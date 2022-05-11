@@ -15,7 +15,7 @@ export default function Menu() {
                     </button>
 
                     <ul className="navbar-nav navbar-nav-right">
-                        <h1 className="menu-h1">Company Name</h1>
+                        <h1 className="menu-h1">Sales Inventory</h1>
                         <li className="nav-item dropdown">
                             <li className="nav-link" id="profileDropdown" data-toggle="dropdown">
                                 <div className="navbar-profile">

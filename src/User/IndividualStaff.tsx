@@ -51,7 +51,7 @@ export default function IndividualStaff() {
                                 <th>User Name</th>
                                 <th>Gender</th>
                                 <th>PhoneNumber</th>
-                                <th></th>
+                                <th>Action</th>
 
                                 <tbody>
                                     {staffs?.map(staff =>

@@ -11,7 +11,7 @@ export default function RegisterStaff() {
     async function create(register: RegisterCreationDTO) {
         try {
             const response = await axios.post(`${urlStaffs}/createadmin`, register);
-            saveToken(response.data)
+            
             history.push("/account/create");
             window.location.reload()
 

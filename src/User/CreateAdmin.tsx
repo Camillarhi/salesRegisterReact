@@ -19,6 +19,7 @@ export default function CreateAdmin(){
             })
             saveToken(response.data)
             history.push("/dashboard");
+            window.location.reload()
         }
         catch (error){
             console.error(error);

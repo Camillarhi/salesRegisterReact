@@ -1,13 +1,15 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { urlStockInwards } from "../endpoints";
 import Backbutton from "../Utils/Backbutton";
 import { StockInwardsDto } from "./StockInwards.model";
+import moment from "moment";
 
 export default function StockInwardsDetailsList() {
     const [stockInward, setStockInward] = useState<StockInwardsDto>();
     const { id }: any = useParams();
+    const history =useHistory();
     useEffect(() => {
         loadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -20,16 +22,21 @@ export default function StockInwardsDetailsList() {
             })
     }
 
+    function approveStockInwards(){
+        axios.patch(`${urlStockInwards}/${id}`)
+        history.push('/stockinwardslist')
+    }
+
     return (
         <>
          <div className="page-header">
                 <h3 className="page-title">Stock Inwards DETAILS</h3>
                 <nav aria-label="breadcrumb" className="row d-flex float-right mt-2">
                     <Backbutton />
-                    <Link to={`/products/edit/${stockInward?.id}`}
-                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mr-2">
+                    <button
+                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mr-2" onClick={approveStockInwards}>
                         Approve
-                    </Link>
+                    </button>
                     <Link to={`/products/edit/${stockInward?.id}`}
                         className="btn btn-danger btn-sm btn-icon-text text-white d-flex float-right mr-2">
                         Delete
@@ -41,7 +48,7 @@ export default function StockInwardsDetailsList() {
                     <form className="row viewStockIssue mt-5" action="">
                         <div className="form-group col-md-4">
                             <label htmlFor="customerName">Date</label>
-                            <p >{stockInward?.date}</p>
+                            <p >{moment(stockInward?.date).format('MMM D, YYYY')}</p>
                         </div>
                         <div className="form-group col-md-4">
                             <label htmlFor="customerName">Supplier Name</label>
@@ -49,7 +56,14 @@ export default function StockInwardsDetailsList() {
                         </div>
                         <div className="form-group col-md-4">
                             <label htmlFor="customerName">Status</label>
-                            <p >{stockInward?.approve}</p>
+                            <p >{!stockInward?.approve ? <span className="badge bg-warning text-white p-2 font-weight-bold" >
+                                                        Pending
+                                                    </span>
+                                                        :
+                                                        <span className="badge bg-success text-white p-2 font-weight-bold" >
+                                                            Approved
+                                                        </span>
+                                                    }</p>
                         </div>
                     </form>
                 </div>

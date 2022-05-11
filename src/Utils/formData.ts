@@ -1,8 +1,9 @@
+import { StockInwardsCreationDto } from "../StockInwards/StockInwards.model";
 import { staffCreationDTO } from "../User/Staff.model"
 
 
-export function convertToFormData(staff: staffCreationDTO): FormData{
-    const formData=new FormData();
+export function convertToFormData(staff: staffCreationDTO): FormData {
+    const formData = new FormData();
 
     formData.append('firstName', staff.firstName);
     formData.append('lastName', staff.lastName);
@@ -11,37 +12,47 @@ export function convertToFormData(staff: staffCreationDTO): FormData{
     formData.append('address', staff.address);
     formData.append('phoneNumber', staff.phoneNumber);
 
-    if (staff.dateOfBirth){
+    if (staff.dateOfBirth) {
         formData.append('dateOfBirth', formatDate(staff.dateOfBirth));
     }
 
-    if(staff.profilePicture){
+    if (staff.profilePicture) {
         formData.append('profilePicture', staff.profilePicture)
     }
 
-    if(staff.department){
+    if (staff.department) {
         formData.append('department', staff.department);
     }
-    if(staff.companyName){
+    if (staff.companyName) {
         formData.append('companyName', staff.companyName);
     }
 
     return formData;
 }
 
+export function convertStockInwardToFormData(stock: StockInwardsCreationDto): FormData {
+    const formData = new FormData();
+    formData.append('supplierName', stock.supplierName);
+    // formData.append('stockInwardsDetail', stock.stockInwardsDetail);
+    if (stock.stockInwardsDetail) {
+        formData.append('stockInwardsDetail', stock.stockInwardsDetail);
+    }
+    return formData;
+}
 
-function formatDate(date:Date){
-    date=new Date(date);
-    const format =  new Intl.DateTimeFormat("en",{
-        year:"numeric",
-        month:"2-digit",
-        day:"2-digit"
+
+function formatDate(date: Date) {
+    date = new Date(date);
+    const format = new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
     });
 
     const [
-        {value:month},,
-        {value:day},,
-        {value:year} 
+        { value: month }, ,
+        { value: day }, ,
+        { value: year }
     ] = format.formatToParts(date);
     return `${year}-${month}-${day}`;
 }
