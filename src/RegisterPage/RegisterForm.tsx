@@ -1,9 +1,8 @@
 import { Form, Formik, FormikHelpers } from "formik";
+import "../forms.css";
 import Button from "../Utils/Button";
 import TextField from "../Utils/TextField";
-import "../forms.css";
 import { RegisterCreationDTO } from "./register.model";
-import Backbutton from "../Utils/Backbutton";
 
 
 export default function RegisterForm(props: registerFormProps) {

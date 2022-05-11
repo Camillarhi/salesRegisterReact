@@ -3,7 +3,6 @@ import React from 'react'
 import Backbutton from '../Utils/Backbutton'
 import Button from '../Utils/Button'
 import FileField from '../Utils/FileField'
-import ImageField from '../Utils/ImageField'
 import TextField from '../Utils/TextField'
 import { StockInwardsCreationDto } from './StockInwards.model'
 

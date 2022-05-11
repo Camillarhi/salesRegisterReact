@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { saveToken } from "../Auth/HandleJWT";
 import { urlStaffs } from "../endpoints";
 import { RegisterCreationDTO } from "./register.model";
 import RegisterForm from "./RegisterForm";
@@ -10,8 +9,7 @@ export default function RegisterStaff() {
     const history = useHistory();
     async function create(register: RegisterCreationDTO) {
         try {
-            const response = await axios.post(`${urlStaffs}/createadmin`, register);
-            
+             await axios.post(`${urlStaffs}/createadmin`, register);
             history.push("/account/create");
             window.location.reload()
 

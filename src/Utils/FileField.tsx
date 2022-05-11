@@ -1,6 +1,5 @@
-import React from 'react'
 import { useFormikContext } from "formik";
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from 'react';
 
 export default function FileField(props: fileFieldProps) {
     const { values } = useFormikContext<any>();
