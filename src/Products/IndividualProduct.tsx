@@ -50,14 +50,14 @@ export default function IndividualProduct() {
                     <div className="card-body">
                         <div className="table-responsive">
                             <table className="table table-bordered ">
-
+                                <th>S/N</th>
                                 <th>Product Code</th>
                                 <th>Product</th>
                                 <Authorize role="Admin" authorize={<><th>Action</th></>} />
-
                                 <tbody>
-                                    {products?.map(product =>
+                                    {products?.map((product, index) =>
                                         <tr key={product.id}>
+                                            <td>{index + 1}</td>
                                             <td>{product.productCode}</td>
                                             <td>{product.productName}</td>
                                             <Authorize role="Admin"

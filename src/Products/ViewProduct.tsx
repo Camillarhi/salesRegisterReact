@@ -66,8 +66,6 @@ export default function ViewProduct() {
                                             <td>{measure.qtyPerMeasure}</td>
                                             <td><span className="float-right">{measure.costPrice}</span></td>
                                             <td><span className="float-right">{measure.unitPrice}</span></td>
-                                            <td>
-                                            </td>
                                         </tr>
                                     )}
                                 </tbody>
