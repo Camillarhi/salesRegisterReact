@@ -33,7 +33,7 @@ export default function LoginForm(props: loginFormProps) {
                                                     <label className="form-check-label">
                                                         <input type="checkbox" className="form-check-input" /> Remember me </label>
                                                 </div> */}
-                                                <a href="#" className="forgot-pass">Forgot password</a>
+                                                <p className="forgot-pass">Forgot password</p>
                                             </div>
                                             {/* <div className="d-flex">
                                                 <button className="btn btn-facebook mr-2 col">
