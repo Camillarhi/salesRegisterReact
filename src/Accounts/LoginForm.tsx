@@ -26,7 +26,7 @@ export default function LoginForm(props:loginFormProps) {
                                     </div>
                                     <div className="form-group d-flex align-items-center justify-content-between">
                                         <li className="forgot-pass">Forgot password</li>
-                                      <li>No account yet?  <Link to="/register">sign up</Link></li>
+                                      <li className="forgot-pass">No account yet?  <Link to="/register">sign up</Link></li>
                                     </div>
                                     <div className="text-center">
                                     <Button disabled={formikProps.isSubmitting} className="btn btn-primary btn-block enter-btn" type="submit" >Login</Button>
