@@ -44,8 +44,8 @@ export default function Menu() {
                                             <i className="mdi mdi-logout text-danger" />
                                         </div>
                                     </div>
-                                    <div className="preview-item-content">
-                                        <p className="preview-subject mb-1" onClick={() => logOut()}>Log out</p>
+                                    <div className="preview-item-content" onClick={logOut}>
+                                        <p className="preview-subject mb-1" >Log out</p>
                                     </div>
                                 </li>
                                 <div className="dropdown-divider" />

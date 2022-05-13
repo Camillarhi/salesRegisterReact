@@ -137,6 +137,7 @@ export default function CreateDailySales() {
     const selectProduct = (i: any) => {
         const x = products?.find(y => y.id === i);
         setValue("product", x?.productName);
+        console.log(x)
         setSelectedProduct(x)
     }
     //get quantity value
