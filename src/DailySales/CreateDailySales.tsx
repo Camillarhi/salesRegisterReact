@@ -35,7 +35,6 @@ export default function CreateDailySales() {
         axios.get(urlProducts)
             .then((response: AxiosResponse<ProductDTO[]>) => {
                 setProducts(response.data);
-                console.log("res", response)
             });
         getCustomers();
     }, []);

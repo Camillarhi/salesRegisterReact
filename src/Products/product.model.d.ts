@@ -31,9 +31,9 @@ export interface ProductDTO{
       {
         id: string;
         productId: string;
-        quantity?: string;
+        quantity?: number;
         measure: string;
-        qtyPerMeasure: string;
+        qtyPerMeasure: number;
         costPrice?: number;
         unitPrice?: number
       }
