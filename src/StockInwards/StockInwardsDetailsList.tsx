@@ -22,8 +22,8 @@ export default function StockInwardsDetailsList() {
             })
     }
 
-    function approveStockInwards(){
-        axios.patch(`${urlStockInwards}/${id}`)
+    async function approveStockInwards(){
+        await axios.patch(`${urlStockInwards}/${id}`)
         history.push('/stockinwardslist')
     }
 
