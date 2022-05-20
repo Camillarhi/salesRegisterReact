@@ -28,6 +28,22 @@ export function getClaims(): claim[] {
     return response;
 }
 
+export function expiredToken() {
+    const token = JSON.parse(localStorage.getItem(tokenKey) || '');
+    // if (!token) {
+    //     return [];
+    // }
+    const expirationDate = new Date(token?.expiration);
+    if (token) {
+        if (expirationDate <= new Date()) {
+            logOut()
+            //return []; //token has expired
+        }
+    }
+
+    //localStorage.removeItem(expirationKy);
+}
+
 export function logOut() {
     localStorage.removeItem(tokenKey);
     window.location.reload()
