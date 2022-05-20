@@ -28,19 +28,13 @@ export default function LoginForm(props: loginFormProps) {
                                             <div className="text-center">
                                             <Button disabled={formikProps.isSubmitting} className="btn btn-primary btn-block enter-btn" type="submit" >Login</Button>
                                             </div>
-                                            <div className="form-group d-flex align-items-center justify-content-between">
+                                            <div className=" d-flex align-items-center justify-content-between">
                                                 {/* <div className="form-check">
                                                     <label className="form-check-label">
                                                         <input type="checkbox" className="form-check-input" /> Remember me </label>
                                                 </div> */}
                                                 <p className="forgot-pass">Forgot password</p>
                                             </div>
-                                            {/* <div className="d-flex">
-                                                <button className="btn btn-facebook mr-2 col">
-                                                    <i className="mdi mdi-facebook" /> Facebook </button>
-                                                <button className="btn btn-google col">
-                                                    <i className="mdi mdi-google-plus" /> Google plus </button>
-                                            </div> */}
                                             <p className="sign-up">Don't have an Account?<Link to="/register"> Sign Up</Link></p>
                                         </div>
 
