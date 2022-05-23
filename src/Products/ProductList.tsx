@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import Authorize from "../Auth/Authorize";
 import IndividualProduct from "./IndividualProduct";
 
 export default function ProductList() {

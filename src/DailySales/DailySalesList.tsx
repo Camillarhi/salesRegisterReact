@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import InividualDailySales from "./IndividualDailySales";
 
 export default function DailySalesList() {
