@@ -62,7 +62,6 @@ export default function StockInwardsList() {
                                             <td>
                                                 <div className="d-flex justify-content-between">
                                                 <Link to={`/viewstockinwards/${sales.id}`}><i className="mdi mdi-eye text-primary" ></i></Link>
-                                                    <Link to={`/viewstockinwards/${sales.id}`}><i className="mdi mdi-lead-pencil text-success btn-icon-append" ></i></Link>
                                                 </div>
                                             </td>
                                         </tr>

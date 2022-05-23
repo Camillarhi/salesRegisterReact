@@ -9,7 +9,7 @@ import moment from "moment";
 export default function StockInwardsDetailsList() {
     const [stockInward, setStockInward] = useState<StockInwardsDto>();
     const { id }: any = useParams();
-    const history =useHistory();
+    const history = useHistory();
     useEffect(() => {
         loadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,19 +22,19 @@ export default function StockInwardsDetailsList() {
             })
     }
 
-    async function approveStockInwards(){
+    async function approveStockInwards() {
         await axios.patch(`${urlStockInwards}/${id}`)
         history.push('/stockinwardslist')
     }
 
     return (
         <>
-         <div className="page-header">
-                <h3 className="page-title">Stock Inwards DETAILS</h3>
+            <div className="page-header">
+                <h3 className="page-title">Stock Inwards Details</h3>
                 <nav aria-label="breadcrumb" className="row d-flex float-right mt-2">
                     <Backbutton />
                     <button
-                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mr-2" onClick={approveStockInwards}>
+                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mx-2" onClick={approveStockInwards}>
                         Approve
                     </button>
                     <Link to={`/products/edit/${stockInward?.id}`}
@@ -57,26 +57,18 @@ export default function StockInwardsDetailsList() {
                         <div className="form-group col-md-4">
                             <label htmlFor="customerName">Status</label>
                             <p >{!stockInward?.approve ? <span className="badge bg-warning text-white p-2 font-weight-bold" >
-                                                        Pending
-                                                    </span>
-                                                        :
-                                                        <span className="badge bg-success text-white p-2 font-weight-bold" >
-                                                            Approved
-                                                        </span>
-                                                    }</p>
+                                Pending
+                            </span>
+                                :
+                                <span className="badge bg-success text-white p-2 font-weight-bold" >
+                                    Approved
+                                </span>
+                            }</p>
                         </div>
                     </form>
                 </div>
             </div>
             <h1>Stock Inwards List</h1>
-            <div className="page-header">
-                <h3 className="page-title"> </h3>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <Backbutton />
-                    </ol>
-                </nav>
-            </div>
             <div className="col-lg-12 grid-margin stretch-card">
                 <div className="card">
                     <div className="card-body">

@@ -83,7 +83,7 @@ export default function EditProduct() {
     return (
         < >
             <div className="page-header">
-                <h3 className="page-title">Create Product</h3>
+                <h3 className="page-title">Edit Product</h3>
                 <nav aria-label="breadcrumb">
                     <Backbutton />
                 </nav>
