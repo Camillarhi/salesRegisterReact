@@ -10,7 +10,7 @@ export default function Backbutton() {
     }
     return (
         <>
-            <li className="breadcrumb-item btn text-primary"><button onClick={returnToPrevious}>Back</button></li>
+            <li className="breadcrumb-item"><button className='btn btn-dark text-light' onClick={returnToPrevious}>Back</button></li>
 
         </>
     )

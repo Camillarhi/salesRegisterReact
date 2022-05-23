@@ -1,26 +1,26 @@
-import { logOut } from "../Auth/HandleJWT";
+import { getToken, logOut } from "../Auth/HandleJWT";
 
 export default function Menu() {
+    const token = getToken();
     return (
         <div>
-
-
-            <nav className="navbar p-0 fixed-top d-flex flex-row">
+            <nav className="navbar p-0 fixed-top d-flex flex-row justify-content-between">
                 <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">
-                    <a className="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+          <h2 className="sidebar-brand brand-logo-mini">S</h2>
+                    {/* <a className="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a> */}
                 </div>
-                <div className="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+                <div className="navbar-menu-wrapper  d-flex align-items-stretch">
                     <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
                         <span className="mdi mdi-menu" />
                     </button>
 
                     <ul className="navbar-nav navbar-nav-right">
-                        <h1 className="menu-h1">Sales Inventory</h1>
+                        {/* <h1 className="menu-h1">Sales Inventory</h1> */}
                         <li className="nav-item dropdown">
                             <li className="nav-link" id="profileDropdown" data-toggle="dropdown">
                                 <div className="navbar-profile">
                                     <img className="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="" />
-                                    <p className="mb-0 d-none d-sm-block navbar-profile-name">Ben</p>
+                                    <p className="mb-0 d-none d-sm-block navbar-profile-name">{token?.email}</p>
                                     <i className="mdi mdi-menu-down d-none d-sm-block" />
                                 </div>
                             </li>

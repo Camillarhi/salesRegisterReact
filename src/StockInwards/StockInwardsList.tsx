@@ -28,7 +28,7 @@ export default function StockInwardsList() {
                 <nav aria-label="breadcrumb" className="row d-flex float-right mt-2">
                     <Backbutton />
                     <Link to={"/createstockinwards"}
-                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mr-2">
+                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mx-2">
                         Create
                         </Link>
                 </nav>

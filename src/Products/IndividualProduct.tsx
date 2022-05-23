@@ -39,10 +39,12 @@ export default function IndividualProduct() {
             <h1>Product List</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
-                <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb">
-                        <Backbutton />
-                    </ol>
+                <nav aria-label="breadcrumb" className="row d-flex float-right mt-2">
+                    <Backbutton />
+                    <Authorize role="Admin" authorize={<><Link to="/products/create"
+                        className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mx-2">
+                        Create
+                        </Link></>} />
                 </nav>
             </div>
             <div className="col-lg-12 grid-margin stretch-card">

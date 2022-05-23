@@ -1,13 +1,16 @@
 import Authorize from "../Auth/Authorize";
-import { expiredToken } from "../Auth/HandleJWT";
+import { expiredToken, getToken } from "../Auth/HandleJWT";
 
 export default function SideBar() {
+  const token  = getToken();
   return (
     <>
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
           {/* <a className="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a> */}
+          <h2 className="sidebar-brand brand-logo">Sales Inventory</h2>
           {/* <a className="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a> */}
+          <h2 className="sidebar-brand brand-logo-mini">S</h2>
         </div>
         <ul className="nav">
           <li className="nav-item profile">
@@ -18,8 +21,8 @@ export default function SideBar() {
                   <span className="count bg-success" />
                 </div>
                 <div className="profile-name">
-                  <h5 className="mb-0 font-weight-normal">Ben</h5>
-                  <span>Member</span>
+                  <h5 className="mb-0 font-weight-normal">{token?.email}</h5>
+                  <span>{token?.role}</span>
                 </div>
               </div>
               {/* <li id="profile-dropdown" data-toggle="dropdown"><i className="mdi mdi-dots-vertical" /></li> */}
