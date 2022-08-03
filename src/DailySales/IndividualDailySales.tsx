@@ -10,23 +10,35 @@ export default function InividualDailySales() {
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>();
     const token = getToken();
     useEffect(() => {
-        loadData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    function loadData() {
-        axios.get(urlDailySales)
-            .then((response) => {
-                console.log(response.data)
-                if (token?.role !== "Admin") {
-                    let staffSale = response?.data?.filter((x: any) => x?.soldById === token?.id)
-                    if (staffSale) {
-                        setDailySales(staffSale)
+        function loadData() {
+            axios.get(urlDailySales)
+                .then((response) => {
+                    console.log(response.data)
+                    if (token?.role !== "Admin") {
+                        let staffSale = response?.data?.filter((x: any) => x?.soldById === token?.id)
+                        if (staffSale) {
+                            setDailySales(staffSale)
+                        }
                     }
-                }
-                setDailySales(response.data);
-            })
-    }
+                    setDailySales(response.data);
+                })
+        }
+        loadData();
+    }, [token?.id, token?.role]);
+
+    // function loadData() {
+    //     axios.get(urlDailySales)
+    //         .then((response) => {
+    //             console.log(response.data)
+    //             if (token?.role !== "Admin") {
+    //                 let staffSale = response?.data?.filter((x: any) => x?.soldById === token?.id)
+    //                 if (staffSale) {
+    //                     setDailySales(staffSale)
+    //                 }
+    //             }
+    //             setDailySales(response.data);
+    //         })
+    // }
 
     return (
 
