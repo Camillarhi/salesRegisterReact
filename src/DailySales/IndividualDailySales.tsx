@@ -11,6 +11,7 @@ export default function InividualDailySales() {
     const token = getToken();
     useEffect(() => {
         loadData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function loadData() {

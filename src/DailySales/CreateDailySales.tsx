@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
 import { urlDailySales, urlSalesProducts } from "../endpoints";
 import { ProductDTO } from "../Products/product.model";
-import TotalForm from "../Total/TotalForm";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
 import { errorMessage } from "../Utils/hotToast";
@@ -100,7 +99,7 @@ export default function CreateDailySales() {
             let obj = {
                 customerName: getValues2("customerName"),
                 phoneNumber: getValues2("phoneNumber"),
-                total: 0,
+                total: getValues3("total"),
                 invoiceDetail: details
             }
             await axios.post(urlDailySales, obj);
