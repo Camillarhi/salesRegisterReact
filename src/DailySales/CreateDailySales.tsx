@@ -1,21 +1,26 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { SetStateAction, useEffect, useState } from "react";
 import { useForm } from 'react-hook-form';
 import { useHistory } from "react-router-dom";
-import { urlDailySales, urlProducts } from "../endpoints";
+import { urlDailySales, urlSalesProducts } from "../endpoints";
 import { ProductDTO } from "../Products/product.model";
 import TotalForm from "../Total/TotalForm";
 import Backbutton from "../Utils/Backbutton";
 import Button from "../Utils/Button";
+import { errorMessage } from "../Utils/hotToast";
 import { DailySalesDTO } from "./dailySales.model";
 
 
 export default function CreateDailySales() {
-    const { register, handleSubmit, formState: { errors }, reset, setValue, getValues } = useForm({
+    const { register, handleSubmit, formState: { errors }, reset, setValue, getValues, resetField } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
     const { register: register2, resetField: resetField2, setValue: setValue2, getValues: getValues2 } = useForm({
+        mode: "onChange",
+        reValidateMode: 'onChange'
+    });
+    const { register: register3, setValue: setValue3, getValues: getValues3 } = useForm({
         mode: "onChange",
         reValidateMode: 'onChange'
     });
@@ -24,7 +29,7 @@ export default function CreateDailySales() {
     const [edit, setEdit] = useState(false);
     const [dailySales, setDailySales] = useState<DailySalesDTO[]>([]);
     // const [sales, setSales] = useState<DailySalesDTO[]>([]);
-    const sales: SetStateAction<DailySalesDTO[]>= []
+    const sales: SetStateAction<DailySalesDTO[]> = []
     const [selectedProduct, setSelectedProduct] = useState<ProductDTO>();
     const [getCustomerSales, setGetCustomerSales] = useState([{
         phone: ""
@@ -32,9 +37,18 @@ export default function CreateDailySales() {
     const history = useHistory();
 
     useEffect(() => {
-        axios.get(urlProducts)
-            .then((response: AxiosResponse<ProductDTO[]>) => {
-                setProducts(response.data);
+        let pro: any;
+        pro = []
+        axios.get(urlSalesProducts)
+            .then((response) => {
+                console.log({ response })
+                for (let i = 0; i < response?.data?.length; i++) {
+                    if (response?.data[i].productMeasures.length > 0) {
+                        pro.push(response?.data[i])
+                    }
+                }
+
+                setProducts(pro);
             });
         getCustomers();
     }, []);
@@ -62,7 +76,7 @@ export default function CreateDailySales() {
             console.error(error);
         }
     }
-    
+
     async function create() {
         try {
             let details = [];
@@ -132,19 +146,24 @@ export default function CreateDailySales() {
         }
     }
 
-  
+
     const selectProduct = (i: any) => {
         const x = products?.find(y => y.id === i);
         setValue("product", x?.productName);
-        console.log(x)
         setSelectedProduct(x)
+        resetField("quantity")
+
     }
     //get quantity value
     function handleChange(e: any) {
         if (e.target.name === "measure") {
+            resetField("quantity")
             const unit = selectedProduct?.productMeasures?.find(x => x.measure === e.target.value)
             setValue("unitPrice", unit?.unitPrice);
         } else if (e.target.name === "quantity") {
+            if (e.target.value < 1) {
+                errorMessage("Quantity must be greater than 0")
+            }
             const amt = e.target.value * Number(getValues("unitPrice"));
             setValue("amount", amt)
         }
@@ -152,6 +171,9 @@ export default function CreateDailySales() {
 
     //add to table
     const saveProductInput = async (salesData: any) => {
+        if (salesData.amount < 1) {
+            return errorMessage("Quantity must be greater than 0")
+        }
         const x = dailySales?.find(y => y.product === salesData.product && y.measure === salesData.measure)
         if (!x) {
             if (edit) {
@@ -166,10 +188,17 @@ export default function CreateDailySales() {
             reset(salesData.value);
             setValue2("customerName", custName)
             setValue2("phoneNumber", phone)
+            let total = dailySales
+            total.push(salesData)
+            let tot = total.reduce(function (a, b) {
+                return a + b.amount;
+            }, 0)
+            setValue3("total", tot)
+            console.log({ tot })
 
             // reset(measureAndPrice)
         } else {
-            // notifyError("Product Already Exists In Table")
+            errorMessage("Product Already Exists In Table")
         }
     }
 
@@ -291,7 +320,7 @@ export default function CreateDailySales() {
                                                     onChange: (e) => { handleChange(e) },
                                                 })}
                                             >
-                                                <option>Select Measure</option>
+                                                <option></option>
                                                 {selectedProduct?.productMeasures?.map(product =>
                                                     <option value={product.measure} >{product.measure}</option>
                                                 )}
@@ -307,7 +336,7 @@ export default function CreateDailySales() {
                                             {errors.unitPrice &&
                                                 <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className="col-sm-9">
-                                            <input type="text"
+                                            <input type="number"
                                                 className="form-control text-uppercase text-dark"
                                                 id="unitPrice"
                                                 placeholder="0"
@@ -327,7 +356,7 @@ export default function CreateDailySales() {
                                             {errors.quantity &&
                                                 <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className="col-sm-9">
-                                            <input type="text"
+                                            <input type="number"
                                                 className="form-control text-uppercase"
                                                 id="quantity"
                                                 placeholder="0"
@@ -347,7 +376,7 @@ export default function CreateDailySales() {
                                             {errors.amount &&
                                                 <span className="text-danger font-weight-bold"> required</span>}</label>
                                         <div className="col-sm-9">
-                                            <input type="text"
+                                            <input type="number"
                                                 className="form-control text-uppercase text-dark"
                                                 id="amount"
                                                 readOnly
@@ -410,15 +439,32 @@ export default function CreateDailySales() {
                                 </tbody>
 
                             </table>
-                            <TotalForm model={{ date: undefined, total: 0 }}
-                                onSubmit={async value => {
-                                    console.log(value);
-                                }} /><br />
 
-                            <Button className="btn btn-dark mr-2"  >Cancel</Button>
-                            <Button onClick={create} className="btn btn-primary mr-2" type="submit" > Finish</Button>
-                            <Button onClick={() => storeInLocal(dailySales)} className="btn btn-primary mr-2" type="submit" >Save </Button>
-
+                        </div>
+                        <div className="d-flex justify-content-between mt-3">
+                            <div className="col-md-4 float-right">
+                                <div className="form-group row ">
+                                    <label htmlFor="total" className="col-sm-3 col-form-label">Total:
+                                    </label>
+                                    <div className="col-sm-9">
+                                        <input type="text"
+                                            className="form-control text-uppercase text-dark"
+                                            id="total"
+                                            readOnly
+                                            placeholder="0"
+                                            {...register3("total", {
+                                                required: true,
+                                            })}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            {/* <br /> */}
+                            <div>
+                                <Button className="btn btn-dark mr-2"  >Cancel</Button>
+                                <Button onClick={create} className="btn btn-primary mr-2" type="submit" > Finish</Button>
+                                <Button onClick={() => storeInLocal(dailySales)} className="btn btn-primary mr-2" type="submit" >Save </Button>
+                            </div>
                         </div>
                     </div>
                 </div>

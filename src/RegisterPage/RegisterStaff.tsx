@@ -10,6 +10,7 @@ export default function RegisterStaff() {
     async function create(register: RegisterCreationDTO) {
         try {
              await axios.post(`${urlStaffs}/createadmin`, register);
+             localStorage.setItem("createadminemail", register.userName)
             history.push("/account/create");
             window.location.reload()
 

@@ -41,13 +41,13 @@ export default function AdminForm(props: staffFormProps) {
                                                 <TextField field="lastName" displayName="Last Name:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-md-6">
+                                        {/* </div> */}
+                                        {/* <div className="row"> */}
+                                        {/* <div className="col-md-6">
                                             <div className="form-group row">
                                                 <TextField type="email" field="userName" displayName="Email:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="col-md-6">
                                             <div className="form-group row">
@@ -55,14 +55,14 @@ export default function AdminForm(props: staffFormProps) {
                                                 <div className="col-sm-9">
                                                     <Field name="gender" id="gender" className="form-control text-light" as='select'>
                                                         <option>Select Gender</option>
-                                                        <option  value='male'>Male</option>
+                                                        <option value='male'>Male</option>
                                                         <option value='female'>Female</option>
                                                     </Field>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="row">
+                                        {/* </div> */}
+                                        {/* <div className="row"> */}
                                         <div className="col-md-6">
                                             <div className="form-group row">
                                                 <DateField displayName="Date Of Birth" field="dateOfBirth" labelClassName="col-sm-3 col-form-label" />
@@ -74,8 +74,8 @@ export default function AdminForm(props: staffFormProps) {
                                                 <TextField field="companyName" displayName="Company Name:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="row">
+                                        {/* </div> */}
+                                        {/* <div className="row"> */}
 
                                         <div className="col-md-6">
                                             <div className="form-group row">
@@ -87,11 +87,11 @@ export default function AdminForm(props: staffFormProps) {
                                         <div className="col-md-6">
                                             <div className="form-group row">
 
-                                                <TextField field="phoneNumber" displayName="Phone Number:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
+                                                <TextField type="number" field="phoneNumber" displayName="Phone Number:" className="form-control" labelClassName="col-sm-3 col-form-label" divClassName="col-sm-9" />
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="row">
+                                        {/* </div> */}
+                                        {/* <div className="row"> */}
 
                                         <div className="col-md-6">
                                             <div className="form-group row">

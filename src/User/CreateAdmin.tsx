@@ -6,33 +6,34 @@ import { convertToFormData } from "../Utils/formData";
 import AdminForm from "./AdminForm";
 import { staffCreationDTO } from "./Staff.model";
 
-export default function CreateAdmin(){
-    const history=useHistory();
-    async function create(staff:staffCreationDTO) {
+export default function CreateAdmin() {
+    const history = useHistory();
+    async function create(staff: staffCreationDTO) {
         try {
+            staff.userName = localStorage.getItem("createadminemail") || ""
             const formData = convertToFormData(staff);
-           const response = await axios({
-                method:'post',
-                url:`${urlStaffs}/setupadmin`,
-                data:formData,
-                headers:{'Content-Type': 'multipart/form-data'}
+            const response = await axios({
+                method: 'post',
+                url: `${urlStaffs}/setupadmin`,
+                data: formData,
+                headers: { 'Content-Type': 'multipart/form-data' }
             })
             saveToken(response.data)
             history.push("/dashboard");
             window.location.reload()
         }
-        catch (error){
+        catch (error) {
             console.error(error);
         }
     }
     return (
         <>
-        <h1>Create Account</h1>
-        <AdminForm model={{firstName: "", lastName: "", userName: "", gender: "", department:'Admin', address: "", profilePictureURL: "", phoneNumber: "", dateOfBirth: undefined, companyName: undefined}}
-         onSubmit={async value => {
-            await create(value);
-         }}/>
-        
+            <h1>Create Account</h1>
+            <AdminForm model={{ firstName: "", lastName: "", userName: "", gender: "", department: 'Admin', address: "", profilePictureURL: "", phoneNumber: "", dateOfBirth: undefined, companyName: undefined }}
+                onSubmit={async value => {
+                    await create(value);
+                }} />
+
         </>
     )
 }

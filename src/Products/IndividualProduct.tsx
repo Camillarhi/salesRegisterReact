@@ -32,10 +32,7 @@ export default function IndividualProduct() {
     }
 
     return (
-
         <>
-
-
             <h1>Product List</h1>
             <div className="page-header">
                 <h3 className="page-title"> </h3>
@@ -44,7 +41,7 @@ export default function IndividualProduct() {
                     <Authorize role="Admin" authorize={<><Link to="/products/create"
                         className="btn btn-success btn-sm btn-icon-text text-white d-flex float-right mx-2">
                         Create
-                        </Link></>} />
+                    </Link></>} />
                 </nav>
             </div>
             <div className="col-lg-12 grid-margin stretch-card">

@@ -9,4 +9,6 @@ export const urlStockBalance=`${baseURL}/StockBalance`;
 export const urlDailyStockBalance=`${baseURL}/StockBalanceUpdate`;
 export const urlLogin=`${baseURL}/Login`;
 export const urlStockInwards=`${baseURL}/StockInward`;
+export const urlSalesProducts=`${baseURL}/Products/updatedproducts`;
+
 

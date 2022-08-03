@@ -10,6 +10,7 @@ import CreateProduct from "./Products/CreateProduct";
 import EditProduct from "./Products/EditProduct";
 import ProductList from "./Products/ProductList";
 import ViewProduct from "./Products/ViewProduct";
+import ProfitMarginTable from "./ProfitMargin/ProfitMarginTable";
 import RegisterStaff from "./RegisterPage/RegisterStaff";
 import CreateRoles from "./Roles/CreateRoles";
 import EditRoles from "./Roles/EditRoles";
@@ -82,6 +83,8 @@ const routes = [
    {path: '/viewstockinwards/:id', component: StockInwardsDetailsList, exact:true},
    {path: '/createstockinwards', component: CreateStockInwards, exact:true},
 
+   {path: '/profitMargin', component: ProfitMarginTable, exact:true},
+
 
     {path: '*', component:RedirectToDashBoard}
 ];
@@ -90,6 +93,8 @@ export const routers=[
    {path: '/login', component: Login, exact:true},
    {path: '/register', component: RegisterStaff, exact:true},
    {path: '/account/create', component: CreateAdmin},
+   {path: '/profitMargin', component: ProfitMarginTable, exact:true},
+
    {path: '*', component:RedirectToLandingPage}
 ]
 

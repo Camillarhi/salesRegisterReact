@@ -11,6 +11,7 @@ export default function Login(){
     async function create(login:LoginDTO) {
         try {
           const response =  await axios.post(`${urlStaffs}/login`, login);
+          console.log({response})
           saveToken(response.data)
         //   update(getClaims());
         history.push("/dashboard");
@@ -18,7 +19,7 @@ export default function Login(){
             // console.log({response})
         }
         catch (error){
-            console.error(error);
+            console.log(error);
         }
     }
 

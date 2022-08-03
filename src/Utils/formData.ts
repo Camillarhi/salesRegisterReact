@@ -7,13 +7,16 @@ export function convertToFormData(staff: staffCreationDTO): FormData {
 
     formData.append('firstName', staff.firstName);
     formData.append('lastName', staff.lastName);
-    formData.append('userName', staff.userName);
+    // formData.append('userName', staff.userName);
     formData.append('gender', staff.gender);
     formData.append('address', staff.address);
     formData.append('phoneNumber', staff.phoneNumber);
 
     if (staff.dateOfBirth) {
         formData.append('dateOfBirth', formatDate(staff.dateOfBirth));
+    }
+    if (staff.userName) {
+        formData.append('userName', staff.userName);
     }
 
     if (staff.profilePicture) {
